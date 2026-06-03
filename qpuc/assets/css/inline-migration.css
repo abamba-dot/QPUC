@@ -1,0 +1,52 @@
+/* ════════════════════════════════════════════════
+   Classes de remplacement pour les styles inline
+   migrateés automatiquement
+   ════════════════════════════════════════════════ */
+
+/* Espacements */
+.marge-haut-6   { margin-top: 6px; }
+.marge-haut-8   { margin-top: 8px; }
+.marge-haut-10  { margin-top: 10px; }
+.marge-bas-8    { margin-bottom: 8px; }
+.marge-bas-10   { margin-bottom: 10px; }
+.marge-bas-12   { margin-bottom: 12px; }
+.marge-auto     { margin: auto; }
+
+/* Largeurs */
+.largeur-48     { width: 48px; }
+.largeur-64     { width: 64px; }
+.largeur-100    { width: 100%; }
+.largeur-82     { width: 82%; }
+
+/* Flex */
+.flex-1         { flex: 1; }
+.justify-start  { justify-content: flex-start; }
+.align-center   { text-align: center; }
+
+/* Affichage */
+.cache          { display: none; }
+.inline-flex    { display: inline-flex; }
+
+/* Opacité */
+.opacite-1      { opacity: 1; }
+.opacite-42     { opacity: 0.42; }
+
+/* Curseur */
+.curseur-pointeur { cursor: pointer; }
+
+/* Texte */
+.taille-15      { font-size: 15px; }
+.taille-11      { font-size: 11px; }
+.taille-10      { font-size: 10px; }
+
+/* Position */
+.position-relative { position: relative; }
+
+/* Padding */
+.padding-haut-6 { padding-top: 6px; }
+
+/* Min-hauteur */
+.min-hauteur-18 { min-height: 18px; }
+
+/* Animation */
+.animation-pulse { animation: btnPulse 2.4s ease-in-out infinite; }

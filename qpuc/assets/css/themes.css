@@ -1,0 +1,121 @@
+/* ═══════════════════════════════════════════════
+   THEMES.CSS — Celadon · Beige · Violet
+   Palettes affinées pour le rendu plateau TV
+═══════════════════════════════════════════════ */
+
+/* ── CELADON (défaut) — eaux peu profondes, ivoire chaud ── */
+[data-theme="celadon"],
+.theme-celadon {
+  --bg:          #B8D1D2;
+  --bg-deep:     #88AEB0;
+  --text:        #112A2E;
+  --sub:         #3A6469;
+  --muted:       #6B8B8E;
+  --card-bg:     rgba(247, 248, 244, .72);
+  --card-border: rgba(255, 255, 255, .55);
+  --accent:      #112A2E;
+  --accent-2:    #C9663A;
+  --btn-gradient: linear-gradient(135deg, #112A2E 0%, #244E54 100%);
+  --btn-text:    #F4F1E8;
+  --glass:       rgba(17, 42, 46, .06);
+  --glass-strong:rgba(17, 42, 46, .12);
+  --glass-border: rgba(17, 42, 46, .14);
+  --shadow:      rgba(17, 42, 46, .18);
+  --shadow-soft: rgba(17, 42, 46, .08);
+  --pulse:       rgba(17, 42, 46, .22);
+}
+
+/* ── BEIGE — sable chaud, encre brûlée ── */
+[data-theme="beige"],
+.theme-beige {
+  --bg:          #EFE4D2;
+  --bg-deep:     #C9B89A;
+  --text:        #1E160C;
+  --sub:         #6F5A41;
+  --muted:       #6F5A41;
+  --card-bg:     rgba(255, 253, 248, .80);
+  --card-border: rgba(255, 255, 255, .65);
+  --accent:      #1E160C;
+  --accent-2:    #B8482A;
+  --btn-gradient: linear-gradient(135deg, #1E160C 0%, #4A3623 100%);
+  --btn-text:    #EFE4D2;
+  --glass:       rgba(30, 22, 12, .05);
+  --glass-strong:rgba(30, 22, 12, .11);
+  --glass-border: rgba(30, 22, 12, .14);
+  --shadow:      rgba(30, 22, 12, .15);
+  --shadow-soft: rgba(30, 22, 12, .07);
+  --pulse:       rgba(30, 22, 12, .2);
+}
+
+/* ── VIOLET — améthyste profonde, lumière blanche ── */
+[data-theme="violet"],
+.theme-violet {
+  --bg:          #7A6AA8;
+  --bg-deep:     #5E4F8F;
+  --text:        #ffffff;
+  --sub:         rgba(255, 255, 255, .92);
+  --muted:       rgba(255, 255, 255, .82);
+  --card-bg:     rgba(255, 255, 255, .14);
+  --card-border: rgba(255, 255, 255, .28);
+  --accent:      #F8E9C2;
+  --accent-2:    #FFB780;
+  --btn-gradient: linear-gradient(135deg, #F8E9C2 0%, #F4B27D 100%);
+  --btn-text:    #2A1F4A;
+  --glass:       rgba(255, 255, 255, .10);
+  --glass-strong:rgba(255, 255, 255, .18);
+  --glass-border: rgba(255, 255, 255, .26);
+  --shadow:      rgba(40, 25, 80, .35);
+  --shadow-soft: rgba(40, 25, 80, .15);
+  --pulse:       rgba(255, 255, 255, .20);
+}
+
+/* ════════════════════════════════════════════════════
+   STACK CARDS — contraste avec le fond
+   Celadon → carte ivoire,  sous-cartes améthyste
+   Beige   → carte celadon, sous-cartes améthyste
+   Violet  → carte ivoire,  sous-cartes celadon
+════════════════════════════════════════════════════ */
+
+:root,
+[data-theme="celadon"] {
+  --stack-card-bg:     #F8F4EA;
+  --stack-card-border: rgba(255, 255, 255, .65);
+  --stack-card-text:   #1E160C;
+  --stack-sub-bg:      rgba(138, 123, 184, .88);
+  --stack-sub-border:  rgba(255, 255, 255, .32);
+}
+
+[data-theme="beige"] {
+  --stack-card-bg:     #C5DCDD;
+  --stack-card-border: rgba(255, 255, 255, .60);
+  --stack-card-text:   #112A2E;
+  --stack-sub-bg:      rgba(138, 123, 184, .88);
+  --stack-sub-border:  rgba(255, 255, 255, .32);
+}
+
+[data-theme="violet"] {
+  --stack-card-bg:     #F8F4EA;
+  --stack-card-border: rgba(255, 255, 255, .65);
+  --stack-card-text:   #1E160C;
+  --stack-sub-bg:      rgba(184, 209, 210, .88);
+  --stack-sub-border:  rgba(255, 255, 255, .42);
+}
+
+/* ── Contrôles de thème (masqués en prod, gardés pour QA) ── */
+.theme-tag    { display: none !important; }
+.theme-dots   { display: none !important; }
+
+.theme-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+}
+
+.theme-dot.active,
+.theme-dot[aria-selected="true"] {
+  transform: scale(1.3);
+  border-color: rgba(255, 255, 255, .7);
+}

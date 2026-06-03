@@ -1,0 +1,705 @@
+/* ═══════════════════════════════════════════════
+   RSP-ENTRY.CSS — Responsive amélioré : Splash · Menu · Mode Local
+   Amélioration ADDITIVE uniquement — ne duplique pas les règles existantes
+   Ordre : Splash → Menu → Mode Local, par breakpoint croissant
+   Chargé après style.css — spécificité normale, pas d'!important sauf
+   pour surmonter les règles .page/html du verrou plein écran.
+═══════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════
+   ══ SPLASH ══
+══════════════════════════════════════════════ */
+
+/* ── Accessibilité : le canvas ne doit pas capturer les touch events ── */
+.splash-page canvas {
+  pointer-events: none;
+}
+
+/* ── Tiny mobile < 360px : titre et bouton plus compacts ── */
+@media (max-width: 359px) {
+  .splash-title {
+    /* réduit le plancher de clamp pour éviter tout débordement */
+    font-size: clamp(28px, 10vw, 48px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .splash-title-wrap {
+    min-height: clamp(56px, 10vh, 80px);
+    margin-bottom: 10px;
+  }
+
+  .splash-sub-wrap {
+    margin-bottom: 32px;
+  }
+
+  .splash-btn {
+    min-width: auto;
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 24px;
+    min-height: 52px;
+    font-size: 11px;
+    gap: 10px;
+  }
+
+  /* Sélecteur de langue : plus compact */
+  .lang-sel {
+    left: clamp(12px, 3vw, 20px);
+    gap: 14px;
+  }
+
+  .lang-name {
+    font-size: 10px;
+  }
+}
+
+/* ── Mobile 360–479px : ajustements doux ── */
+@media (min-width: 360px) and (max-width: 479px) {
+  .splash-sub-wrap {
+    /* réduit l'espacement sous le sous-titre avant le bouton */
+    margin-bottom: clamp(32px, 8vh, 56px);
+  }
+
+  .splash-btn {
+    min-width: 220px;
+    padding: 16px 36px;
+  }
+}
+
+/* ── Paysage téléphone : hauteur limitée (max-height: 480px) ── */
+@media (orientation: landscape) and (max-height: 480px) {
+
+  /* Repositionner la sélection de langue en haut à gauche
+     pour libérer de la place verticale */
+  .splash-page .lang-sel {
+    position: absolute;
+    left: clamp(14px, 3vw, 28px);
+    top: clamp(10px, 2vh, 18px);
+    bottom: auto;
+    transform: none;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+  }
+
+  /* La barre verticale devient horizontale */
+  .splash-page .lang-bar {
+    width: 28px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .splash-page .lang-opt.active .lang-bar {
+    width: 40px;
+    height: 3px;
+  }
+
+  /* Centre du splash : marges verticales très réduites */
+  .splash-page .splash-center {
+    max-width: min(520px, 88vw);
+    top: 50%;
+  }
+
+  .splash-page .splash-title {
+    font-size: clamp(26px, 6vw, 44px);
+    line-height: .95;
+  }
+
+  .splash-page .splash-title-wrap {
+    min-height: clamp(36px, 8vh, 56px);
+    margin-bottom: 8px;
+  }
+
+  .splash-page .splash-sep {
+    margin-bottom: 8px;
+  }
+
+  .splash-page .splash-sub-wrap {
+    /* margin-bottom très réduit en paysage */
+    margin-bottom: clamp(12px, 3vh, 24px);
+    min-height: 18px;
+  }
+
+  .splash-page .splash-btn {
+    min-width: auto;
+    padding: 12px 32px;
+    min-height: 48px; /* conserver le touch target WCAG 44px */
+    font-size: 11px;
+  }
+
+  .splash-page .splash-dots {
+    margin-top: 12px;
+  }
+}
+
+/* ── Paysage : très petits écrans (hauteur < 360px) ── */
+@media (orientation: landscape) and (max-height: 360px) {
+  .splash-page .splash-title {
+    font-size: clamp(20px, 5vw, 32px);
+  }
+
+  .splash-page .splash-sub-wrap {
+    margin-bottom: 8px;
+  }
+
+  .splash-page .splash-btn {
+    padding: 10px 28px;
+    min-height: 44px;
+  }
+
+  .splash-page .splash-dots {
+    display: none;
+  }
+}
+
+/* ── Grand écran 768px+ : bouton splash légèrement plus large ── */
+@media (min-width: 768px) {
+  .splash-btn {
+    min-width: 300px;
+    padding: 20px 52px;
+    font-size: 13px;
+  }
+
+  .lang-sel {
+    left: clamp(32px, 5vw, 64px);
+    gap: 26px;
+  }
+}
+
+/* ── Très grand écran 1200px+ ── */
+@media (min-width: 1200px) {
+  .lang-sel {
+    left: clamp(48px, 6vw, 80px);
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   ══ MENU ══
+══════════════════════════════════════════════ */
+
+/* ── Tiny mobile 320–359px : cartes encore plus petites ── */
+@media (max-width: 359px) {
+  .menu-page {
+    --menu-card-width: clamp(160px, 48vw, 190px);
+    --menu-card-height: clamp(192px, 56vw, 230px);
+    --menu-card-gap: clamp(28px, 8vw, 48px);
+  }
+
+  /* Scroll wrap : toute la largeur disponible */
+  .menu-page .scroll-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Icône de carte un peu plus petite */
+  .menu-page .card-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Nav hints : indicateurs plus petits */
+  .nav-hint {
+    width: 5px;
+    height: 5px;
+  }
+  .nav-hint.on {
+    width: 20px;
+  }
+}
+
+/* ── Mobile 360–479px : cartes légèrement ajustées ── */
+@media (min-width: 360px) and (max-width: 479px) {
+  .menu-page {
+    --menu-card-width: clamp(180px, 52vw, 210px);
+    --menu-card-height: clamp(218px, 60vw, 255px);
+    --menu-card-gap: clamp(36px, 10vw, 60px);
+  }
+
+  .menu-page .scroll-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ── Mobile 480–599px ── */
+@media (min-width: 480px) and (max-width: 599px) {
+  .menu-page {
+    --menu-card-width: clamp(200px, 40vw, 240px);
+    --menu-card-height: clamp(240px, 46vw, 290px);
+    --menu-card-gap: clamp(48px, 10vw, 80px);
+  }
+
+  .menu-page .scroll-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ── Paysage mobile (max-height: 480px) : cartes moins hautes ── */
+@media (orientation: landscape) and (max-height: 480px) {
+  .menu-page {
+    --menu-card-width: clamp(120px, 22vw, 160px);
+    --menu-card-height: clamp(148px, 30vw, 196px);
+    --menu-card-gap: clamp(20px, 6vw, 48px);
+  }
+
+  .menu-page .scroll-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Header menu plus compact en paysage */
+  .menu-page .page-header {
+    margin-bottom: clamp(10px, 2vh, 20px);
+    padding: 0 6px;
+  }
+
+  /* Nav row plus serrée */
+  .nav-row {
+    margin-top: 4px;
+  }
+
+  /* Icône un peu plus petite */
+  .menu-page .card-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ── Tablette paysage 768–1023px : plus de cartes visibles simultanément ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .menu-page {
+    /* Deux cartes apparentes à la fois */
+    --menu-card-width: clamp(200px, 22vw, 280px);
+    --menu-card-height: clamp(240px, 42vh, 380px);
+    --menu-card-gap: clamp(60px, 10vw, 120px);
+  }
+
+  .menu-page .scroll-wrap {
+    /* Fenêtre suffisamment large pour montrer 2 cartes */
+    width: min(100%, calc(var(--menu-card-width) * 2 + var(--menu-card-gap) + 80px));
+    max-width: calc(var(--menu-card-width) * 2 + var(--menu-card-gap) + 80px);
+  }
+
+  .menu-page .card-icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* ── Grand écran 1024–1199px ── */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .menu-page {
+    --menu-card-width: clamp(260px, 22vw, 320px);
+    --menu-card-height: clamp(310px, 48vh, 420px);
+    --menu-card-gap: clamp(100px, 14vw, 160px);
+  }
+
+  .menu-page .card-icon {
+    width: 76px;
+    height: 76px;
+  }
+}
+
+/* ── Très grand écran 1200px+ ── */
+@media (min-width: 1200px) {
+  .menu-page {
+    --menu-card-width: clamp(300px, 24vw, 380px);
+    --menu-card-height: clamp(360px, 52vh, 480px);
+    --menu-card-gap: clamp(120px, 16vw, 220px);
+  }
+
+  /* Centrer et limiter le scroll wrap pour éviter une fenêtre trop grande */
+  .menu-page .scroll-wrap {
+    width: min(100%, calc(var(--menu-card-width) + 280px));
+    max-width: calc(var(--menu-card-width) + 280px);
+  }
+
+  .menu-page .card-icon {
+    width: 84px;
+    height: 84px;
+  }
+}
+
+/* ── Nav hints : meilleure lisibilité sur desktop ── */
+@media (min-width: 768px) {
+  .nav-hint {
+    width: 7px;
+    height: 7px;
+  }
+  .nav-hint.on {
+    width: 30px;
+  }
+
+  .nav-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   ══ MODE LOCAL ══
+══════════════════════════════════════════════ */
+
+/* ── Tiny mobile < 360px : step-panel sans padding latéral ── */
+@media (max-width: 359px) {
+  .mode-local-page .content {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: clamp(20px, 5vh, 48px);
+  }
+
+  .step-panel {
+    gap: 14px;
+  }
+
+  /* Cartes mode Solo/Duel : colonne forcée pour éviter le débordement */
+  .mode-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mode-stack {
+    width: clamp(140px, 70vw, 180px);
+    height: clamp(166px, 82vw, 210px);
+  }
+
+  /* Config card : label tronqué, options sur nouvelle ligne */
+  .cfg-row {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 12px;
+  }
+
+  .cfg-opts {
+    flex: 0 0 100%;
+    justify-content: flex-start;
+  }
+
+  .cfg-opts--categories {
+    gap: 5px;
+  }
+
+  .cfg-opt {
+    font-size: 10px;
+    padding: 5px 10px;
+    min-height: 30px;
+  }
+
+  /* Nb joueurs : boutons plus grands pour le touch */
+  .nb-btn {
+    width: 72px;
+    height: 72px;
+  }
+
+  /* Nav buttons step : colonne sur très petits écrans */
+  .nav-btns {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .nav-btn-step {
+    width: 100%;
+    min-height: 48px;
+  }
+}
+
+/* ── Mobile portrait < 480px : mode-cards en colonne ou ligne serrée ── */
+@media (max-width: 479px) {
+  .mode-local-page .content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Forcer colonne si l'écran est vraiment étroit (< 400px) */
+  @media (max-width: 399px) {
+    .mode-cards {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mode-stack {
+      width: clamp(150px, 66vw, 190px);
+      height: clamp(178px, 78vw, 225px);
+    }
+  }
+
+  /* Assurer que les options de config ne débordent pas */
+  .cfg-row {
+    padding: 12px 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Les catégories wrappent naturellement */
+  .cfg-opts--categories {
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
+
+  /* Boutons nb joueurs lisibles au touch */
+  .nb-btn {
+    width: clamp(60px, 18vw, 72px);
+    height: clamp(60px, 18vw, 72px);
+  }
+
+  /* Résumé lancement : padding réduit */
+  .launch-summary {
+    padding: 14px 14px;
+  }
+
+  /* Bouton lancer la partie : pleine largeur conservée */
+  .mode-local-page .btn-primary.btn-full {
+    min-height: 52px;
+  }
+}
+
+/* ── Mobile 480–599px ── */
+@media (min-width: 480px) and (max-width: 599px) {
+  .mode-local-page .content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .step-panel {
+    max-width: min(520px, 100%);
+  }
+
+  /* pseudo-grid : 2 colonnes si pas encore forcé (déjà dans responsive.css) */
+  .pseudo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Tablette 600–767px ── */
+@media (min-width: 600px) and (max-width: 767px) {
+  .mode-local-page .content {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .step-panel {
+    max-width: min(600px, 100%);
+    gap: 22px;
+  }
+
+  .mode-cards {
+    gap: 32px;
+  }
+
+  .mode-stack {
+    width: clamp(160px, 26vw, 200px);
+    height: clamp(192px, 30vw, 240px);
+  }
+
+  /* Pseudo-grid : 2 colonnes */
+  .pseudo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Config row : pas de wrap nécessaire, plus d'espace */
+  .cfg-row {
+    padding: 14px 20px;
+    gap: 14px;
+  }
+
+  /* Boutons nav step : côte à côte */
+  .nav-btns {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}
+
+/* ── Paysage mobile (max-height: 480px) ── */
+@media (orientation: landscape) and (max-height: 480px) {
+  .mode-local-page .content {
+    padding-top: clamp(8px, 2vh, 20px);
+    padding-bottom: clamp(8px, 2vh, 16px);
+    padding-left: 20px;
+    padding-right: 20px;
+    /* Permettre le scroll si le contenu dépasse la hauteur */
+    overflow-y: auto;
+  }
+
+  .step-panel {
+    gap: 12px;
+  }
+
+  /* Mode cards : en ligne avec cartes plus petites */
+  .mode-cards {
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 32px);
+  }
+
+  .mode-stack {
+    width: clamp(110px, 20vw, 150px);
+    height: clamp(130px, 24vw, 175px);
+  }
+
+  /* Config card scrollable si besoin */
+  .cfg-card {
+    max-height: clamp(180px, 40vh, 280px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cfg-card::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Nb joueurs : boutons plus compacts */
+  .nb-btn {
+    width: 56px;
+    height: 56px;
+  }
+
+  .nb-num {
+    font-size: 20px;
+  }
+
+  /* Nav buttons côte à côte, réduits */
+  .nav-btns {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .nav-btn-step {
+    padding: 12px;
+    min-height: 44px;
+    font-size: 11px;
+  }
+
+  /* Stepper compact */
+  .mode-local-page .stepper {
+    margin-bottom: clamp(4px, 1vh, 10px);
+  }
+}
+
+/* ── Paysage très serré (max-height: 360px) ── */
+@media (orientation: landscape) and (max-height: 360px) {
+  .mode-local-page .content {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .step-panel {
+    gap: 8px;
+  }
+
+  .mode-stack {
+    width: clamp(96px, 18vw, 130px);
+    height: clamp(114px, 21vw, 155px);
+  }
+
+  .step-title {
+    font-size: clamp(16px, 3.5vw, 22px);
+  }
+
+  .step-sub {
+    display: none;
+  }
+
+  .cfg-opt {
+    padding: 4px 8px;
+    font-size: 10px;
+    min-height: 28px;
+  }
+
+  .nav-btn-step {
+    padding: 10px;
+    min-height: 44px;
+  }
+}
+
+/* ── Tablette 768px+ ── */
+@media (min-width: 768px) {
+  .mode-local-page .content {
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: clamp(32px, 6vh, 72px);
+  }
+
+  .step-panel {
+    max-width: min(720px, 100%);
+    gap: 24px;
+  }
+
+  .mode-cards {
+    gap: 40px;
+  }
+
+  .mode-stack {
+    width: clamp(170px, 20vw, 210px);
+    height: clamp(204px, 24vw, 252px);
+  }
+
+  /* Pseudo grid : 2 colonnes par défaut, 4 si assez large */
+  .pseudo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  /* Config : options mieux réparties */
+  .cfg-row {
+    padding: 16px 22px;
+    gap: 16px;
+  }
+
+  .cfg-opts--categories {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+/* ── Grand écran 1024px+ : layout plus aéré ── */
+@media (min-width: 1024px) {
+  .step-panel {
+    max-width: min(820px, 100%);
+    gap: 28px;
+  }
+
+  .mode-cards {
+    gap: 48px;
+  }
+
+  .mode-stack {
+    width: clamp(190px, 18vw, 220px);
+    height: clamp(228px, 22vw, 264px);
+  }
+
+  /* 4 colonnes pour pseudo grid (4 joueurs) */
+  .pseudo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .cfg-opt {
+    font-size: 12px;
+    padding: 7px 14px;
+    min-height: 36px;
+  }
+}
+
+/* ── Très grand écran 1400px+ ── */
+@media (min-width: 1400px) {
+  .step-panel {
+    max-width: min(900px, 100%);
+  }
+
+  .mode-stack {
+    width: clamp(210px, 16vw, 240px);
+    height: clamp(252px, 19vw, 288px);
+  }
+
+  .cfg-row {
+    padding: 18px 26px;
+  }
+}

@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════════════
+   ARTISTIC.CSS — Signature visuelle commune
+   Quiz Champion — appliquée à tous les écrans
+   Motif d'ondes "buzzer" + halos de marque, très subtils,
+   en fond. Chargé en dernier pour enrichir .page::before.
+═══════════════════════════════════════════════ */
+
+/* Couche décorative principale (derrière le contenu) */
+.page::before {
+  background:
+    /* Onde buzzer — coin haut-droit (terracotta) */
+    repeating-radial-gradient(
+      circle at 100% -4%,
+      transparent 0 44px,
+      rgba(194, 96, 58, .085) 44px 47px,
+      transparent 47px 92px
+    ),
+    /* Onde buzzer — coin bas-gauche (améthyste) */
+    repeating-radial-gradient(
+      circle at 0% 104%,
+      transparent 0 52px,
+      rgba(124, 95, 166, .075) 52px 55px,
+      transparent 55px 108px
+    ),
+    /* Halo chaud bas-gauche */
+    radial-gradient(ellipse 64% 52% at 4% 98%, rgba(194, 96, 58, .16), transparent 62%),
+    /* Halo froid haut-droit */
+    radial-gradient(ellipse 58% 48% at 98% 4%, rgba(47, 110, 104, .15), transparent 60%),
+    /* Vignette plateau (héritée) */
+    var(--radial-overlay) !important;
+}
+
+/* Sur thème violet, les ondes claires lisent mieux */
+[data-theme="violet"] .page::before {
+  background:
+    repeating-radial-gradient(
+      circle at 100% -4%,
+      transparent 0 44px,
+      rgba(248, 233, 194, .10) 44px 47px,
+      transparent 47px 92px
+    ),
+    repeating-radial-gradient(
+      circle at 0% 104%,
+      transparent 0 52px,
+      rgba(255, 255, 255, .085) 52px 55px,
+      transparent 55px 108px
+    ),
+    radial-gradient(ellipse 64% 52% at 4% 98%, rgba(255, 183, 128, .18), transparent 62%),
+    radial-gradient(ellipse 58% 48% at 98% 4%, rgba(248, 233, 194, .15), transparent 60%),
+    var(--radial-overlay) !important;
+}
+
+/* Onde buzzer aussi sur le splash (.screen), discrète */
+.screen::before {
+  background:
+    radial-gradient(ellipse 60% 48% at 6% 96%, rgba(194, 96, 58, .08), transparent 62%),
+    radial-gradient(ellipse 56% 46% at 96% 6%, rgba(47, 110, 104, .08), transparent 60%),
+    var(--radial-overlay) !important;
+}

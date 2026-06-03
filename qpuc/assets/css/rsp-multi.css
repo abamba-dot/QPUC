@@ -1,0 +1,1173 @@
+/* ═══════════════════════════════════════════════
+   RSP-MULTI.CSS — Responsive amélioré : Settings · Lobby · Multijoueur
+   Amélioration ADDITIVE — ne pas dupliquer style.css
+   Breakpoints: 320 → 480 → 600 → 768 → 1024 → 1280 → 1400
+   Cible : settings.html, lobby.html, multijoueur.html,
+           modes-multijoueur.html, creer-salle.html, rejoindre-salle.html,
+           hote-quiz.html, joueur-quiz.html, profil.html, attente-manche.html
+═══════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════════════════
+   AMÉLIORATIONS GLOBALES
+   S'appliquent sur mobile à tous les écrans concernés
+══════════════════════════════════════════════════════════ */
+
+/* Prevent iOS zoom sur focus input (font-size >= 16px obligatoire) */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Zone de touche minimale — 44 × 44 px (WCAG 2.5.5) */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  select {
+    min-height: 44px;
+    padding-block: 10px;
+  }
+
+  /* Désactiver le redimensionnement textarea au doigt */
+  textarea {
+    resize: none;
+    min-height: 44px;
+  }
+}
+
+/* Padding-bottom pour clavier virtuel (iOS safari / Android Chrome) */
+@supports (height: 100dvh) {
+  @media (max-width: 767px) {
+    .mode-local-page .content,
+    .rejoindre-page .content {
+      padding-bottom: env(keyboard-inset-height, 0px);
+    }
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .settings-scroll {
+    padding: 16px 0 32px;
+    gap: 18px;
+  }
+
+  .settings-section-label {
+    padding-left: 2px;
+  }
+
+  .settings-row {
+    padding: 14px 14px;
+    min-height: 56px;
+    gap: 12px;
+  }
+
+  /* Icône légèrement plus petite sur très petit écran */
+  .settings-row__icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  /* Ligne du slider — zone étendue pour les doigts */
+  .sl-row {
+    padding: 10px 14px 16px;
+  }
+
+  .slider-track {
+    /* Zone de toucher plus large : pseudo-element transparent au-dessus */
+    position: relative;
+  }
+  .slider-track::before {
+    content: '';
+    position: absolute;
+    inset: -12px 0;
+    cursor: pointer;
+  }
+
+  /* Assure que les badges de durée sont bien touchables */
+  [onclick^="setTimer"] {
+    min-height: 36px;
+    min-width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+  }
+}
+
+/* ── Paysage mobile (orientation landscape, hauteur réduite) ── */
+@media (orientation: landscape) and (max-height: 500px) {
+  .settings-scroll {
+    height: calc(100dvh - 56px);
+    overflow-y: auto;
+    padding: 10px 0 24px;
+    gap: 14px;
+  }
+
+  .settings-row {
+    min-height: 50px;
+    padding: 10px 14px;
+  }
+
+  .sl-row {
+    padding: 8px 14px 12px;
+  }
+}
+
+/* ── Tablette / Desktop 600-767px ── */
+@media (min-width: 600px) and (max-width: 767px) {
+  .settings-scroll {
+    padding: 24px 0 40px;
+    gap: 22px;
+  }
+}
+
+/* ── Desktop ≥ 768px ── */
+@media (min-width: 768px) {
+  .settings-scroll {
+    max-width: 640px;
+    /* La valeur align-self: center est déjà dans style.css ;
+       on renforce la séparation entre sections */
+    gap: 30px;
+    padding: 36px 0 48px;
+  }
+
+  /* Séparateur entre sections rendu légèrement plus visible */
+  .settings-card + .settings-card {
+    margin-top: 4px;
+  }
+}
+
+/* ── Grand écran ≥ 1024px ── */
+@media (min-width: 1024px) {
+  .settings-section-label {
+    font-size: 12px;
+    letter-spacing: .24em;
+  }
+
+  .settings-row__title {
+    font-size: 15px;
+  }
+
+  .settings-row {
+    padding: 18px 22px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   LOBBY
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .lobby-page {
+    gap: 10px;
+  }
+
+  /* 1 colonne uniquement */
+  .lobby-layout {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    /* La colonne droite passe en second */
+    overflow-y: auto;
+  }
+
+  /* Code de salle : taille ajustée pour ne pas déborder */
+  .lobby-code-big {
+    font-size: clamp(32px, 10vw, 48px);
+    letter-spacing: .04em;
+  }
+
+  .lobby-code-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  /* Boutons copie : bien touchables */
+  .lobby-code-card .btn-secondary {
+    min-height: 46px;
+  }
+
+  /* Parcours compact */
+  .parcours {
+    padding: 8px 12px;
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  /* Réactions : boutons suffisamment grands */
+  .reaction-bar {
+    gap: 6px;
+  }
+  .reaction-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  /* Cacher le partage QR sur très petit écran (déjà en style.css via .qr-block)
+     On compresse le bloc share pour afficher uniquement le texte */
+  .lobby-share {
+    gap: 12px;
+  }
+  .lobby-share__text {
+    font-size: 11px;
+  }
+
+  /* Joueurs : rendre les lignes plus compactes */
+  .lobby-player {
+    padding: 9px 6px;
+    gap: 10px;
+  }
+  .lobby-player__name {
+    font-size: 13px;
+  }
+
+  /* Panneau lancement */
+  .card.panel {
+    padding: 14px;
+    gap: 8px;
+  }
+  .card.panel .btn-primary,
+  .card.panel .btn-secondary {
+    min-height: 46px;
+  }
+}
+
+/* ── Tablette 480-767px ── */
+@media (min-width: 480px) and (max-width: 767px) {
+  .lobby-layout {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .lobby-code-big {
+    font-size: clamp(40px, 9vw, 56px);
+  }
+
+  .lobby-code-card {
+    padding: 20px;
+  }
+}
+
+/* ── Desktop ≥ 1024px ── */
+@media (min-width: 1024px) {
+  .lobby-layout {
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* QR bien visible à droite */
+  .lobby-share {
+    gap: 22px;
+  }
+
+  .qr-box {
+    width: clamp(110px, 14vw, 140px);
+    height: clamp(110px, 14vw, 140px);
+  }
+
+  .lobby-code-big {
+    font-size: clamp(52px, 7vw, 76px);
+  }
+
+  .lobby-players {
+    padding: 24px;
+  }
+}
+
+/* ── Grand écran ≥ 1280px ── */
+@media (min-width: 1280px) {
+  .lobby-layout {
+    max-width: min(1200px, 100%);
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   HUB MULTIJOUEUR (.mp-page)
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .mp-hub {
+    gap: 16px;
+    padding: 10px 0;
+  }
+
+  /* Les tuiles passent en colonne (déjà fait dans style.css @media max-width:600px) */
+  .mp-tile {
+    min-height: clamp(150px, 30vw, 190px);
+    padding: clamp(18px, 4vw, 24px);
+    gap: 10px;
+  }
+
+  .mp-tile__icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .mp-tile__title {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+  /* Reprise de salle */
+  .mp-resume {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+}
+
+/* ── Desktop ≥ 1024px ── */
+@media (min-width: 1024px) {
+  .mp-choices {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .mp-tile {
+    min-height: clamp(220px, 28vh, 280px);
+  }
+
+  .mp-tile__icon {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CHOIX DE MODE (.modes-page)
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .modes-wrap {
+    gap: 10px;
+    padding: 6px 0;
+  }
+
+  .mode-card {
+    padding: clamp(14px, 4vw, 18px);
+    gap: clamp(12px, 3vw, 16px);
+  }
+
+  .mode-card__num {
+    font-size: clamp(24px, 6vw, 34px);
+    width: clamp(34px, 8vw, 44px);
+  }
+
+  .mode-card__icon {
+    width: clamp(44px, 12vw, 56px);
+    height: clamp(44px, 12vw, 56px);
+  }
+
+  .mode-card__title {
+    font-size: clamp(17px, 4.5vw, 22px);
+  }
+
+  .mode-card__desc {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  /* Verrou mystère : bien visible */
+  .lock-tag {
+    font-size: 8px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+}
+
+/* ── Desktop ≥ 1024px ── */
+@media (min-width: 1024px) {
+  .modes-wrap {
+    gap: 16px;
+  }
+
+  .mode-card {
+    padding: clamp(22px, 2.6vw, 30px);
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   CREER / REJOINDRE SALLE (.mode-local-page)
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  /* step-panel : compact */
+  .step-panel {
+    gap: 14px !important;
+  }
+
+  /* Titre centré */
+  .step-title {
+    font-size: clamp(22px, 6vw, 28px);
+  }
+
+  /* cfg-card : rangées compactes */
+  .cfg-card {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .cfg-row {
+    padding: 12px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* Options de config : boutons bien touchables */
+  .cfg-opt {
+    min-height: 36px;
+    min-width: 44px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  /* Résumé de lancement */
+  .launch-summary {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+
+  /* Bouton créer : pleine largeur et bien touchable */
+  .btn-zone .btn-primary {
+    min-height: 50px;
+  }
+
+  /* ── Rejoindre salle : code OTP ── */
+  .code-input {
+    gap: 8px;
+  }
+
+  .code-prefix {
+    font-size: clamp(22px, 6vw, 30px);
+  }
+
+  /* Cellules du code : taille adaptée au petit écran */
+  .code-cells {
+    gap: 6px;
+  }
+
+  .code-cell {
+    width: clamp(44px, 12vw, 58px);
+    height: clamp(54px, 14vw, 68px);
+    font-size: clamp(22px, 6vw, 32px);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Bloc pseudo */
+  .pseudo-block {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .pseudo-input {
+    min-height: 44px;
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+
+  /* Avatar picker : swatches bien touchables */
+  .avatar-swatch {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Bouton rejoindre */
+  .btn-zone .btn-primary,
+  #join-btn {
+    min-height: 50px;
+  }
+
+  /* Marge bottom pour clavier virtuel */
+  .content {
+    padding-bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+  }
+}
+
+/* ── Tablette 480-767px ── */
+@media (min-width: 480px) and (max-width: 767px) {
+  .code-cell {
+    width: clamp(52px, 11vw, 64px);
+    height: clamp(64px, 14vw, 76px);
+  }
+
+  .cfg-row {
+    gap: 12px;
+    padding: 14px 16px;
+  }
+}
+
+/* ── Desktop ≥ 768px ── */
+@media (min-width: 768px) {
+  .step-panel {
+    padding: 0 8px;
+  }
+
+  .cfg-row {
+    padding: 16px 18px;
+  }
+
+  .cfg-opt {
+    min-height: 36px;
+    padding: 0 14px;
+  }
+
+  .code-cell {
+    width: clamp(58px, 10vw, 72px);
+    height: clamp(70px, 12vw, 84px);
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   HOTE & JOUEUR QUIZ
+══════════════════════════════════════════════════════════ */
+
+/* ══ HOTE — Optimisations grand écran TV ══ */
+
+/* ── Desktop ≥ 1024px (affichage en salle sur grand écran) ── */
+@media (min-width: 1024px) {
+  .host-page {
+    padding: clamp(28px, 3.5vmin, 52px);
+    gap: clamp(18px, 2.8vh, 32px);
+  }
+
+  .host-topbar {
+    gap: 20px;
+  }
+
+  /* Marque en haut */
+  .brand {
+    font-size: clamp(16px, 2vw, 20px);
+    letter-spacing: .18em;
+  }
+
+  .host-qmeta {
+    font-size: clamp(13px, 1.4vw, 16px);
+    letter-spacing: .18em;
+  }
+
+  /* Compteur de réponses bien lisible */
+  .host-answered {
+    font-size: clamp(18px, 2.2vw, 26px);
+    gap: 12px;
+  }
+
+  /* Question centrale : typographie TV */
+  .host-question__text {
+    font-size: clamp(36px, 5.5vw, 72px);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  /* Grille réponses A/B/C/D : plus grande */
+  .host-answers {
+    gap: clamp(12px, 1.6vw, 20px);
+  }
+
+  .host-ans {
+    min-height: clamp(90px, 13vh, 140px);
+    padding: clamp(20px, 2.4vw, 32px);
+    border-radius: var(--radius-lg);
+    gap: clamp(14px, 2vw, 22px);
+  }
+
+  .host-ans__shape {
+    width: clamp(32px, 4vw, 48px);
+    height: clamp(32px, 4vw, 48px);
+  }
+
+  .host-ans__text {
+    font-size: clamp(20px, 2.8vw, 36px);
+  }
+
+  .host-ans__count {
+    font-size: clamp(22px, 3.2vw, 40px);
+  }
+
+  /* Barre basse : avatars + boutons */
+  .host-controls {
+    gap: 20px;
+  }
+
+  .host-mini-av {
+    width: clamp(38px, 5vw, 52px);
+    height: clamp(38px, 5vw, 52px);
+  }
+
+  /* Zone d'attente du buzz : plus visible */
+  .host-buzz-wait {
+    padding: clamp(28px, 5vh, 56px);
+    border-radius: var(--radius-xl, var(--radius-lg));
+  }
+
+  .host-buzz-wait__text {
+    font-size: clamp(22px, 3vw, 34px);
+  }
+
+  /* Résumé post-question (fait / classement) */
+  .host-summary {
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .host-summary__label {
+    font-size: clamp(11px, 1.2vw, 14px);
+  }
+
+  .host-summary__text {
+    font-size: clamp(16px, 2vw, 22px);
+  }
+
+  .host-rank-row {
+    font-size: clamp(14px, 1.6vw, 18px);
+    padding: clamp(8px, 1vw, 12px) 0;
+  }
+}
+
+/* ── Grand TV ≥ 1400px ── */
+@media (min-width: 1400px) {
+  .host-page {
+    padding: clamp(36px, 4vmin, 64px);
+  }
+
+  .host-question__text {
+    font-size: clamp(44px, 6vw, 80px);
+  }
+
+  .host-ans {
+    min-height: clamp(100px, 14vh, 160px);
+  }
+
+  .host-mini-av {
+    width: clamp(44px, 4.5vw, 60px);
+    height: clamp(44px, 4.5vw, 60px);
+  }
+}
+
+/* ── Mobile hôte < 768px (mode démo / test) ── */
+@media (max-width: 767px) {
+  .host-page {
+    padding: clamp(14px, 3vmin, 22px);
+    gap: clamp(10px, 2vh, 16px);
+  }
+
+  .host-topbar {
+    gap: 10px;
+  }
+
+  .host-answers {
+    gap: 8px;
+  }
+
+  .host-ans {
+    min-height: clamp(60px, 10vh, 88px);
+    padding: clamp(10px, 2vw, 16px);
+    gap: 10px;
+  }
+
+  .host-ans__text {
+    font-size: clamp(13px, 3vw, 18px);
+  }
+
+  .host-buzz-wait {
+    padding: clamp(14px, 3vh, 22px);
+    gap: 10px;
+  }
+
+  .host-buzz-wait__text {
+    font-size: clamp(15px, 3.5vw, 20px);
+  }
+
+  .host-controls {
+    gap: 10px;
+  }
+}
+
+/* ══ JOUEUR — Optimisations téléphone ══ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .player-page {
+    padding: clamp(12px, 3vmin, 20px);
+    gap: clamp(10px, 2vh, 14px);
+  }
+
+  /* Topbar joueur */
+  .player-topbar {
+    flex-shrink: 0;
+  }
+
+  .player-name-chip {
+    font-size: 13px;
+    gap: 7px;
+  }
+
+  /* Indication de question */
+  .player-qhint {
+    padding: clamp(10px, 2.5vh, 18px) 14px;
+  }
+
+  .player-qhint__text {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+
+  /* Pads de réponse : plein écran, grands targets */
+  .player-pads {
+    gap: 8px;
+  }
+
+  .player-pad {
+    min-height: clamp(72px, 15vh, 120px);
+    padding: clamp(10px, 2.5vw, 18px);
+    gap: 8px;
+    border-radius: var(--radius-md);
+  }
+
+  .player-pad__shape {
+    width: clamp(32px, 10vw, 56px);
+    height: clamp(32px, 10vw, 56px);
+  }
+
+  .player-pad__text {
+    font-size: clamp(12px, 3vw, 16px);
+  }
+
+  /* Zone buzzer : bouton immense */
+  .player-buzz {
+    gap: 16px;
+  }
+
+  /* Feedback résultat */
+  .player-state__title {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .player-state__pts {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+}
+
+/* ── Paysage téléphone joueur ── */
+@media (orientation: landscape) and (max-height: 500px) {
+  .player-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "topbar topbar"
+      "hint   pads";
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .player-topbar  { grid-area: topbar; }
+  .player-qhint   { grid-area: hint; align-self: center; padding: 8px 10px; }
+  .player-buzz    { grid-area: pads; }
+  .player-pads    { grid-area: pads; gap: 6px; }
+  .player-state   { grid-area: pads; }
+
+  .player-pad {
+    min-height: clamp(56px, 18vh, 80px);
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .player-pad__text {
+    font-size: 12px;
+  }
+
+  .player-qhint {
+    text-align: left;
+  }
+}
+
+/* ── Tablette joueur 600-1023px ── */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .player-page {
+    padding: clamp(18px, 3vmin, 28px);
+    gap: clamp(14px, 2.5vh, 22px);
+    align-items: center;
+  }
+
+  .player-pads {
+    max-width: 640px;
+    width: 100%;
+    align-self: center;
+    gap: 12px;
+  }
+
+  .player-pad {
+    min-height: clamp(90px, 16vh, 140px);
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   PROFIL (.profile-page)
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .profile-page {
+    gap: 10px;
+  }
+
+  .profile-scroll {
+    gap: clamp(12px, 2.5vh, 18px);
+    padding: 4px 0 20px;
+  }
+
+  /* Hero : passage en colonne sur très petit écran */
+  .profile-hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+    gap: 14px;
+  }
+
+  /* Avatar centré */
+  .avatar--lg {
+    align-self: center;
+  }
+
+  .profile-id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-name {
+    font-size: clamp(22px, 7vw, 32px);
+    text-align: center;
+  }
+
+  .profile-title {
+    justify-content: center;
+  }
+
+  .profile-rank-chip {
+    align-self: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .profile-rank-chip__num {
+    font-size: clamp(24px, 6vw, 32px);
+  }
+
+  /* Statistiques : 2 colonnes conservées */
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .pstat {
+    padding: 12px;
+  }
+
+  .pstat__val {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+  /* Trophées : scroll horizontal */
+  .trophy {
+    width: clamp(88px, 22vw, 108px);
+    padding: 12px 8px;
+  }
+
+  /* Historique : compact */
+  .history-row {
+    padding: 11px 12px;
+    gap: 10px;
+  }
+
+  .history-medal {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .history-mode {
+    font-size: 12px;
+  }
+
+  .history-pts {
+    font-size: 13px;
+  }
+}
+
+/* ── Tablette 480-767px ── */
+@media (min-width: 480px) and (max-width: 767px) {
+  .profile-hero {
+    padding: 22px 20px;
+    gap: 18px;
+  }
+
+  .profile-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Desktop ≥ 768px : hero en ligne ── */
+@media (min-width: 768px) {
+  .profile-hero {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(20px, 3vw, 32px);
+  }
+
+  .profile-id {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-title {
+    justify-content: flex-start;
+  }
+
+  .profile-rank-chip {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* ── Grand écran ≥ 1024px ── */
+@media (min-width: 1024px) {
+  .profile-scroll {
+    max-width: min(880px, 100%);
+  }
+
+  .profile-hero {
+    padding: clamp(24px, 3vw, 34px);
+  }
+
+  .profile-stats {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+
+  .pstat {
+    padding: 18px 14px;
+  }
+
+  .trophy {
+    width: clamp(110px, 14vw, 138px);
+    padding: 18px 14px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   ATTENTE MANCHE / SYNCHRONISATION (.sync-page)
+══════════════════════════════════════════════════════════ */
+
+/* ── Mobile < 480px ── */
+@media (max-width: 479px) {
+  .sync-page {
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .sync-wrap {
+    gap: clamp(16px, 4vh, 26px);
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .sync-spinner {
+    width: clamp(64px, 18vw, 88px);
+    height: clamp(64px, 18vw, 88px);
+  }
+
+  .sync-title {
+    font-size: clamp(20px, 5.5vw, 28px);
+    line-height: 1.2;
+  }
+
+  .sync-sub {
+    font-size: 11px;
+    letter-spacing: .16em;
+  }
+
+  /* Grille joueurs compacte */
+  .sync-players {
+    gap: 10px;
+  }
+
+  .sync-player__name {
+    font-size: 10px;
+    max-width: 72px;
+  }
+
+  /* Bouton continuer bien touchable */
+  #skip-btn {
+    min-height: 46px;
+    padding: 0 24px;
+  }
+
+  .sync-progress {
+    max-width: 260px;
+  }
+}
+
+/* ── Paysage mobile sync ── */
+@media (orientation: landscape) and (max-height: 500px) {
+  .sync-page {
+    padding: 12px 20px;
+  }
+
+  .sync-wrap {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .sync-spinner {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+  }
+
+  .sync-title {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+
+  .sync-players {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sync-progress {
+    width: 100%;
+  }
+}
+
+/* ── Desktop ≥ 768px ── */
+@media (min-width: 768px) {
+  .sync-wrap {
+    gap: clamp(24px, 4.5vh, 40px);
+  }
+
+  .sync-spinner {
+    width: clamp(88px, 12vw, 116px);
+    height: clamp(88px, 12vw, 116px);
+    border-width: 5px;
+  }
+
+  .sync-title {
+    font-size: clamp(28px, 4vw, 42px);
+  }
+
+  .sync-players {
+    gap: 18px;
+  }
+
+  .sync-player__name {
+    font-size: 12px;
+    max-width: 90px;
+  }
+
+  #skip-btn {
+    min-height: 48px;
+    padding: 0 32px;
+  }
+}
+
+/* ── Grand écran ≥ 1024px ── */
+@media (min-width: 1024px) {
+  .sync-wrap {
+    max-width: min(720px, 100%);
+  }
+
+  .sync-title {
+    font-size: clamp(34px, 4.5vw, 50px);
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   UTILITAIRES TOUCH / ACCESSIBILITE
+══════════════════════════════════════════════════════════ */
+
+/* Assure des cibles tactiles minimales sur tous les boutons clés */
+@media (pointer: coarse) {
+  .back-btn,
+  .btn-primary,
+  .btn-secondary,
+  .reaction-btn,
+  .period-tab,
+  .cfg-opt,
+  .toggle,
+  .avatar-swatch {
+    min-height: 44px;
+  }
+
+  /* Évite les micro-interactions hover qui ne fonctionnent pas au toucher */
+  .mp-tile:hover,
+  .mode-card:not(.mode-card--locked):hover,
+  .room-row:hover {
+    transform: none;
+  }
+
+  /* Remplacé par un état active explicite */
+  .mp-tile:active {
+    transform: scale(.98);
+    transition: transform .1s;
+  }
+
+  .mode-card:not(.mode-card--locked):active {
+    transform: scale(.98);
+    transition: transform .1s;
+  }
+
+  .room-row:active {
+    transform: scale(.99);
+    transition: transform .1s;
+  }
+}
+
+/* Respect des préférences d'animation (accessibilité) */
+@media (prefers-reduced-motion: reduce) {
+  .mp-tile,
+  .mode-card,
+  .lobby-player,
+  .sync-player,
+  .pstat,
+  .host-summary {
+    animation: none;
+  }
+
+  .mp-tile,
+  .mode-card,
+  .room-row,
+  .mp-resume {
+    transition: none;
+  }
+
+  .sync-spinner {
+    animation-duration: 2s;
+  }
+}

@@ -1,0 +1,261 @@
+/* ═══════════════════════════════════════════════
+   BASE.CSS — Reset · Tokens · Typographie
+   CHAMPION. — Jeu de quiz premium
+═══════════════════════════════════════════════ */
+
+/* ── GOOGLE FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800;12..96,900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+/* ── RESET ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--bg);
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  width: 100vw;
+  min-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "cv11";
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-scroll],
+.settings-scroll,
+.content {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── FOCUS VISIBLE (accessibilité) ── */
+:focus-visible {
+  outline: 3px solid var(--accent, #4A8090);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Skip link accessibility */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 16px;
+  z-index: 9999;
+  padding: 10px 18px;
+  background: var(--accent, #4A8090);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+  white-space: nowrap;
+}
+.skip-link:focus {
+  top: 16px;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   TOKENS GLOBAUX
+═══════════════════════════════════════════════ */
+:root {
+  /* ── POLICES ── */
+  --font-display: 'Bricolage Grotesque', 'Arial Black', sans-serif;
+  --font-body:    'Manrope', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* ── TYPOGRAPHIE FLUIDE
+     Échelle TV-friendly, lisible de loin
+  ── */
+  --text-xs:    clamp(9px,  1.6vw, 11px);
+  --text-sm:    clamp(11px, 2vw,   13px);
+  --text-base:  clamp(13px, 2.6vw, 15px);
+  --text-md:    clamp(14px, 2.8vw, 17px);
+  --text-lg:    clamp(17px, 3.4vw, 22px);
+  --text-xl:    clamp(20px, 4vw,   28px);
+  --text-2xl:   clamp(26px, 5.2vw, 40px);
+  --text-3xl:   clamp(34px, 7vw,   56px);
+  --text-giant: clamp(72px, 16vw, 144px);
+
+  /* ── ESPACEMENTS FLUIDES ── */
+  --space-xs:   clamp(4px,  1vw,   6px);
+  --space-sm:   clamp(6px,  1.5vw, 10px);
+  --space-md:   clamp(10px, 2.5vw, 16px);
+  --space-lg:   clamp(14px, 3.5vw, 22px);
+  --space-xl:   clamp(18px, 4.5vw, 32px);
+  --space-2xl:  clamp(24px, 6vw,   48px);
+  --space-page: clamp(14px, 3vw,   28px);
+
+  /* ── BORDER RADIUS ── */
+  --radius-xs:   6px;
+  --radius-sm:   10px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+
+  /* Alias rétro-compatibles */
+  --radius-card:  var(--radius-lg);
+  --radius-btn:   var(--radius-md);
+  --radius-badge: var(--radius-full);
+
+  /* ── TAILLES COMPOSANTS ── */
+  --avatar-sm:   clamp(28px, 7vw,   36px);
+  --avatar-md:   clamp(36px, 9vw,   46px);
+  --avatar-lg:   clamp(54px, 12vw,  84px);
+  --btn-height:  clamp(48px, 11vw,  60px);
+  --timer-size:  clamp(64px, 14vw,  84px);
+  --buzzer-size: clamp(96px, 22vw, 156px);
+
+  /* ── PAGE ── */
+  --page-max-width: 100vw;
+  --page-padding:   clamp(16px, 3vmin, 36px);
+  --spacing-page:   var(--space-page);
+
+  /* ── COULEURS ÉTATS ── */
+  --color-correct:    #2DBA6E;
+  --color-error:      #E94B3C;
+  --color-warning:    #E0A100;
+  --color-info:       #5BA3E0;
+  --color-correct-bg: rgba(45, 186, 110, .15);
+  --color-error-bg:   rgba(233, 75, 60, .12);
+
+  /* ════════════════════════════════════════
+     THÈME CELADON (défaut) — palette affinée
+     Inspiration : verre soufflé, eaux peu profondes
+  ════════════════════════════════════════ */
+  --bg:          #B8D1D2;
+  --bg-deep:     #88AEB0;
+  --text:        #112A2E;
+  --sub:         #3A6469;
+  --muted:       #6B8B8E;
+  --card-bg:     rgba(247, 248, 244, .72);
+  --card-border: rgba(255, 255, 255, .55);
+  --accent:      #112A2E;
+  --accent-2:    #C9663A;
+  --btn-gradient: linear-gradient(135deg, #112A2E 0%, #244E54 100%);
+  --btn-text:    #F4F1E8;
+  --glass:       rgba(17, 42, 46, .06);
+  --glass-strong:rgba(17, 42, 46, .12);
+  --glass-border: rgba(17, 42, 46, .14);
+  --shadow:      rgba(17, 42, 46, .18);
+  --shadow-soft: rgba(17, 42, 46, .08);
+  --pulse:       rgba(17, 42, 46, .22);
+
+  /* ── COULEURS MANCHE (intensifiées) ── */
+  --manche1-color: #F4C430;  /* or */
+  --manche2-color: #E07856;  /* terracotta */
+  --manche3-color: #8A6FB5;  /* améthyste */
+
+  /* ── BUZZER (jamais surchargé par un thème) ── */
+  --buzzer-top:     #FF4D4D;
+  --buzzer-bottom:  #B30000;
+  --buzzer-deep:    #650000;
+  --buzzer-glow:    rgba(220, 30, 30, .45);
+
+  /* ── OVERLAY DE FOND (vignette plateau TV) ── */
+  --radial-overlay: radial-gradient(
+    ellipse 90% 60% at 50% 0%,
+    rgba(255, 255, 255, .28) 0%,
+    transparent 65%
+  ),
+  radial-gradient(
+    ellipse 70% 55% at 50% 100%,
+    rgba(0, 0, 0, .12) 0%,
+    transparent 60%
+  );
+
+  /* ── MOTION ── */
+  --ease-spring:    cubic-bezier(.2, 0, .2, 1);
+  --ease-out:       cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out:    cubic-bezier(.65, 0, .35, 1);
+  --duration-fast:  220ms;
+  --duration-normal: 380ms;
+  --duration-slow:  600ms;
+
+  /* ── ÉLÉVATIONS ── */
+  --elevation-1: 0 1px 2px var(--shadow-soft), 0 2px 6px var(--shadow-soft);
+  --elevation-2: 0 2px 4px var(--shadow-soft), 0 8px 18px var(--shadow);
+  --elevation-3: 0 4px 8px var(--shadow-soft), 0 16px 36px var(--shadow);
+  --elevation-4: 0 8px 16px var(--shadow), 0 28px 60px var(--shadow);
+}
+
+/* ═══════════════════════════════════════════════
+   NUMÉRIQUES TABULAIRES (scores, timers, codes)
+═══════════════════════════════════════════════ */
+.tabular,
+.score-chip__value,
+.player-score,
+.podium__base,
+.duel-score,
+.timer-ring__value,
+.champ-score,
+.stat-card__value,
+.lobby-code,
+.serie-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}

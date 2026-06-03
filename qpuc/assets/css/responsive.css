@@ -1,0 +1,672 @@
+/* ═══════════════════════════════════════════════
+   RESPONSIVE.CSS — Mobile-first · Tous appareils
+   Questions pour un Champion
+
+   Ordre :
+     1.  Utilitaires classes (.hide-*, .show-*)
+     2.  Reset mobile-friendly
+     3.  Safe areas (iPhone notch / Dynamic Island)
+     4.  Touch optimisations
+     5.  Séparation hover (desktop) / active (touch)
+     6.  Animations réduites
+     7.  Retina (high-DPI)
+     8.  Tiny mobile  (< 360px)
+     9.  Mobile M     (360px → 479px) ← BASE
+    10.  Mobile L     (480px → 599px)
+    11.  Mobile paysage
+    12.  Tablet portrait   (600px → 767px)
+    13.  Tablet landscape / Shell (768px)
+    14.  Desktop           (1024px)
+    15.  Large / TV        (1400px)
+═══════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════
+   1. UTILITAIRES RESPONSIFS
+══════════════════════════════════════════════ */
+
+/* Visibilité par breakpoint */
+.hide-mobile  { display: none !important; }
+.show-mobile  { display: initial !important; }
+.hide-tablet  {}
+.hide-desktop {}
+
+@media (min-width: 600px) {
+  .hide-tablet { display: none !important; }
+  .show-tablet { display: initial !important; }
+  .hide-mobile { display: initial !important; }
+  .show-mobile { display: none !important; }
+}
+
+@media (min-width: 768px) {
+  .hide-desktop { display: none !important; }
+  .show-desktop { display: initial !important; }
+}
+
+/* Texte adaptatif */
+.text-responsive  { font-size: var(--text-base); }
+.title-responsive { font-size: var(--text-xl); }
+.num-responsive   { font-size: var(--text-giant); }
+
+/* Touch target wrapper (pour petits éléments interactifs) */
+.touch-target {
+  position: relative;
+}
+.touch-target::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+
+/* ══════════════════════════════════════════════
+   2. RESET MOBILE-FRIENDLY (global)
+══════════════════════════════════════════════ */
+
+/* Touch targets minimum 44px (WCAG 2.1 SC 2.5.5) */
+.btn-primary,
+.btn-secondary    { min-height: var(--btn-height, 44px); }
+
+.back-btn         { min-height: 44px; padding: 8px 4px; }
+
+.ans-btn          { min-height: 52px; }
+
+/* Theme dots : target 44×44 via padding */
+.theme-dot        { padding: 17px; margin: -17px; }
+
+/* Lang selector sur splash */
+.lang-opt         { padding: 8px 4px; }
+
+
+/* ══════════════════════════════════════════════
+   3. SAFE AREAS — iPhone notch / Dynamic Island / home bar
+══════════════════════════════════════════════ */
+
+.page {
+  padding-top:    max(var(--page-padding), env(safe-area-inset-top));
+  padding-bottom: max(calc(var(--page-padding) + 8px), env(safe-area-inset-bottom));
+  padding-left:   max(var(--page-padding), env(safe-area-inset-left));
+  padding-right:  max(var(--page-padding), env(safe-area-inset-right));
+}
+
+/* Sur la barre fixe du buzzer */
+.buzzer-section {
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+}
+
+
+/* ══════════════════════════════════════════════
+   4. TOUCH OPTIMISATIONS
+══════════════════════════════════════════════ */
+
+/* Scroll momentum iOS dans les zones défilantes */
+.settings-scroll,
+.content,
+.players-list,
+.scroll-wrap {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Slider plus épais = plus facile à saisir */
+.slider-track { height: 6px; }
+.slider-thumb { width: 22px; height: 22px; }
+
+
+/* ══════════════════════════════════════════════
+   5. HOVER (desktop uniquement) / ACTIVE (touch)
+      @media (hover: hover) = souris/trackpad
+      @media (hover: none)  = écran tactile
+══════════════════════════════════════════════ */
+
+/* Supprimer les effets hover sur touch */
+@media (hover: none) {
+  .btn-primary:hover,
+  .btn-secondary:hover   { transform: none; filter: none; }
+  .ans-btn:not(.ans-btn--disabled):hover { transform: none; }
+  .back-btn:hover        { transform: none; opacity: .35; }
+  .stack:hover .stack__back,
+  .stack:hover .stack__mid { opacity: 0; transform: none; }
+  .stack:hover .stack__top { transform: none; box-shadow: none; }
+  .stack:hover .card-icon  { transform: none; }
+  .settings-row:hover    { background: none; }
+  .card:hover::after     { animation: none; }
+}
+
+/* Effets hover uniquement avec pointeur fin (souris) */
+@media (hover: hover) and (pointer: fine) {
+  .ans-btn:not(.ans-btn--disabled):hover { transform: scale(1.025); }
+  .btn-primary:hover  { transform: translateY(-2px); filter: brightness(1.08); animation: none; }
+  .btn-secondary:hover { transform: translateY(-2px); filter: brightness(1.07); }
+  .back-btn:hover     { opacity: .8; transform: translateX(-2px); }
+  .stack:hover .stack__back { opacity: 1; }
+  .stack:hover .stack__mid  { opacity: 1; }
+  .stack:hover .stack__top  { transform: translateY(-10px) scale(1.04); }
+  .stack:hover .card-icon   { transform: scale(1.12) translateY(-3px); }
+  .settings-row:hover { background: rgba(255, 255, 255, .06); }
+  .card:hover::after  { animation: shimmer .65s ease forwards; }
+}
+
+/* Feedback tactile (remplace le hover) */
+@media (hover: none) {
+  .ans-btn:active  { transform: scale(.96) !important; opacity: .88; }
+  .btn-primary:active  { transform: scale(.97) !important; }
+  .btn-secondary:active { transform: scale(.97) !important; }
+  .stack:active .stack__top { transform: scale(.98) !important; }
+}
+
+
+/* ══════════════════════════════════════════════
+   6. ANIMATIONS RÉDUITES (accessibilité)
+══════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   7. RETINA / HIGH-DPI
+══════════════════════════════════════════════ */
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Bordures 1px restent fines en 0.5px */
+  .card                 { border-width: 0.5px; }
+  .player-row           { border-width: 0.5px; }
+  .ans-btn              { border-width: 1px; }
+  .settings-card        { border-width: 0.5px; }
+  .stepper__line        { height: 1px; }
+}
+
+
+/* ══════════════════════════════════════════════
+   8. TINY MOBILE : < 360px (320px — Watch/très petit)
+══════════════════════════════════════════════ */
+
+@media (max-width: 359px) {
+  :root {
+    --buzzer-size: 64px;
+    --timer-size: 52px;
+    --page-padding: 10px;
+  }
+
+  .manche-header__number   { font-size: 42px; }
+  .countdown-overlay__num  { font-size: 70px; }
+  .ans-btn .ans-text        { font-size: 10px; }
+  .ans-letter               { width: 26px; height: 26px; font-size: 10px; }
+  .stack                    { width: 160px; height: 192px; }
+  .page-title               { display: none; }     /* trop encombrant */
+  .stepper__label           { display: none; }
+  .scores-bar .score-chip   { flex: 0 0 calc(50% - 4px); }
+}
+
+
+/* ══════════════════════════════════════════════
+   9. MOBILE M : 360px → 479px (BASE — mobile-first)
+   CSS de base = ce breakpoint (pas de media query)
+══════════════════════════════════════════════ */
+
+/* Sur mobile : plein écran sans bords */
+@media (max-width: 479px) {
+  body {
+    padding: 0;
+    background: var(--bg);
+    align-items: stretch;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Manche header */
+  .manche-header__number { font-size: clamp(44px, 15vw, 60px); }
+  .manche-header__title  { font-size: clamp(15px, 4vw, 18px); }
+  .manche-header__sub    { font-size: clamp(8px, 2.2vw, 10px); }
+
+  /* Timer */
+  .timer-ring           { width: var(--timer-size); height: var(--timer-size); }
+  .timer-ring__value    { font-size: clamp(16px, 5vw, 20px); }
+
+  /* Buzzer */
+  .buzzer               { width: var(--buzzer-size); height: var(--buzzer-size); }
+  .buzzer__inner        { width: calc(var(--buzzer-size) * .75); height: calc(var(--buzzer-size) * .75); }
+  .buzzer__label        { font-size: 11px; }
+
+  /* Avatars */
+  .avatar               { width: var(--avatar-md); height: var(--avatar-md); font-size: 11px; }
+  .avatar--lg           { width: var(--avatar-lg); height: var(--avatar-lg); font-size: clamp(16px, 5vw, 22px); }
+  .avatar--sm           { width: var(--avatar-sm); height: var(--avatar-sm); font-size: 9px; }
+
+  /* Menu cards */
+  .stack { width: clamp(170px, 50vw, 200px); height: clamp(210px, 58vw, 245px); }
+  .scroll-track { padding: 40px 20px 52px; gap: 36px; }
+
+  /* Stepper */
+  .stepper__label { display: none; }
+  .stepper__dot   { width: 20px; height: 20px; font-size: 9px; }
+
+  /* Grid pseudos : 1 colonne */
+  .pseudo-grid { grid-template-columns: 1fr !important; }
+
+  /* Scores */
+  .scores-bar   { flex-wrap: wrap; gap: 6px; }
+  .score-chip   { flex: 0 0 calc(50% - 3px); min-width: 0; }
+  .score-chip__name { font-size: var(--text-xs); }
+
+  /* Réponses < 400px : colonnes si vraiment étroit */
+  @media (max-width: 399px) {
+    .answers-row { flex-direction: column; }
+    .ans-btn     { min-height: 44px; }
+  }
+
+  /* Versus layout */
+  .versus-layout {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .vs-center { justify-self: center; }
+
+  /* Podium */
+  .podium { gap: 6px; }
+  .podium__base--1 { height: 96px; }
+  .podium__base--2 { height: 70px; }
+  .podium__base--3 { height: 56px; }
+
+  /* Lobby */
+  .lobby-grid  { grid-template-columns: 1fr; }
+
+  /* Stats */
+  .stats-grid  { grid-template-columns: 1fr 1fr; }
+
+  /* Countdown */
+  .countdown-overlay__num { font-size: clamp(80px, 22vw, 108px); }
+
+  /* Settings */
+  .settings-scroll { padding: 16px 0 32px; }
+
+}
+
+
+/* ══════════════════════════════════════════════
+   10. MOBILE L : 480px → 599px
+══════════════════════════════════════════════ */
+
+@media (min-width: 480px) and (max-width: 599px) {
+  body { padding: 0; background: var(--bg); align-items: stretch; }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .stack { width: 200px; height: 245px; }
+
+  /* Pseudo grid : 2 colonnes si assez large */
+  .pseudo-grid { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ══════════════════════════════════════════════
+   11. MOBILE PAYSAGE (landscape sur téléphone)
+       max-height: 500px = portrait étroit en landscape
+══════════════════════════════════════════════ */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  :root {
+    --buzzer-size: 62px;
+    --timer-size:  52px;
+    --page-padding: 8px;
+  }
+
+  body { padding: 0; background: var(--bg); }
+
+  .page {
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+    overflow-y: auto;
+  }
+
+  /* Jeu Manche 1 : layout 2 colonnes en landscape */
+  .jeu-m1-page {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .jeu-m1-page .topbar {
+    width: 100%;
+    order: 1;
+    padding: 6px var(--page-padding);
+  }
+  .jeu-m1-page .q-section {
+    width: 55%;
+    order: 2;
+    flex: none;
+    padding: 4px var(--page-padding) 4px var(--page-padding);
+  }
+  .jeu-m1-page .answers-section {
+    width: 45%;
+    order: 3;
+    flex: none;
+    padding: 4px var(--page-padding) 4px 6px;
+    justify-content: center;
+    gap: 5px;
+  }
+  .jeu-m1-page .buzzer-section {
+    width: 50%;
+    order: 4;
+    padding: 4px 0;
+  }
+  .jeu-m1-page .scores-bar {
+    width: 50%;
+    order: 5;
+    padding: 4px var(--page-padding) 4px 6px;
+    flex-wrap: nowrap;
+  }
+
+  /* Countdown plus petit en landscape */
+  .countdown-overlay__num { font-size: 72px; }
+
+  /* Manche header compact */
+  .manche-header { gap: 4px; padding-bottom: 6px; }
+  .manche-header__number { font-size: clamp(40px, 10vh, 56px); }
+  .manche-header__sub { display: none; }
+
+  /* Menu landscape : cartes plus larges */
+  .stack { width: clamp(140px, 28vw, 180px); height: clamp(160px, 36vw, 210px); }
+  .scroll-track { padding: 30px 20px 40px; }
+
+  /* Podium paysage : horizontal */
+  .podium { min-height: 200px; }
+  .podium__base--1 { height: 80px; }
+  .podium__base--2 { height: 60px; }
+  .podium__base--3 { height: 48px; }
+
+  /* Scores en landscape : pas de wrap */
+  .scores-bar { flex-wrap: nowrap; }
+  .score-chip { flex: 1; min-width: 0; }
+}
+
+
+/* ══════════════════════════════════════════════
+   12. TABLET PORTRAIT : 600px → 767px
+══════════════════════════════════════════════ */
+
+@media (min-width: 600px) and (max-width: 767px) {
+  body {
+    padding: 0;
+    background: var(--bg);
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Podium horizontal sur tablet */
+  .podium-wrapper { align-items: flex-end; flex-direction: row; justify-content: center; }
+  .podium__base--1 { height: 132px; }
+  .podium__base--2 { height: 96px; }
+  .podium__base--3 { height: 76px; }
+
+  /* Lobby grid 2 colonnes */
+  .lobby-grid  { grid-template-columns: 1fr 1fr; }
+  .stats-grid  { grid-template-columns: 1fr 1fr; }
+
+  /* QR code visible */
+  .qr-section  { display: flex !important; }
+
+  /* Mode local : 2 colonnes */
+  .pseudo-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Stepper labels visibles */
+  .stepper__label { display: block; }
+
+  /* Menu stack plus large */
+  .stack { width: 210px; height: 255px; }
+}
+
+
+/* ══════════════════════════════════════════════
+   13. TABLET LANDSCAPE + DESKTOP : 768px+
+       Interface plein écran
+══════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+  body {
+    background: var(--bg);
+    padding: 0;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Podium horizontal */
+  .podium { grid-template-columns: 1fr 1.18fr 1fr; }
+  .podium__base--1 { height: 132px; }
+  .podium__base--2 { height: 96px; }
+  .podium__base--3 { height: 76px; }
+
+  /* Lobby */
+  .lobby-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .qr-section { display: flex !important; }
+
+  /* Mode local */
+  .pseudo-grid    { grid-template-columns: 1fr 1fr; }
+  .stepper__label { display: block; }
+
+  /* Menu */
+  .stack { width: 220px; height: 265px; }
+}
+
+
+/* ══════════════════════════════════════════════
+   14. DESKTOP : 1024px → 1399px
+══════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+  :root {
+    --buzzer-size: 96px;
+    --timer-size:  72px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+  }
+
+  .manche-header__number { font-size: clamp(64px, 8vw, 80px); }
+  .countdown-overlay__num { font-size: clamp(100px, 14vw, 130px); }
+}
+
+
+/* ══════════════════════════════════════════════
+   15. LARGE / TV : 1400px+
+       Présentation en salle — lisibilité maximale
+══════════════════════════════════════════════ */
+
+@media (min-width: 1400px) {
+  :root {
+    --buzzer-size: 120px;
+    --timer-size:  88px;
+    --page-padding: 28px;
+  }
+
+  body { padding: 0; }
+
+  .page {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+  }
+
+  /* Typographie grande TV */
+  .manche-header__number   { font-size: 100px; }
+  .manche-header__title    { font-size: 28px; }
+  .countdown-overlay__num  { font-size: 150px; }
+  .q-text                  { font-size: 20px; }
+  .ans-text                { font-size: 16px; }
+  .ans-letter              { width: 40px; height: 40px; font-size: 16px; }
+  .player-name             { font-size: 16px; }
+  .player-score            { font-size: 24px; }
+  .score-chip__value       { font-size: 18px; }
+  .streak-badge            { font-size: 14px; padding: 7px 16px; }
+  .timer-ring__value       { font-size: 26px; }
+
+  /* Stack cards TV */
+  .stack { width: 260px; height: 310px; }
+  .card-name { font-size: 22px; }
+  .card-desc { font-size: 12px; }
+
+  /* Podium TV */
+  .podium__base--1 { height: 180px; }
+  .podium__base--2 { height: 130px; }
+  .podium__base--3 { height: 100px; }
+  .avatar--lg { width: 90px; height: 90px; font-size: 26px; }
+}
+
+
+/* ══════════════════════════════════════════════
+   MODE SOMBRE SYSTÈME
+   Le thème Violet est la variante sombre naturelle.
+   Si aucun thème n'est stocké en localStorage,
+   theme.js choisit aléatoirement — on ne surcharge
+   pas ici pour respecter le choix utilisateur.
+══════════════════════════════════════════════ */
+/* (Géré par theme.js + localStorage) */
+
+
+/* ══════════════════════════════════════════════
+   VERROU PLEIN ÉCRAN
+   Dernière protection contre les anciennes coques centrées.
+══════════════════════════════════════════════ */
+html,
+body {
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--bg) !important;
+}
+
+body {
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+
+.page {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.theme-tag,
+.theme-dots {
+  display: none !important;
+}
+
+
+/* ══════════════════════════════════════════════
+   EXCEPTIONS POST-VERROU (doivent venir après le
+   bloc VERROU pour que !important prenne l'avantage)
+══════════════════════════════════════════════ */
+
+/* Jeu Manche 2 & 3 : page scrollable si contenu dépasse 100dvh sur mobile */
+@media (max-width: 599px) {
+  .jeu-m2-page,
+  .jeu-m3-page {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Jeu Manche 3 : layout duel en colonne unique sur mobile */
+@media (max-width: 599px) {
+  .duel-layout {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+  }
+  /* Joueurs en mode compact horizontal */
+  .duel-player {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px !important;
+    text-align: left;
+  }
+  .duel-player .duel-score {
+    margin-left: auto;
+    font-size: clamp(20px, 6vw, 28px);
+  }
+  .duel-player .duel-target { display: none; }
+  /* Réponses duel : 2 par ligne */
+  .duel-answers {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  /* Boutons commande */
+  .duel-btn-row { flex-wrap: wrap; }
+  .duel-btn-row > * { flex: 1 1 120px !important; }
+}
+
+
+/* ══════════════════════════════════════════════
+   PRINT (basique)
+══════════════════════════════════════════════ */
+@media print {
+  body { background: white; }
+  .page { box-shadow: none; border-radius: 0; }
+  .btn-primary, .btn-secondary, .buzzer, .theme-dots { display: none; }
+}

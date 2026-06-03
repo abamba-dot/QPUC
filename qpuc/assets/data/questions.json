@@ -1,0 +1,3002 @@
+[
+  {
+    "question": "Combien d’équipes doivent participer à la Coupe du monde masculine FIFA 2026 ?",
+    "options": [
+      "32",
+      "36",
+      "48",
+      "64"
+    ],
+    "reponseCorrecte": "48",
+    "categorie": "Sport",
+    "difficulte": "facile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-hosts-cities-dates-usa-mexico-canada",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "48",
+    "illustrationTexte": "48 — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "FIFA World Cup 2026"
+  },
+  {
+    "question": "Quels sont les trois pays hôtes de la Coupe du monde FIFA 2026 ?",
+    "options": [
+      "France, Allemagne, Espagne",
+      "Canada, Mexique, États-Unis",
+      "Maroc, Portugal, Espagne",
+      "Argentine, Uruguay, Paraguay"
+    ],
+    "reponseCorrecte": "Canada, Mexique, États-Unis",
+    "categorie": "Sport",
+    "difficulte": "facile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-hosts-cities-dates-usa-mexico-canada",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Canada, Mexique, États-Unis",
+    "illustrationTexte": "Canada, Mexique, États-Unis — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "Canada Mexico USA 2026 World Cup"
+  },
+  {
+    "question": "Quelle ville-région doit accueillir la finale de la Coupe du monde FIFA 2026 ?",
+    "options": [
+      "Los Angeles",
+      "New York New Jersey",
+      "Mexico",
+      "Toronto"
+    ],
+    "reponseCorrecte": "New York New Jersey",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-hosts-cities-dates-usa-mexico-canada",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "New York New Jersey",
+    "illustrationTexte": "New York New Jersey — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "New York New Jersey Stadium"
+  },
+  {
+    "question": "À quelle date est prévue la finale de la Coupe du monde FIFA 2026 ?",
+    "options": [
+      "19 juillet 2026",
+      "14 juin 2026",
+      "1er août 2026",
+      "30 mai 2026"
+    ],
+    "reponseCorrecte": "19 juillet 2026",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-hosts-cities-dates-usa-mexico-canada",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "19 juillet 2026",
+    "illustrationTexte": "19 juillet 2026 — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "FIFA World Cup Final 2026"
+  },
+  {
+    "question": "Combien de matches sont prévus pour la Coupe du monde FIFA 2026 ?",
+    "options": [
+      "64",
+      "80",
+      "96",
+      "104"
+    ],
+    "reponseCorrecte": "104",
+    "categorie": "Sport",
+    "difficulte": "difficile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "104",
+    "illustrationTexte": "104 — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "FIFA World Cup 2026 schedule"
+  },
+  {
+    "question": "Quelle sélection a remporté l’UEFA EURO 2024 ?",
+    "options": [
+      "Angleterre",
+      "France",
+      "Espagne",
+      "Pays-Bas"
+    ],
+    "reponseCorrecte": "Espagne",
+    "categorie": "Sport",
+    "difficulte": "facile",
+    "sourceLabel": "UEFA",
+    "sourceUrl": "https://www.uefa.com/uefaeuro/history/seasons/2024/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Espagne",
+    "illustrationTexte": "Espagne — actualité vérifiée (UEFA)",
+    "imageUrl": "",
+    "imageKeyword": "Spain Euro 2024 champions"
+  },
+  {
+    "question": "Quel était le score de la finale de l’UEFA EURO 2024 entre l’Espagne et l’Angleterre ?",
+    "options": [
+      "1-0",
+      "2-1",
+      "3-2",
+      "0-0 puis tirs au but"
+    ],
+    "reponseCorrecte": "2-1",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "UEFA",
+    "sourceUrl": "https://www.uefa.com/uefaeuro/history/seasons/2024/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "2-1",
+    "illustrationTexte": "2-1 — actualité vérifiée (UEFA)",
+    "imageUrl": "",
+    "imageKeyword": "Euro 2024 final Spain England"
+  },
+  {
+    "question": "Après l’EURO 2024, combien de titres européens masculins l’Espagne comptait-elle ?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "reponseCorrecte": "4",
+    "categorie": "Sport",
+    "difficulte": "difficile",
+    "sourceLabel": "UEFA",
+    "sourceUrl": "https://www.uefa.com/uefaeuro/history/seasons/2024/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "4",
+    "illustrationTexte": "4 — actualité vérifiée (UEFA)",
+    "imageUrl": "",
+    "imageKeyword": "Spain record fourth European Championship"
+  },
+  {
+    "question": "Quelle équipe a remporté l’AFC Asian Cup Qatar 2023, jouée en 2024 ?",
+    "options": [
+      "Japon",
+      "Corée du Sud",
+      "Qatar",
+      "Iran"
+    ],
+    "reponseCorrecte": "Qatar",
+    "categorie": "Sport",
+    "difficulte": "facile",
+    "sourceLabel": "AFC",
+    "sourceUrl": "https://www.the-afc.com/en/more/content/afc-asian-cup-2023-photos",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Qatar",
+    "illustrationTexte": "Qatar — actualité vérifiée (AFC)",
+    "imageUrl": "",
+    "imageKeyword": "Qatar AFC Asian Cup 2023"
+  },
+  {
+    "question": "Quelle équipe le Qatar a-t-il battue en finale de l’AFC Asian Cup Qatar 2023 ?",
+    "options": [
+      "Jordanie",
+      "Arabie saoudite",
+      "Australie",
+      "Ouzbékistan"
+    ],
+    "reponseCorrecte": "Jordanie",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "AFC",
+    "sourceUrl": "https://www.the-afc.com/en/more/content/afc-asian-cup-2023-photos",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Jordanie",
+    "illustrationTexte": "Jordanie — actualité vérifiée (AFC)",
+    "imageUrl": "",
+    "imageKeyword": "Qatar Jordan Asian Cup final"
+  },
+  {
+    "question": "Quelle nation a remporté l’UEFA Women's EURO 2025 ?",
+    "options": [
+      "Espagne",
+      "Angleterre",
+      "Allemagne",
+      "France"
+    ],
+    "reponseCorrecte": "Angleterre",
+    "categorie": "Sport",
+    "difficulte": "facile",
+    "sourceLabel": "UEFA",
+    "sourceUrl": "https://www.uefa.com/womenseuro/news/029b-1e56a4b43051-3ec6381b01f6-1000--england-1-1-spain-aet-3-1-pens-highlights-lionesses-win-wo/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Angleterre",
+    "illustrationTexte": "Angleterre — actualité vérifiée (UEFA)",
+    "imageUrl": "",
+    "imageKeyword": "England Women's Euro 2025"
+  },
+  {
+    "question": "La finale de l’UEFA Women's EURO 2025 a opposé l’Angleterre à quelle équipe ?",
+    "options": [
+      "Italie",
+      "Espagne",
+      "Suède",
+      "Pays-Bas"
+    ],
+    "reponseCorrecte": "Espagne",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "UEFA",
+    "sourceUrl": "https://www.uefa.com/womenseuro/news/029b-1e56a4b43051-3ec6381b01f6-1000--england-1-1-spain-aet-3-1-pens-highlights-lionesses-win-wo/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Espagne",
+    "illustrationTexte": "Espagne — actualité vérifiée (UEFA)",
+    "imageUrl": "",
+    "imageKeyword": "England Spain Women's Euro 2025 final"
+  },
+  {
+    "question": "Où s’est déroulée la cérémonie d’ouverture des Jeux olympiques de Paris 2024 ?",
+    "options": [
+      "Au Stade de France",
+      "Sur la Seine",
+      "Au Parc des Princes",
+      "À Roland-Garros"
+    ],
+    "reponseCorrecte": "Sur la Seine",
+    "categorie": "Sport",
+    "difficulte": "facile",
+    "sourceLabel": "Olympics",
+    "sourceUrl": "https://www.olympics.com/en/news/paris-2024-olympic-games-opening-ceremony-flame-cauldron",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Sur la Seine",
+    "illustrationTexte": "Sur la Seine — actualité vérifiée (Olympics)",
+    "imageUrl": "",
+    "imageKeyword": "Paris 2024 opening ceremony Seine"
+  },
+  {
+    "question": "Quel pays a terminé en tête du tableau des médailles des Jeux olympiques de Paris 2024 au total des médailles ?",
+    "options": [
+      "Chine",
+      "États-Unis",
+      "Japon",
+      "France"
+    ],
+    "reponseCorrecte": "États-Unis",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "Olympics",
+    "sourceUrl": "https://www.olympics.com/en/olympic-games/paris-2024/medals",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "États-Unis",
+    "illustrationTexte": "États-Unis — actualité vérifiée (Olympics)",
+    "imageUrl": "",
+    "imageKeyword": "Team USA Paris 2024 medals"
+  },
+  {
+    "question": "Quelle discipline urbaine a figuré au programme olympique de Paris 2024 avec des épreuves officielles ?",
+    "options": [
+      "Breaking",
+      "Padel",
+      "Parkour",
+      "E-sport"
+    ],
+    "reponseCorrecte": "Breaking",
+    "categorie": "Sport",
+    "difficulte": "moyen",
+    "sourceLabel": "Olympics",
+    "sourceUrl": "https://www.olympics.com/en/olympic-games/paris-2024/results/breaking",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Breaking",
+    "illustrationTexte": "Breaking — actualité vérifiée (Olympics)",
+    "imageUrl": "",
+    "imageKeyword": "Breaking Paris 2024 Olympics"
+  },
+  {
+    "question": "Quel nom a choisi Robert Francis Prevost après son élection comme pape en 2025 ?",
+    "options": [
+      "François II",
+      "Jean-Paul III",
+      "Léon XIV",
+      "Benoît XVII"
+    ],
+    "reponseCorrecte": "Léon XIV",
+    "categorie": "Politique et institutions",
+    "difficulte": "facile",
+    "sourceLabel": "Vatican",
+    "sourceUrl": "https://www.vatican.va/content/leo-xiv/en/biography/documents/biografia_leone-xiv.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Léon XIV",
+    "illustrationTexte": "Léon XIV — actualité vérifiée (Vatican)",
+    "imageUrl": "",
+    "imageKeyword": "Pope Leo XIV"
+  },
+  {
+    "question": "À quelle date Robert Francis Prevost a-t-il été élu pape selon le Vatican ?",
+    "options": [
+      "8 mai 2025",
+      "1er janvier 2025",
+      "14 juillet 2025",
+      "25 décembre 2025"
+    ],
+    "reponseCorrecte": "8 mai 2025",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "Vatican",
+    "sourceUrl": "https://www.vatican.va/content/leo-xiv/en/biography/documents/biografia_leone-xiv.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "8 mai 2025",
+    "illustrationTexte": "8 mai 2025 — actualité vérifiée (Vatican)",
+    "imageUrl": "",
+    "imageKeyword": "Pope Leo XIV election"
+  },
+  {
+    "question": "De quel pays le pape Léon XIV est-il le premier pape originaire ?",
+    "options": [
+      "Canada",
+      "États-Unis",
+      "Argentine",
+      "Italie"
+    ],
+    "reponseCorrecte": "États-Unis",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "Vatican",
+    "sourceUrl": "https://www.vatican.va/content/leo-xiv/en/biography/documents/biografia_leone-xiv.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "États-Unis",
+    "illustrationTexte": "États-Unis — actualité vérifiée (Vatican)",
+    "imageUrl": "",
+    "imageKeyword": "Robert Francis Prevost United States"
+  },
+  {
+    "question": "Le Vatican présente Léon XIV comme le combien-ième successeur de saint Pierre ?",
+    "options": [
+      "265e",
+      "266e",
+      "267e",
+      "268e"
+    ],
+    "reponseCorrecte": "267e",
+    "categorie": "Politique et institutions",
+    "difficulte": "difficile",
+    "sourceLabel": "Vatican",
+    "sourceUrl": "https://www.vatican.va/content/leo-xiv/en/biography/documents/biografia_leone-xiv.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "267e",
+    "illustrationTexte": "267e — actualité vérifiée (Vatican)",
+    "imageUrl": "",
+    "imageKeyword": "Pope Leo XIV 267"
+  },
+  {
+    "question": "Donald J. Trump est présenté par la Maison-Blanche comme le combien-ième président des États-Unis ?",
+    "options": [
+      "44e et 46e",
+      "45e et 47e",
+      "46e et 48e",
+      "47e seulement"
+    ],
+    "reponseCorrecte": "45e et 47e",
+    "categorie": "Politique et institutions",
+    "difficulte": "facile",
+    "sourceLabel": "White House",
+    "sourceUrl": "https://www.whitehouse.gov/administration/donald-j-trump/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "45e et 47e",
+    "illustrationTexte": "45e et 47e — actualité vérifiée (White House)",
+    "imageUrl": "",
+    "imageKeyword": "Donald Trump official portrait"
+  },
+  {
+    "question": "À quelle date Donald J. Trump a-t-il prêté serment comme 47e président des États-Unis ?",
+    "options": [
+      "20 janvier 2025",
+      "4 juillet 2025",
+      "3 novembre 2024",
+      "20 janvier 2026"
+    ],
+    "reponseCorrecte": "20 janvier 2025",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "White House",
+    "sourceUrl": "https://www.whitehouse.gov/past-events/swearing-in-ceremony-of-donald-j-trump-47th-president-of-the-united-states/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "20 janvier 2025",
+    "illustrationTexte": "20 janvier 2025 — actualité vérifiée (White House)",
+    "imageUrl": "",
+    "imageKeyword": "United States presidential inauguration 2025"
+  },
+  {
+    "question": "Qui est devenu Premier ministre du Royaume-Uni le 5 juillet 2024 ?",
+    "options": [
+      "Rishi Sunak",
+      "Boris Johnson",
+      "Keir Starmer",
+      "David Cameron"
+    ],
+    "reponseCorrecte": "Keir Starmer",
+    "categorie": "Politique et institutions",
+    "difficulte": "facile",
+    "sourceLabel": "GOV.UK",
+    "sourceUrl": "https://www.gov.uk/government/people/keir-starmer",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Keir Starmer",
+    "illustrationTexte": "Keir Starmer — actualité vérifiée (GOV.UK)",
+    "imageUrl": "",
+    "imageKeyword": "Keir Starmer"
+  },
+  {
+    "question": "Quel parti politique Keir Starmer dirigeait-il avant de devenir Premier ministre ?",
+    "options": [
+      "Conservative Party",
+      "Labour Party",
+      "Liberal Democrats",
+      "Scottish National Party"
+    ],
+    "reponseCorrecte": "Labour Party",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "GOV.UK",
+    "sourceUrl": "https://www.gov.uk/government/people/keir-starmer",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Labour Party",
+    "illustrationTexte": "Labour Party — actualité vérifiée (GOV.UK)",
+    "imageUrl": "",
+    "imageKeyword": "Labour Party UK"
+  },
+  {
+    "question": "Qui est indiqué par l’Union africaine comme président en exercice de l’Union africaine en 2026 ?",
+    "options": [
+      "João Lourenço",
+      "Paul Kagame",
+      "Cyril Ramaphosa",
+      "William Ruto"
+    ],
+    "reponseCorrecte": "João Lourenço",
+    "categorie": "Politique et institutions",
+    "difficulte": "facile",
+    "sourceLabel": "Union africaine",
+    "sourceUrl": "https://au.int/en/cpau",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "João Lourenço",
+    "illustrationTexte": "João Lourenço — actualité vérifiée (Union africaine)",
+    "imageUrl": "",
+    "imageKeyword": "Joao Lourenco African Union"
+  },
+  {
+    "question": "De quel pays João Lourenço est-il président ?",
+    "options": [
+      "Angola",
+      "Mozambique",
+      "Cap-Vert",
+      "Guinée-Bissau"
+    ],
+    "reponseCorrecte": "Angola",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "Union africaine",
+    "sourceUrl": "https://au.int/en/speeches/20260214/statement-his-excellency-joao-manuel-goncalves-lourenco-president-republic-angola",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Angola",
+    "illustrationTexte": "Angola — actualité vérifiée (Union africaine)",
+    "imageUrl": "",
+    "imageKeyword": "Angola Joao Lourenco"
+  },
+  {
+    "question": "Quand l’AI Act européen est-il entré en vigueur ?",
+    "options": [
+      "1er août 2024",
+      "1er janvier 2023",
+      "2 août 2026",
+      "12 septembre 2025"
+    ],
+    "reponseCorrecte": "1er août 2024",
+    "categorie": "Politique et institutions",
+    "difficulte": "facile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "1er août 2024",
+    "illustrationTexte": "1er août 2024 — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European AI Act"
+  },
+  {
+    "question": "Selon la Commission européenne, quand l’AI Act doit-il devenir pleinement applicable, hors exceptions ?",
+    "options": [
+      "2 août 2026",
+      "1er août 2024",
+      "12 septembre 2025",
+      "31 décembre 2027"
+    ],
+    "reponseCorrecte": "2 août 2026",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "2 août 2026",
+    "illustrationTexte": "2 août 2026 — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "EU AI Act 2026"
+  },
+  {
+    "question": "Quelle institution a créé l’European AI Office pour appuyer la gouvernance de l’IA ?",
+    "options": [
+      "Commission européenne",
+      "FIFA",
+      "OMS",
+      "Banque mondiale"
+    ],
+    "reponseCorrecte": "Commission européenne",
+    "categorie": "Politique et institutions",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Commission européenne",
+    "illustrationTexte": "Commission européenne — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European AI Office"
+  },
+  {
+    "question": "Quel règlement européen encadre les grandes plateformes qualifiées de « gatekeepers » ?",
+    "options": [
+      "Digital Markets Act",
+      "Schengen Code",
+      "Erasmus Act",
+      "Green Deal Act"
+    ],
+    "reponseCorrecte": "Digital Markets Act",
+    "categorie": "Politique et institutions",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/designated-gatekeepers-must-now-comply-all-obligations-under-digital-markets-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Digital Markets Act",
+    "illustrationTexte": "Digital Markets Act — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Digital Markets Act"
+  },
+  {
+    "question": "Quel cadre européen impose aux États membres de fournir des portefeuilles d’identité numérique ?",
+    "options": [
+      "European Digital Identity Framework",
+      "Copernicus Space Act",
+      "Digital Services Act",
+      "Data Governance Forum"
+    ],
+    "reponseCorrecte": "European Digital Identity Framework",
+    "categorie": "Politique et institutions",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/eudi-regulation",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "European Digital Identity Framework",
+    "illustrationTexte": "European Digital Identity Framework — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European Digital Identity Wallet"
+  },
+  {
+    "question": "Qui a été élu neuvième président de la Banque africaine de développement en 2025 ?",
+    "options": [
+      "Akinwumi Adesina",
+      "Sidi Ould Tah",
+      "Ngozi Okonjo-Iweala",
+      "Mo Ibrahim"
+    ],
+    "reponseCorrecte": "Sidi Ould Tah",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "facile",
+    "sourceLabel": "Banque africaine de développement",
+    "sourceUrl": "https://www.afdb.org/en/news-and-events/press-releases/sidi-ould-tah-elected-ninth-president-african-development-bank-group-84098",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Sidi Ould Tah",
+    "illustrationTexte": "Sidi Ould Tah — actualité vérifiée (Banque africaine de développement)",
+    "imageUrl": "",
+    "imageKeyword": "Sidi Ould Tah AfDB"
+  },
+  {
+    "question": "À quelle date Sidi Ould Tah a-t-il été élu président de la Banque africaine de développement ?",
+    "options": [
+      "29 mai 2025",
+      "1er septembre 2025",
+      "10 novembre 2025",
+      "14 août 2024"
+    ],
+    "reponseCorrecte": "29 mai 2025",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "moyen",
+    "sourceLabel": "Banque africaine de développement",
+    "sourceUrl": "https://www.afdb.org/en/news-and-events/press-releases/sidi-ould-tah-elected-ninth-president-african-development-bank-group-84098",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "29 mai 2025",
+    "illustrationTexte": "29 mai 2025 — actualité vérifiée (Banque africaine de développement)",
+    "imageUrl": "",
+    "imageKeyword": "African Development Bank election 2025"
+  },
+  {
+    "question": "Quand Sidi Ould Tah a-t-il officiellement pris ses fonctions à la tête de la BAD ?",
+    "options": [
+      "1er septembre 2025",
+      "29 mai 2025",
+      "1er janvier 2026",
+      "30 octobre 2025"
+    ],
+    "reponseCorrecte": "1er septembre 2025",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "moyen",
+    "sourceLabel": "Banque africaine de développement",
+    "sourceUrl": "https://www.afdb.org/en/news-and-events/press-releases/sidi-ould-tah-assumes-office-9th-president-african-development-bank-group-86473",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "1er septembre 2025",
+    "illustrationTexte": "1er septembre 2025 — actualité vérifiée (Banque africaine de développement)",
+    "imageUrl": "",
+    "imageKeyword": "AfDB president assumes office 2025"
+  },
+  {
+    "question": "De quelle nationalité est Sidi Ould Tah, élu président de la BAD ?",
+    "options": [
+      "Marocaine",
+      "Mauritanienne",
+      "Sénégalaise",
+      "Ivoirienne"
+    ],
+    "reponseCorrecte": "Mauritanienne",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "difficile",
+    "sourceLabel": "Banque africaine de développement",
+    "sourceUrl": "https://www.afdb.org/en/news-and-events/press-releases/sidi-ould-tah-elected-ninth-president-african-development-bank-group-84098",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Mauritanienne",
+    "illustrationTexte": "Mauritanienne — actualité vérifiée (Banque africaine de développement)",
+    "imageUrl": "",
+    "imageKeyword": "Mauritania Sidi Ould Tah"
+  },
+  {
+    "question": "Quelle équipe a remporté la WAFCON 2024, jouée en 2025 au Maroc ?",
+    "options": [
+      "Maroc",
+      "Nigeria",
+      "Afrique du Sud",
+      "Ghana"
+    ],
+    "reponseCorrecte": "Nigeria",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "facile",
+    "sourceLabel": "CAF",
+    "sourceUrl": "https://www.cafonline.com/caf-womens-africa-cup-of-nations/news/nigeria-produce-stunning-comeback-to-beat-morocco-and-win-10th-wafcon-title/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Nigeria",
+    "illustrationTexte": "Nigeria — actualité vérifiée (CAF)",
+    "imageUrl": "",
+    "imageKeyword": "Nigeria WAFCON 2024"
+  },
+  {
+    "question": "Quel était le score de la finale WAFCON 2024 remportée par le Nigeria contre le Maroc ?",
+    "options": [
+      "1-0",
+      "2-1",
+      "3-2",
+      "4-3"
+    ],
+    "reponseCorrecte": "3-2",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "moyen",
+    "sourceLabel": "CAF",
+    "sourceUrl": "https://www.cafonline.com/caf-womens-africa-cup-of-nations/news/nigeria-produce-stunning-comeback-to-beat-morocco-and-win-10th-wafcon-title/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "3-2",
+    "illustrationTexte": "3-2 — actualité vérifiée (CAF)",
+    "imageUrl": "",
+    "imageKeyword": "Nigeria Morocco WAFCON final"
+  },
+  {
+    "question": "Combien de titres WAFCON le Nigeria a-t-il atteints avec sa victoire de 2025 ?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "reponseCorrecte": "10",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "difficile",
+    "sourceLabel": "CAF",
+    "sourceUrl": "https://www.cafonline.com/caf-womens-africa-cup-of-nations/news/nigeria-produce-stunning-comeback-to-beat-morocco-and-win-10th-wafcon-title/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "10",
+    "illustrationTexte": "10 — actualité vérifiée (CAF)",
+    "imageUrl": "",
+    "imageKeyword": "Nigeria 10th WAFCON title"
+  },
+  {
+    "question": "La finale de la CAN masculine Morocco 2025 a opposé le Sénégal à quel pays hôte ?",
+    "options": [
+      "Égypte",
+      "Maroc",
+      "Nigeria",
+      "Côte d’Ivoire"
+    ],
+    "reponseCorrecte": "Maroc",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "facile",
+    "sourceLabel": "CAF",
+    "sourceUrl": "https://www.cafonline.com/afcon2025/news/match-stats-senegal-vs-morocco-totalenergies-caf-africa-cup-of-nations-morocco-2025-final/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Maroc",
+    "illustrationTexte": "Maroc — actualité vérifiée (CAF)",
+    "imageUrl": "",
+    "imageKeyword": "Senegal Morocco AFCON 2025 final"
+  },
+  {
+    "question": "Dans quelle ville était prévu le stade de la finale de la CAN Morocco 2025 selon la CAF ?",
+    "options": [
+      "Casablanca",
+      "Rabat",
+      "Marrakech",
+      "Agadir"
+    ],
+    "reponseCorrecte": "Rabat",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "moyen",
+    "sourceLabel": "CAF",
+    "sourceUrl": "https://www.cafonline.com/afcon2025/news/match-stats-senegal-vs-morocco-totalenergies-caf-africa-cup-of-nations-morocco-2025-final/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Rabat",
+    "illustrationTexte": "Rabat — actualité vérifiée (CAF)",
+    "imageUrl": "",
+    "imageKeyword": "Prince Moulay Abdellah Stadium Rabat"
+  },
+  {
+    "question": "Quel stade la CAF cite pour la finale de la CAN Morocco 2025 ?",
+    "options": [
+      "Stade Mohammed V",
+      "Prince Moulay Abdellah Stadium",
+      "Stade Ibn-Batouta",
+      "Stade de Marrakech"
+    ],
+    "reponseCorrecte": "Prince Moulay Abdellah Stadium",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "difficile",
+    "sourceLabel": "CAF",
+    "sourceUrl": "https://www.cafonline.com/afcon2025/news/match-stats-senegal-vs-morocco-totalenergies-caf-africa-cup-of-nations-morocco-2025-final/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Prince Moulay Abdellah Stadium",
+    "illustrationTexte": "Prince Moulay Abdellah Stadium — actualité vérifiée (CAF)",
+    "imageUrl": "",
+    "imageKeyword": "Prince Moulay Abdellah Stadium"
+  },
+  {
+    "question": "Quels pays africain et européens ont été désignés hôtes principaux du Mondial 2030 avec le Maroc ?",
+    "options": [
+      "Maroc, Portugal et Espagne",
+      "Maroc, France et Italie",
+      "Maroc, Allemagne et Belgique",
+      "Maroc, Turquie et Grèce"
+    ],
+    "reponseCorrecte": "Maroc, Portugal et Espagne",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "facile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://inside.fifa.com/tournament-organisation/world-cup-2030",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Maroc, Portugal et Espagne",
+    "illustrationTexte": "Maroc, Portugal et Espagne — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "Morocco Portugal Spain World Cup 2030"
+  },
+  {
+    "question": "Quels pays sud-américains doivent accueillir chacun un match du centenaire du Mondial 2030 ?",
+    "options": [
+      "Brésil, Chili, Pérou",
+      "Uruguay, Argentine, Paraguay",
+      "Colombie, Équateur, Bolivie",
+      "Venezuela, Guyana, Suriname"
+    ],
+    "reponseCorrecte": "Uruguay, Argentine, Paraguay",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "difficile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://inside.fifa.com/tournament-organisation/world-cup-2030",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Uruguay, Argentine, Paraguay",
+    "illustrationTexte": "Uruguay, Argentine, Paraguay — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "Uruguay Argentina Paraguay 2030 centenary matches"
+  },
+  {
+    "question": "Selon l’OMS, l’urgence mpox de 2024 concernait notamment une recrudescence dans quel pays africain ?",
+    "options": [
+      "RDC",
+      "Maroc",
+      "Égypte",
+      "Kenya"
+    ],
+    "reponseCorrecte": "RDC",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "moyen",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "RDC",
+    "illustrationTexte": "RDC — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "DR Congo mpox"
+  },
+  {
+    "question": "Quel organisme a déclaré en août 2024 que la recrudescence du mpox constituait une urgence de santé publique internationale ?",
+    "options": [
+      "OMS",
+      "FIFA",
+      "OCDE",
+      "CAF"
+    ],
+    "reponseCorrecte": "OMS",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "facile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "OMS",
+    "illustrationTexte": "OMS — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "World Health Organization mpox"
+  },
+  {
+    "question": "Quel président africain exerçait la présidence de l’Union africaine en 2026 selon l’UA ?",
+    "options": [
+      "João Lourenço",
+      "Macky Sall",
+      "Uhuru Kenyatta",
+      "Faure Gnassingbé"
+    ],
+    "reponseCorrecte": "João Lourenço",
+    "categorie": "Afrique et monde francophone",
+    "difficulte": "moyen",
+    "sourceLabel": "Union africaine",
+    "sourceUrl": "https://au.int/en/cpau",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "João Lourenço",
+    "illustrationTexte": "João Lourenço — actualité vérifiée (Union africaine)",
+    "imageUrl": "",
+    "imageKeyword": "African Union Chairperson 2026"
+  },
+  {
+    "question": "Quelle mission de la NASA a été lancée le 14 octobre 2024 vers Europe, lune de Jupiter ?",
+    "options": [
+      "Artemis II",
+      "Europa Clipper",
+      "Parker Solar Probe",
+      "Hubble II"
+    ],
+    "reponseCorrecte": "Europa Clipper",
+    "categorie": "Sciences et espace",
+    "difficulte": "facile",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://science.nasa.gov/mission/europa-clipper/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Europa Clipper",
+    "illustrationTexte": "Europa Clipper — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Europa Clipper"
+  },
+  {
+    "question": "Europa Clipper doit étudier une lune de quelle planète ?",
+    "options": [
+      "Mars",
+      "Saturne",
+      "Jupiter",
+      "Neptune"
+    ],
+    "reponseCorrecte": "Jupiter",
+    "categorie": "Sciences et espace",
+    "difficulte": "facile",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://science.nasa.gov/mission/europa-clipper/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Jupiter",
+    "illustrationTexte": "Jupiter — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Jupiter Europa moon"
+  },
+  {
+    "question": "Quel est l’objectif scientifique principal d’Europa Clipper ?",
+    "options": [
+      "Chercher des traces de dinosaures",
+      "Étudier si Europe peut abriter des conditions favorables à la vie",
+      "Construire une base lunaire",
+      "Réparer le télescope Hubble"
+    ],
+    "reponseCorrecte": "Étudier si Europe peut abriter des conditions favorables à la vie",
+    "categorie": "Sciences et espace",
+    "difficulte": "moyen",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://science.nasa.gov/mission/europa-clipper/mission-overview/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Étudier si Europe peut abriter des conditions favorables à la vie",
+    "illustrationTexte": "Étudier si Europe peut abriter des conditions favorables à la vie — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Europa Clipper habitability"
+  },
+  {
+    "question": "Combien d’instruments scientifiques NASA indique-t-elle pour Europa Clipper ?",
+    "options": [
+      "3",
+      "6",
+      "9",
+      "12"
+    ],
+    "reponseCorrecte": "9",
+    "categorie": "Sciences et espace",
+    "difficulte": "difficile",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://science.nasa.gov/mission/europa-clipper/mission-overview/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "9",
+    "illustrationTexte": "9 — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Europa Clipper instruments"
+  },
+  {
+    "question": "En quelle année Europa Clipper doit-elle arriver dans le système de Jupiter selon la NASA ?",
+    "options": [
+      "2026",
+      "2028",
+      "2030",
+      "2035"
+    ],
+    "reponseCorrecte": "2030",
+    "categorie": "Sciences et espace",
+    "difficulte": "moyen",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://science.nasa.gov/mission/europa-clipper/mission-timeline/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "2030",
+    "illustrationTexte": "2030 — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Europa Clipper Jupiter arrival 2030"
+  },
+  {
+    "question": "Quel type de mission est Artemis II dans le programme lunaire de la NASA ?",
+    "options": [
+      "Premier vol habité autour de la Lune du programme Artemis",
+      "Mission robotique vers Mars",
+      "Télescope spatial",
+      "Sonde solaire"
+    ],
+    "reponseCorrecte": "Premier vol habité autour de la Lune du programme Artemis",
+    "categorie": "Sciences et espace",
+    "difficulte": "facile",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://www.nasa.gov/mission/artemis-ii/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Premier vol habité autour de la Lune du programme Artemis",
+    "illustrationTexte": "Premier vol habité autour de la Lune du programme Artemis — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Artemis II crew"
+  },
+  {
+    "question": "Quel astronaute canadien faisait partie de l’équipage Artemis II ?",
+    "options": [
+      "Jeremy Hansen",
+      "Chris Hadfield",
+      "David Saint-Jacques",
+      "Marc Garneau"
+    ],
+    "reponseCorrecte": "Jeremy Hansen",
+    "categorie": "Sciences et espace",
+    "difficulte": "moyen",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://www.nasa.gov/mission/artemis-ii/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Jeremy Hansen",
+    "illustrationTexte": "Jeremy Hansen — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Jeremy Hansen Artemis II"
+  },
+  {
+    "question": "Quel vaisseau a transporté l’équipage d’Artemis II ?",
+    "options": [
+      "Orion",
+      "Crew Dragon",
+      "Soyouz",
+      "Starliner"
+    ],
+    "reponseCorrecte": "Orion",
+    "categorie": "Sciences et espace",
+    "difficulte": "moyen",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://www.nasa.gov/mission/artemis-ii/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Orion",
+    "illustrationTexte": "Orion — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Orion spacecraft Artemis II"
+  },
+  {
+    "question": "Selon la NASA, quand l’équipage Artemis II a-t-il amerri après son vol autour de la Lune ?",
+    "options": [
+      "10 avril 2026",
+      "14 octobre 2024",
+      "7 octobre 2024",
+      "20 janvier 2025"
+    ],
+    "reponseCorrecte": "10 avril 2026",
+    "categorie": "Sciences et espace",
+    "difficulte": "difficile",
+    "sourceLabel": "NASA",
+    "sourceUrl": "https://www.nasa.gov/gallery/return-to-earth/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "10 avril 2026",
+    "illustrationTexte": "10 avril 2026 — actualité vérifiée (NASA)",
+    "imageUrl": "",
+    "imageKeyword": "Artemis II splashdown"
+  },
+  {
+    "question": "Quelle agence spatiale mène la mission Hera ?",
+    "options": [
+      "ESA",
+      "NASA",
+      "JAXA",
+      "Roscosmos"
+    ],
+    "reponseCorrecte": "ESA",
+    "categorie": "Sciences et espace",
+    "difficulte": "facile",
+    "sourceLabel": "ESA",
+    "sourceUrl": "https://www.esa.int/Space_Safety/Hera/Hera_mission_overview",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "ESA",
+    "illustrationTexte": "ESA — actualité vérifiée (ESA)",
+    "imageUrl": "",
+    "imageKeyword": "ESA Hera mission"
+  },
+  {
+    "question": "La mission Hera doit étudier quel système d’astéroïdes ?",
+    "options": [
+      "Didymos-Dimorphos",
+      "Cérès-Vesta",
+      "Bennu-Ryugu",
+      "Pluton-Charon"
+    ],
+    "reponseCorrecte": "Didymos-Dimorphos",
+    "categorie": "Sciences et espace",
+    "difficulte": "moyen",
+    "sourceLabel": "ESA",
+    "sourceUrl": "https://www.esa.int/Space_Safety/Hera/Hera_mission_overview",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Didymos-Dimorphos",
+    "illustrationTexte": "Didymos-Dimorphos — actualité vérifiée (ESA)",
+    "imageUrl": "",
+    "imageKeyword": "Didymos Dimorphos Hera"
+  },
+  {
+    "question": "Hera s’inscrit dans le suivi de quel test de déviation d’astéroïde de la NASA ?",
+    "options": [
+      "DART",
+      "Voyager",
+      "Cassini",
+      "New Horizons"
+    ],
+    "reponseCorrecte": "DART",
+    "categorie": "Sciences et espace",
+    "difficulte": "difficile",
+    "sourceLabel": "ESA",
+    "sourceUrl": "https://www.esa.int/Space_Safety/Hera/Hera_mission_overview",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "DART",
+    "illustrationTexte": "DART — actualité vérifiée (ESA)",
+    "imageUrl": "",
+    "imageKeyword": "DART impact Dimorphos"
+  },
+  {
+    "question": "À quelle date l’ESA indique-t-elle que Hera a été lancée ?",
+    "options": [
+      "7 octobre 2024",
+      "14 octobre 2024",
+      "6 juin 2024",
+      "10 avril 2026"
+    ],
+    "reponseCorrecte": "7 octobre 2024",
+    "categorie": "Sciences et espace",
+    "difficulte": "difficile",
+    "sourceLabel": "ESA",
+    "sourceUrl": "https://www.esa.int/Space_Safety/Hera/Hera_mission_overview",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "7 octobre 2024",
+    "illustrationTexte": "7 octobre 2024 — actualité vérifiée (ESA)",
+    "imageUrl": "",
+    "imageKeyword": "Hera launch 7 October 2024"
+  },
+  {
+    "question": "Lors du quatrième test de Starship, où le booster a-t-il effectué un amerrissage contrôlé ?",
+    "options": [
+      "Golfe du Mexique",
+      "Océan Indien",
+      "Mer Méditerranée",
+      "Mer du Nord"
+    ],
+    "reponseCorrecte": "Golfe du Mexique",
+    "categorie": "Sciences et espace",
+    "difficulte": "moyen",
+    "sourceLabel": "SpaceX",
+    "sourceUrl": "https://www.spacex.com/launches/starship-flight-4",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Golfe du Mexique",
+    "illustrationTexte": "Golfe du Mexique — actualité vérifiée (SpaceX)",
+    "imageUrl": "",
+    "imageKeyword": "Starship Flight 4 Gulf of Mexico"
+  },
+  {
+    "question": "Quelle entreprise a réalisé le quatrième test en vol de Starship le 6 juin 2024 ?",
+    "options": [
+      "SpaceX",
+      "Blue Origin",
+      "Arianespace",
+      "Rocket Lab"
+    ],
+    "reponseCorrecte": "SpaceX",
+    "categorie": "Sciences et espace",
+    "difficulte": "facile",
+    "sourceLabel": "SpaceX",
+    "sourceUrl": "https://www.spacex.com/launches/starship-flight-4",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "SpaceX",
+    "illustrationTexte": "SpaceX — actualité vérifiée (SpaceX)",
+    "imageUrl": "",
+    "imageKeyword": "SpaceX Starship Flight 4"
+  },
+  {
+    "question": "Quel texte européen est présenté comme le premier cadre juridique complet sur l’IA ?",
+    "options": [
+      "AI Act",
+      "Data Act",
+      "Digital Markets Act",
+      "Schengen Act"
+    ],
+    "reponseCorrecte": "AI Act",
+    "categorie": "Technologie et numérique",
+    "difficulte": "facile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "AI Act",
+    "illustrationTexte": "AI Act — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European AI Act"
+  },
+  {
+    "question": "Quelle date marque l’entrée en vigueur de l’AI Act européen ?",
+    "options": [
+      "1er août 2024",
+      "12 septembre 2025",
+      "7 mars 2024",
+      "20 janvier 2025"
+    ],
+    "reponseCorrecte": "1er août 2024",
+    "categorie": "Technologie et numérique",
+    "difficulte": "facile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "1er août 2024",
+    "illustrationTexte": "1er août 2024 — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "AI Act enters into force"
+  },
+  {
+    "question": "Quelle catégorie d’IA l’AI Office européen doit-il particulièrement encadrer selon la Commission ?",
+    "options": [
+      "IA à usage général",
+      "Jeux vidéo uniquement",
+      "Drones agricoles uniquement",
+      "Télévisions connectées uniquement"
+    ],
+    "reponseCorrecte": "IA à usage général",
+    "categorie": "Technologie et numérique",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "IA à usage général",
+    "illustrationTexte": "IA à usage général — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "General-purpose AI"
+  },
+  {
+    "question": "Quel organisme européen a été établi pour soutenir la mise en œuvre de l’AI Act ?",
+    "options": [
+      "European AI Office",
+      "European Space Agency",
+      "European Central Bank",
+      "European Film Academy"
+    ],
+    "reponseCorrecte": "European AI Office",
+    "categorie": "Technologie et numérique",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "European AI Office",
+    "illustrationTexte": "European AI Office — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European AI Office"
+  },
+  {
+    "question": "Quel texte européen a commencé à s’appliquer le 12 septembre 2025 pour les données ?",
+    "options": [
+      "Data Act",
+      "AI Act",
+      "Digital Markets Act",
+      "Eurocode 7"
+    ],
+    "reponseCorrecte": "Data Act",
+    "categorie": "Technologie et numérique",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/data-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Data Act",
+    "illustrationTexte": "Data Act — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "EU Data Act"
+  },
+  {
+    "question": "Le Data Act vise notamment à donner aux utilisateurs le contrôle des données générées par quels objets ?",
+    "options": [
+      "Objets connectés",
+      "Livres imprimés",
+      "Billets de banque",
+      "Cartes postales"
+    ],
+    "reponseCorrecte": "Objets connectés",
+    "categorie": "Technologie et numérique",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/data-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Objets connectés",
+    "illustrationTexte": "Objets connectés — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Connected devices data"
+  },
+  {
+    "question": "Sous quel règlement européen Apple, Alphabet, Meta, Amazon, Microsoft et ByteDance ont-ils dû respecter des obligations de gatekeepers en 2024 ?",
+    "options": [
+      "Digital Markets Act",
+      "AI Act",
+      "Data Act",
+      "Erasmus Regulation"
+    ],
+    "reponseCorrecte": "Digital Markets Act",
+    "categorie": "Technologie et numérique",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/designated-gatekeepers-must-now-comply-all-obligations-under-digital-markets-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Digital Markets Act",
+    "illustrationTexte": "Digital Markets Act — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Digital Markets Act gatekeepers"
+  },
+  {
+    "question": "Selon la Commission européenne, quelles entreprises ont été trouvées en infraction au DMA en avril 2025 ?",
+    "options": [
+      "Apple et Meta",
+      "Sony et Nintendo",
+      "Tesla et BYD",
+      "Samsung et LG"
+    ],
+    "reponseCorrecte": "Apple et Meta",
+    "categorie": "Technologie et numérique",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-finds-apple-and-meta-breach-digital-markets-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Apple et Meta",
+    "illustrationTexte": "Apple et Meta — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Apple Meta DMA breach"
+  },
+  {
+    "question": "Quel règlement européen concerne les services numériques et la sécurité en ligne ?",
+    "options": [
+      "Digital Services Act",
+      "AI Act",
+      "Data Act",
+      "Common Agricultural Policy"
+    ],
+    "reponseCorrecte": "Digital Services Act",
+    "categorie": "Technologie et numérique",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/digital-services-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Digital Services Act",
+    "illustrationTexte": "Digital Services Act — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Digital Services Act"
+  },
+  {
+    "question": "Le Digital Services Act vise principalement à rendre quel espace plus sûr ?",
+    "options": [
+      "L’espace numérique",
+      "L’espace aérien",
+      "L’espace maritime",
+      "L’espace scolaire"
+    ],
+    "reponseCorrecte": "L’espace numérique",
+    "categorie": "Technologie et numérique",
+    "difficulte": "facile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/digital-services-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "L’espace numérique",
+    "illustrationTexte": "L’espace numérique — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Digital Services Act online safety"
+  },
+  {
+    "question": "Quel outil numérique l’UE veut fournir aux citoyens via son cadre d’identité numérique ?",
+    "options": [
+      "Portefeuille européen d’identité numérique",
+      "Passeport papier unique",
+      "Cryptomonnaie obligatoire",
+      "Carte SIM européenne"
+    ],
+    "reponseCorrecte": "Portefeuille européen d’identité numérique",
+    "categorie": "Technologie et numérique",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/eudi-regulation",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Portefeuille européen d’identité numérique",
+    "illustrationTexte": "Portefeuille européen d’identité numérique — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European Digital Identity Wallet"
+  },
+  {
+    "question": "D’ici quand les États membres doivent-ils fournir des wallets d’identité numérique selon la Commission ?",
+    "options": [
+      "Fin 2026",
+      "Fin 2024",
+      "Fin 2030",
+      "Fin 2025"
+    ],
+    "reponseCorrecte": "Fin 2026",
+    "categorie": "Technologie et numérique",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/eudi-regulation",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Fin 2026",
+    "illustrationTexte": "Fin 2026 — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "EU Digital Identity Wallet 2026"
+  },
+  {
+    "question": "Dans quel domaine l’AI Office doit-il donner de la sécurité juridique aux entreprises ?",
+    "options": [
+      "Intelligence artificielle",
+      "Transport ferroviaire",
+      "Agriculture biologique",
+      "Cinéma"
+    ],
+    "reponseCorrecte": "Intelligence artificielle",
+    "categorie": "Technologie et numérique",
+    "difficulte": "facile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/ai-office",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Intelligence artificielle",
+    "illustrationTexte": "Intelligence artificielle — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "AI governance Europe"
+  },
+  {
+    "question": "Quel texte européen clarifie qui peut utiliser certaines données et dans quelles conditions ?",
+    "options": [
+      "Data Act",
+      "Eurovision Rules",
+      "Olympic Charter",
+      "Nobel Statutes"
+    ],
+    "reponseCorrecte": "Data Act",
+    "categorie": "Technologie et numérique",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/data-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Data Act",
+    "illustrationTexte": "Data Act — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "Data Act data use conditions"
+  },
+  {
+    "question": "Quelle approche de l’AI Act européen domine son fonctionnement ?",
+    "options": [
+      "Approche par les risques",
+      "Interdiction totale de l’IA",
+      "Régulation uniquement des jeux",
+      "Règles sans sanctions"
+    ],
+    "reponseCorrecte": "Approche par les risques",
+    "categorie": "Technologie et numérique",
+    "difficulte": "difficile",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Approche par les risques",
+    "illustrationTexte": "Approche par les risques — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "AI Act risk-based approach"
+  },
+  {
+    "question": "Dans quelle ville brésilienne s’est tenue la COP30 ?",
+    "options": [
+      "Rio de Janeiro",
+      "Belém",
+      "São Paulo",
+      "Brasília"
+    ],
+    "reponseCorrecte": "Belém",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Belém",
+    "illustrationTexte": "Belém — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "Belem Brazil COP30"
+  },
+  {
+    "question": "Quel pays a accueilli la COP30 en 2025 ?",
+    "options": [
+      "Brésil",
+      "France",
+      "Égypte",
+      "Émirats arabes unis"
+    ],
+    "reponseCorrecte": "Brésil",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Brésil",
+    "illustrationTexte": "Brésil — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "Brazil COP30"
+  },
+  {
+    "question": "Quelles étaient les dates officielles de la COP30 selon l’UNFCCC ?",
+    "options": [
+      "10 au 21 novembre 2025",
+      "1er au 12 décembre 2024",
+      "5 au 16 juin 2026",
+      "20 au 31 octobre 2025"
+    ],
+    "reponseCorrecte": "10 au 21 novembre 2025",
+    "categorie": "Environnement et santé",
+    "difficulte": "moyen",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/ifp",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "10 au 21 novembre 2025",
+    "illustrationTexte": "10 au 21 novembre 2025 — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "COP30 dates"
+  },
+  {
+    "question": "Dans quel centre de convention la COP30 s’est-elle tenue à Belém ?",
+    "options": [
+      "Hangar Convention and Fair Centre of the Amazon",
+      "Palais des Nations",
+      "ExCeL London",
+      "Messe Berlin"
+    ],
+    "reponseCorrecte": "Hangar Convention and Fair Centre of the Amazon",
+    "categorie": "Environnement et santé",
+    "difficulte": "difficile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/ifp",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Hangar Convention and Fair Centre of the Amazon",
+    "illustrationTexte": "Hangar Convention and Fair Centre of the Amazon — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "Hangar Convention Fair Centre Amazon"
+  },
+  {
+    "question": "Quel organisme organise officiellement les conférences climat de l’ONU comme la COP30 ?",
+    "options": [
+      "UNFCCC",
+      "FIFA",
+      "OCDE",
+      "UEFA"
+    ],
+    "reponseCorrecte": "UNFCCC",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "UNFCCC",
+    "illustrationTexte": "UNFCCC — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "UNFCCC"
+  },
+  {
+    "question": "Quel virus a été déclaré urgence de santé publique internationale par l’OMS le 14 août 2024 ?",
+    "options": [
+      "Mpox",
+      "Rougeole",
+      "Grippe saisonnière",
+      "Zika"
+    ],
+    "reponseCorrecte": "Mpox",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Mpox",
+    "illustrationTexte": "Mpox — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "Mpox WHO emergency"
+  },
+  {
+    "question": "Selon l’OMS, le mpox est une maladie causée par quel type de virus ?",
+    "options": [
+      "Orthopoxvirus",
+      "Coronavirus",
+      "Rhinovirus",
+      "Rétrovirus"
+    ],
+    "reponseCorrecte": "Orthopoxvirus",
+    "categorie": "Environnement et santé",
+    "difficulte": "difficile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Orthopoxvirus",
+    "illustrationTexte": "Orthopoxvirus — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "Orthopoxvirus mpox"
+  },
+  {
+    "question": "Quel pays africain était au cœur de la recrudescence du mpox mentionnée par l’OMS en 2024 ?",
+    "options": [
+      "RDC",
+      "Tunisie",
+      "Ghana",
+      "Sénégal"
+    ],
+    "reponseCorrecte": "RDC",
+    "categorie": "Environnement et santé",
+    "difficulte": "moyen",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "RDC",
+    "illustrationTexte": "RDC — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "DRC mpox outbreak"
+  },
+  {
+    "question": "À quelle date l’OMS a-t-elle déterminé que l’urgence mpox 2024 ne constituait plus une PHEIC ?",
+    "options": [
+      "5 septembre 2025",
+      "14 août 2024",
+      "10 novembre 2025",
+      "1er août 2024"
+    ],
+    "reponseCorrecte": "5 septembre 2025",
+    "categorie": "Environnement et santé",
+    "difficulte": "difficile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/30-10-2025-fifth-meeting-of-the-international-health-regulations-%282005%29-emergency-committee-regarding-the-upsurge-of-mpox-2024",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "5 septembre 2025",
+    "illustrationTexte": "5 septembre 2025 — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "WHO mpox no longer PHEIC"
+  },
+  {
+    "question": "Quel terme anglais abrège une « urgence de santé publique de portée internationale » ?",
+    "options": [
+      "PHEIC",
+      "COP",
+      "GDP",
+      "VAR"
+    ],
+    "reponseCorrecte": "PHEIC",
+    "categorie": "Environnement et santé",
+    "difficulte": "difficile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/14-08-2024-who-director-general-declares-mpox-outbreak-a-public-health-emergency-of-international-concern",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "PHEIC",
+    "illustrationTexte": "PHEIC — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "PHEIC WHO"
+  },
+  {
+    "question": "À la COP30, quel sujet l’UNFCCC décrit-il comme un forum multilatéral de décision ?",
+    "options": [
+      "Changement climatique",
+      "Football mondial",
+      "Cinéma européen",
+      "Marchés boursiers"
+    ],
+    "reponseCorrecte": "Changement climatique",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Changement climatique",
+    "illustrationTexte": "Changement climatique — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "Climate change conference"
+  },
+  {
+    "question": "La COP30 s’est tenue dans quelle région naturelle du Brésil ?",
+    "options": [
+      "Amazonie",
+      "Pantanal",
+      "Caatinga",
+      "Pampa"
+    ],
+    "reponseCorrecte": "Amazonie",
+    "categorie": "Environnement et santé",
+    "difficulte": "moyen",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/ifp",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Amazonie",
+    "illustrationTexte": "Amazonie — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "Amazon Belem COP30"
+  },
+  {
+    "question": "Quelle organisation a annoncé l’arrêt du statut PHEIC pour le mpox en septembre 2025 ?",
+    "options": [
+      "OMS",
+      "FMI",
+      "CAF",
+      "FIFA"
+    ],
+    "reponseCorrecte": "OMS",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/30-10-2025-fifth-meeting-of-the-international-health-regulations-%282005%29-emergency-committee-regarding-the-upsurge-of-mpox-2024",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "OMS",
+    "illustrationTexte": "OMS — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "WHO ending mpox PHEIC"
+  },
+  {
+    "question": "Quel est le thème principal d’une COP climat ?",
+    "options": [
+      "La coordination internationale sur le climat",
+      "Les tirages de football",
+      "Les prix Nobel",
+      "Les Oscars"
+    ],
+    "reponseCorrecte": "La coordination internationale sur le climat",
+    "categorie": "Environnement et santé",
+    "difficulte": "facile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "La coordination internationale sur le climat",
+    "illustrationTexte": "La coordination internationale sur le climat — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "UN climate conference"
+  },
+  {
+    "question": "Selon l’UNFCCC, les COP rassemblent presque combien de pays autour du climat ?",
+    "options": [
+      "Presque tous les pays de la Terre",
+      "Seulement les pays européens",
+      "Seulement 20 pays",
+      "Seulement les pays du G7"
+    ],
+    "reponseCorrecte": "Presque tous les pays de la Terre",
+    "categorie": "Environnement et santé",
+    "difficulte": "difficile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Presque tous les pays de la Terre",
+    "illustrationTexte": "Presque tous les pays de la Terre — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "COP multilateral decision forum"
+  },
+  {
+    "question": "Selon le FMI, quelle croissance mondiale est projetée pour 2026 dans le WEO d’avril 2026 ?",
+    "options": [
+      "2,1 %",
+      "3,1 %",
+      "4,1 %",
+      "5,1 %"
+    ],
+    "reponseCorrecte": "3,1 %",
+    "categorie": "Économie et développement",
+    "difficulte": "moyen",
+    "sourceLabel": "FMI",
+    "sourceUrl": "https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "3,1 %",
+    "illustrationTexte": "3,1 % — actualité vérifiée (FMI)",
+    "imageUrl": "",
+    "imageKeyword": "IMF World Economic Outlook 2026"
+  },
+  {
+    "question": "Selon le FMI, quelle croissance mondiale est projetée pour 2027 dans le WEO d’avril 2026 ?",
+    "options": [
+      "2,2 %",
+      "3,2 %",
+      "4,2 %",
+      "5,2 %"
+    ],
+    "reponseCorrecte": "3,2 %",
+    "categorie": "Économie et développement",
+    "difficulte": "difficile",
+    "sourceLabel": "FMI",
+    "sourceUrl": "https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "3,2 %",
+    "illustrationTexte": "3,2 % — actualité vérifiée (FMI)",
+    "imageUrl": "",
+    "imageKeyword": "IMF global growth 2027"
+  },
+  {
+    "question": "Quel conflit le FMI mentionne-t-il comme assombrissant les perspectives économiques mondiales dans son WEO d’avril 2026 ?",
+    "options": [
+      "Guerre au Moyen-Orient",
+      "Guerre de Sécession",
+      "Guerre des Malouines",
+      "Guerre de Corée"
+    ],
+    "reponseCorrecte": "Guerre au Moyen-Orient",
+    "categorie": "Économie et développement",
+    "difficulte": "moyen",
+    "sourceLabel": "FMI",
+    "sourceUrl": "https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Guerre au Moyen-Orient",
+    "illustrationTexte": "Guerre au Moyen-Orient — actualité vérifiée (FMI)",
+    "imageUrl": "",
+    "imageKeyword": "IMF Middle East conflict"
+  },
+  {
+    "question": "Selon le FMI, l’inflation mondiale globale devait-elle augmenter modestement en 2026 avant de redescendre en 2027 ?",
+    "options": [
+      "Oui",
+      "Non",
+      "Elle devait disparaître",
+      "Elle devait être interdite"
+    ],
+    "reponseCorrecte": "Oui",
+    "categorie": "Économie et développement",
+    "difficulte": "difficile",
+    "sourceLabel": "FMI",
+    "sourceUrl": "https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Oui",
+    "illustrationTexte": "Oui — actualité vérifiée (FMI)",
+    "imageUrl": "",
+    "imageKeyword": "Global headline inflation IMF"
+  },
+  {
+    "question": "Selon l’OCDE en mars 2026, la croissance du PIB mondial était projetée à combien en 2026 ?",
+    "options": [
+      "1,9 %",
+      "2,9 %",
+      "3,9 %",
+      "4,9 %"
+    ],
+    "reponseCorrecte": "2,9 %",
+    "categorie": "Économie et développement",
+    "difficulte": "moyen",
+    "sourceLabel": "OCDE",
+    "sourceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2026_d4623013-en.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "2,9 %",
+    "illustrationTexte": "2,9 % — actualité vérifiée (OCDE)",
+    "imageUrl": "",
+    "imageKeyword": "OECD global GDP growth 2026"
+  },
+  {
+    "question": "Selon l’OCDE en mars 2026, la croissance mondiale devait atteindre combien en 2027 ?",
+    "options": [
+      "3,0 %",
+      "4,0 %",
+      "2,0 %",
+      "5,0 %"
+    ],
+    "reponseCorrecte": "3,0 %",
+    "categorie": "Économie et développement",
+    "difficulte": "difficile",
+    "sourceLabel": "OCDE",
+    "sourceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2026_d4623013-en.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "3,0 %",
+    "illustrationTexte": "3,0 % — actualité vérifiée (OCDE)",
+    "imageUrl": "",
+    "imageKeyword": "OECD global growth 2027"
+  },
+  {
+    "question": "Quel organisme a publié le Global Trade Outlook and Statistics de mars 2026 ?",
+    "options": [
+      "OMC",
+      "FIFA",
+      "OMS",
+      "UNESCO"
+    ],
+    "reponseCorrecte": "OMC",
+    "categorie": "Économie et développement",
+    "difficulte": "facile",
+    "sourceLabel": "OMC",
+    "sourceUrl": "https://www.wto.org/english/res_e/booksp_e/gtos0326_e.pdf",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "OMC",
+    "illustrationTexte": "OMC — actualité vérifiée (OMC)",
+    "imageUrl": "",
+    "imageKeyword": "World Trade Organization trade outlook"
+  },
+  {
+    "question": "Selon l’OMC, quel secteur lié à l’IA a contribué à soutenir les prévisions de commerce ?",
+    "options": [
+      "Commerce lié à l’IA",
+      "Commerce des cartes postales",
+      "Commerce des dinosaures",
+      "Commerce des timbres uniquement"
+    ],
+    "reponseCorrecte": "Commerce lié à l’IA",
+    "categorie": "Économie et développement",
+    "difficulte": "difficile",
+    "sourceLabel": "OMC",
+    "sourceUrl": "https://www.wto.org/english/res_e/booksp_e/gtos0326_e.pdf",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Commerce lié à l’IA",
+    "illustrationTexte": "Commerce lié à l’IA — actualité vérifiée (OMC)",
+    "imageUrl": "",
+    "imageKeyword": "AI related trade WTO"
+  },
+  {
+    "question": "Selon la Banque mondiale en janvier 2026, la croissance mondiale était projetée à combien pour 2026 ?",
+    "options": [
+      "2,6 %",
+      "3,6 %",
+      "4,6 %",
+      "1,6 %"
+    ],
+    "reponseCorrecte": "2,6 %",
+    "categorie": "Économie et développement",
+    "difficulte": "moyen",
+    "sourceLabel": "Banque mondiale",
+    "sourceUrl": "https://www.worldbank.org/en/news/press-release/2026/01/13/global-economic-prospects-january-2026-press-release",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "2,6 %",
+    "illustrationTexte": "2,6 % — actualité vérifiée (Banque mondiale)",
+    "imageUrl": "",
+    "imageKeyword": "World Bank Global Economic Prospects 2026"
+  },
+  {
+    "question": "Selon la Banque mondiale en janvier 2026, la croissance mondiale était projetée à combien pour 2027 ?",
+    "options": [
+      "2,7 %",
+      "3,7 %",
+      "1,7 %",
+      "4,7 %"
+    ],
+    "reponseCorrecte": "2,7 %",
+    "categorie": "Économie et développement",
+    "difficulte": "difficile",
+    "sourceLabel": "Banque mondiale",
+    "sourceUrl": "https://www.worldbank.org/en/news/press-release/2026/01/13/global-economic-prospects-january-2026-press-release",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "2,7 %",
+    "illustrationTexte": "2,7 % — actualité vérifiée (Banque mondiale)",
+    "imageUrl": "",
+    "imageKeyword": "World Bank growth 2027"
+  },
+  {
+    "question": "Quel organisme parle dans son WEO de surveillance économique mondiale ?",
+    "options": [
+      "FMI",
+      "CAF",
+      "UEFA",
+      "Festival de Cannes"
+    ],
+    "reponseCorrecte": "FMI",
+    "categorie": "Économie et développement",
+    "difficulte": "facile",
+    "sourceLabel": "FMI",
+    "sourceUrl": "https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "FMI",
+    "illustrationTexte": "FMI — actualité vérifiée (FMI)",
+    "imageUrl": "",
+    "imageKeyword": "International Monetary Fund"
+  },
+  {
+    "question": "Quel organisme international publie l’Economic Outlook utilisé pour analyser les tendances économiques à court terme ?",
+    "options": [
+      "OCDE",
+      "NASA",
+      "Vatican",
+      "Eurovision"
+    ],
+    "reponseCorrecte": "OCDE",
+    "categorie": "Économie et développement",
+    "difficulte": "facile",
+    "sourceLabel": "OCDE",
+    "sourceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2026_d4623013-en.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "OCDE",
+    "illustrationTexte": "OCDE — actualité vérifiée (OCDE)",
+    "imageUrl": "",
+    "imageKeyword": "OECD Economic Outlook"
+  },
+  {
+    "question": "Quel organisme international s’occupe principalement des règles du commerce mondial ?",
+    "options": [
+      "OMC",
+      "OMS",
+      "FMI",
+      "CIO"
+    ],
+    "reponseCorrecte": "OMC",
+    "categorie": "Économie et développement",
+    "difficulte": "facile",
+    "sourceLabel": "OMC",
+    "sourceUrl": "https://www.wto.org/english/res_e/booksp_e/gtos0326_e.pdf",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "OMC",
+    "illustrationTexte": "OMC — actualité vérifiée (OMC)",
+    "imageUrl": "",
+    "imageKeyword": "WTO trade"
+  },
+  {
+    "question": "Le rapport Global Economic Prospects est associé à quelle institution ?",
+    "options": [
+      "Banque mondiale",
+      "Banque centrale européenne",
+      "CAF",
+      "NASA"
+    ],
+    "reponseCorrecte": "Banque mondiale",
+    "categorie": "Économie et développement",
+    "difficulte": "facile",
+    "sourceLabel": "Banque mondiale",
+    "sourceUrl": "https://www.worldbank.org/en/news/press-release/2026/01/13/global-economic-prospects-january-2026-press-release",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Banque mondiale",
+    "illustrationTexte": "Banque mondiale — actualité vérifiée (Banque mondiale)",
+    "imageUrl": "",
+    "imageKeyword": "World Bank Global Economic Prospects"
+  },
+  {
+    "question": "Selon la Banque mondiale, la croissance mondiale de 2026 devait rester globalement comment malgré les tensions commerciales ?",
+    "options": [
+      "Globalement stable",
+      "Nulle",
+      "Entièrement négative",
+      "Impossible à mesurer"
+    ],
+    "reponseCorrecte": "Globalement stable",
+    "categorie": "Économie et développement",
+    "difficulte": "moyen",
+    "sourceLabel": "Banque mondiale",
+    "sourceUrl": "https://www.worldbank.org/en/news/press-release/2026/01/13/global-economic-prospects-january-2026-press-release",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Globalement stable",
+    "illustrationTexte": "Globalement stable — actualité vérifiée (Banque mondiale)",
+    "imageUrl": "",
+    "imageKeyword": "Global economy resilience World Bank"
+  },
+  {
+    "question": "Quel film a remporté l’Oscar du meilleur film lors de la 98e cérémonie des Oscars en 2026 ?",
+    "options": [
+      "Anora",
+      "One Battle after Another",
+      "Dune: Part Two",
+      "Zootopia 2"
+    ],
+    "reponseCorrecte": "One Battle after Another",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Academy Awards",
+    "sourceUrl": "https://www.oscars.org/oscars/ceremonies/2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "One Battle after Another",
+    "illustrationTexte": "One Battle after Another — actualité vérifiée (Academy Awards)",
+    "imageUrl": "",
+    "imageKeyword": "One Battle after Another Oscars 2026"
+  },
+  {
+    "question": "Quelle cérémonie des Oscars s’est tenue le 15 mars 2026 ?",
+    "options": [
+      "96e",
+      "97e",
+      "98e",
+      "99e"
+    ],
+    "reponseCorrecte": "98e",
+    "categorie": "Culture et médias",
+    "difficulte": "moyen",
+    "sourceLabel": "Academy Awards",
+    "sourceUrl": "https://www.oscars.org/oscars/ceremonies/2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "98e",
+    "illustrationTexte": "98e — actualité vérifiée (Academy Awards)",
+    "imageUrl": "",
+    "imageKeyword": "98th Academy Awards 2026"
+  },
+  {
+    "question": "Quel film a remporté l’Oscar du meilleur film lors de la 97e cérémonie en 2025 ?",
+    "options": [
+      "Anora",
+      "The Brutalist",
+      "Emilia Pérez",
+      "Conclave"
+    ],
+    "reponseCorrecte": "Anora",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Academy Awards",
+    "sourceUrl": "https://www.oscars.org/oscars/ceremonies/2025",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Anora",
+    "illustrationTexte": "Anora — actualité vérifiée (Academy Awards)",
+    "imageUrl": "",
+    "imageKeyword": "Anora Best Picture 2025"
+  },
+  {
+    "question": "Quel film a reçu la Palme d’or du Festival de Cannes 2026 ?",
+    "options": [
+      "Fjord",
+      "Un simple accident",
+      "Minotaure",
+      "La Bola Negra"
+    ],
+    "reponseCorrecte": "Fjord",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-79th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Fjord",
+    "illustrationTexte": "Fjord — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Fjord Palme d'Or Cannes 2026"
+  },
+  {
+    "question": "Qui a réalisé le film Fjord, Palme d’or 2026 selon Cannes ?",
+    "options": [
+      "Cristian Mungiu",
+      "Jafar Panahi",
+      "Park Chan-wook",
+      "Pedro Almodóvar"
+    ],
+    "reponseCorrecte": "Cristian Mungiu",
+    "categorie": "Culture et médias",
+    "difficulte": "moyen",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-79th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Cristian Mungiu",
+    "illustrationTexte": "Cristian Mungiu — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Cristian Mungiu Fjord"
+  },
+  {
+    "question": "Quel film a remporté la Palme d’or du Festival de Cannes 2025 ?",
+    "options": [
+      "Un simple accident",
+      "Fjord",
+      "Anora",
+      "Minotaure"
+    ],
+    "reponseCorrecte": "Un simple accident",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-78th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Un simple accident",
+    "illustrationTexte": "Un simple accident — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Un simple accident Jafar Panahi"
+  },
+  {
+    "question": "Qui a réalisé Un simple accident, Palme d’or 2025 ?",
+    "options": [
+      "Jafar Panahi",
+      "Cristian Mungiu",
+      "Christopher Nolan",
+      "Sean Baker"
+    ],
+    "reponseCorrecte": "Jafar Panahi",
+    "categorie": "Culture et médias",
+    "difficulte": "moyen",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-78th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Jafar Panahi",
+    "illustrationTexte": "Jafar Panahi — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Jafar Panahi Cannes 2025"
+  },
+  {
+    "question": "Quel artiste a remporté l’Album of the Year aux Grammy Awards 2026 selon la Recording Academy ?",
+    "options": [
+      "Bad Bunny",
+      "Beyoncé",
+      "Kendrick Lamar",
+      "Taylor Swift"
+    ],
+    "reponseCorrecte": "Bad Bunny",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Recording Academy",
+    "sourceUrl": "https://grammy.com/awards/68th-annual-grammy-awards-2025",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Bad Bunny",
+    "illustrationTexte": "Bad Bunny — actualité vérifiée (Recording Academy)",
+    "imageUrl": "",
+    "imageKeyword": "Bad Bunny Grammy 2026"
+  },
+  {
+    "question": "Quel album de Bad Bunny a remporté l’Album of the Year aux Grammy Awards 2026 ?",
+    "options": [
+      "DeBÍ TiRAR MáS FOToS",
+      "Cowboy Carter",
+      "Luther",
+      "Midnights"
+    ],
+    "reponseCorrecte": "DeBÍ TiRAR MáS FOToS",
+    "categorie": "Culture et médias",
+    "difficulte": "moyen",
+    "sourceLabel": "Recording Academy",
+    "sourceUrl": "https://www.grammy.com/award/album-of-the-year/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "DeBÍ TiRAR MáS FOToS",
+    "illustrationTexte": "DeBÍ TiRAR MáS FOToS — actualité vérifiée (Recording Academy)",
+    "imageUrl": "",
+    "imageKeyword": "DeBI TiRAR MAS FOToS Bad Bunny"
+  },
+  {
+    "question": "Quelle artiste a remporté l’Album of the Year aux Grammy Awards 2025 avec Cowboy Carter ?",
+    "options": [
+      "Beyoncé",
+      "Adele",
+      "Billie Eilish",
+      "SZA"
+    ],
+    "reponseCorrecte": "Beyoncé",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Recording Academy",
+    "sourceUrl": "https://grammy.com/news/2025-grammys-nominations-full-winners-nominees-list",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Beyoncé",
+    "illustrationTexte": "Beyoncé — actualité vérifiée (Recording Academy)",
+    "imageUrl": "",
+    "imageKeyword": "Beyonce Cowboy Carter Grammys"
+  },
+  {
+    "question": "Quelle chanson a remporté le Record of the Year aux Grammy Awards 2026 selon la page des lauréats ?",
+    "options": [
+      "luther",
+      "Not Like Us",
+      "Texas Hold 'Em",
+      "Flowers"
+    ],
+    "reponseCorrecte": "luther",
+    "categorie": "Culture et médias",
+    "difficulte": "difficile",
+    "sourceLabel": "Recording Academy",
+    "sourceUrl": "https://grammy.com/awards/68th-annual-grammy-awards-2025",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "luther",
+    "illustrationTexte": "luther — actualité vérifiée (Recording Academy)",
+    "imageUrl": "",
+    "imageKeyword": "Kendrick Lamar SZA luther Grammy"
+  },
+  {
+    "question": "Quel pays a gagné l’Eurovision 2026 selon le site officiel consulté ?",
+    "options": [
+      "Bulgarie",
+      "Suède",
+      "Suisse",
+      "France"
+    ],
+    "reponseCorrecte": "Bulgarie",
+    "categorie": "Culture et médias",
+    "difficulte": "facile",
+    "sourceLabel": "Eurovision",
+    "sourceUrl": "https://eurovision.tv/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Bulgarie",
+    "illustrationTexte": "Bulgarie — actualité vérifiée (Eurovision)",
+    "imageUrl": "",
+    "imageKeyword": "Bulgaria Eurovision 2026"
+  },
+  {
+    "question": "Quel artiste est affiché comme gagnant de l’Eurovision 2026 sur le site officiel consulté ?",
+    "options": [
+      "DARA",
+      "Loreen",
+      "Nemo",
+      "Slimane"
+    ],
+    "reponseCorrecte": "DARA",
+    "categorie": "Culture et médias",
+    "difficulte": "moyen",
+    "sourceLabel": "Eurovision",
+    "sourceUrl": "https://eurovision.tv/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "DARA",
+    "illustrationTexte": "DARA — actualité vérifiée (Eurovision)",
+    "imageUrl": "",
+    "imageKeyword": "DARA Eurovision 2026"
+  },
+  {
+    "question": "Dans quelle ville était organisée l’édition Eurovision 2026 selon le site officiel consulté ?",
+    "options": [
+      "Vienna",
+      "Malmö",
+      "Liverpool",
+      "Bâle"
+    ],
+    "reponseCorrecte": "Vienna",
+    "categorie": "Culture et médias",
+    "difficulte": "moyen",
+    "sourceLabel": "Eurovision",
+    "sourceUrl": "https://eurovision.tv/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Vienna",
+    "illustrationTexte": "Vienna — actualité vérifiée (Eurovision)",
+    "imageUrl": "",
+    "imageKeyword": "Vienna Eurovision 2026"
+  },
+  {
+    "question": "Quel Grand Prix du Festival de Cannes 2026 est cité dans la liste officielle ?",
+    "options": [
+      "Minotaure",
+      "Fjord",
+      "Anora",
+      "Cowboy Carter"
+    ],
+    "reponseCorrecte": "Minotaure",
+    "categorie": "Culture et médias",
+    "difficulte": "difficile",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-79th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Minotaure",
+    "illustrationTexte": "Minotaure — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Minotaure Cannes 2026 Grand Prix"
+  },
+  {
+    "question": "Qui figure parmi les lauréats du prix Nobel de physique 2025 ?",
+    "options": [
+      "John Clarke",
+      "Albert Einstein",
+      "Marie Curie",
+      "Stephen Hawking"
+    ],
+    "reponseCorrecte": "John Clarke",
+    "categorie": "Prix et distinctions",
+    "difficulte": "moyen",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "John Clarke",
+    "illustrationTexte": "John Clarke — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "John Clarke Nobel Physics 2025"
+  },
+  {
+    "question": "Quel trio a reçu le prix Nobel de chimie 2025 ?",
+    "options": [
+      "Susumu Kitagawa, Richard Robson et Omar M. Yaghi",
+      "Pierre Curie, Marie Curie et Becquerel",
+      "Watson, Crick et Franklin",
+      "Einstein, Bohr et Planck"
+    ],
+    "reponseCorrecte": "Susumu Kitagawa, Richard Robson et Omar M. Yaghi",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Susumu Kitagawa, Richard Robson et Omar M. Yaghi",
+    "illustrationTexte": "Susumu Kitagawa, Richard Robson et Omar M. Yaghi — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Nobel Chemistry 2025 metal-organic frameworks"
+  },
+  {
+    "question": "Le prix Nobel de chimie 2025 a été attribué pour le développement de quoi ?",
+    "options": [
+      "Réseaux métallo-organiques",
+      "Vaccins à ARN",
+      "Panneaux solaires",
+      "Ordinateurs quantiques commerciaux"
+    ],
+    "reponseCorrecte": "Réseaux métallo-organiques",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/prizes/chemistry/2025/summary/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Réseaux métallo-organiques",
+    "illustrationTexte": "Réseaux métallo-organiques — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "metal-organic frameworks"
+  },
+  {
+    "question": "Qui a reçu le prix Nobel de littérature 2025 selon NobelPrize.org ?",
+    "options": [
+      "László Krasznahorkai",
+      "Annie Ernaux",
+      "Haruki Murakami",
+      "J. M. Coetzee"
+    ],
+    "reponseCorrecte": "László Krasznahorkai",
+    "categorie": "Prix et distinctions",
+    "difficulte": "moyen",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "László Krasznahorkai",
+    "illustrationTexte": "László Krasznahorkai — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Laszlo Krasznahorkai Nobel Literature 2025"
+  },
+  {
+    "question": "Qui a reçu le prix Nobel de la paix 2025 selon NobelPrize.org ?",
+    "options": [
+      "Maria Corina Machado",
+      "Malala Yousafzai",
+      "Barack Obama",
+      "Denis Mukwege"
+    ],
+    "reponseCorrecte": "Maria Corina Machado",
+    "categorie": "Prix et distinctions",
+    "difficulte": "moyen",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Maria Corina Machado",
+    "illustrationTexte": "Maria Corina Machado — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Maria Corina Machado Nobel Peace 2025"
+  },
+  {
+    "question": "Quel économiste fait partie des lauréats du prix de la Banque de Suède en sciences économiques 2025 ?",
+    "options": [
+      "Philippe Aghion",
+      "Joseph Stiglitz",
+      "Paul Krugman",
+      "Thomas Piketty"
+    ],
+    "reponseCorrecte": "Philippe Aghion",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Philippe Aghion",
+    "illustrationTexte": "Philippe Aghion — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Philippe Aghion Nobel Economics 2025"
+  },
+  {
+    "question": "Qui est cité parmi les lauréats du prix Nobel de médecine 2025 ?",
+    "options": [
+      "Shimon Sakaguchi",
+      "Louis Pasteur",
+      "Alexander Fleming",
+      "Rosalind Franklin"
+    ],
+    "reponseCorrecte": "Shimon Sakaguchi",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Shimon Sakaguchi",
+    "illustrationTexte": "Shimon Sakaguchi — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Shimon Sakaguchi Nobel Medicine 2025"
+  },
+  {
+    "question": "Dans quelle ville se déroule la cérémonie Nobel principale pour la physique, la chimie, la médecine, la littérature et l’économie ?",
+    "options": [
+      "Stockholm",
+      "Oslo",
+      "Genève",
+      "Paris"
+    ],
+    "reponseCorrecte": "Stockholm",
+    "categorie": "Prix et distinctions",
+    "difficulte": "moyen",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/ceremonies/nobel-prize-award-ceremony-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Stockholm",
+    "illustrationTexte": "Stockholm — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Nobel Prize ceremony Stockholm"
+  },
+  {
+    "question": "À quelle date annuelle se déroule la cérémonie Nobel, anniversaire de la mort d’Alfred Nobel ?",
+    "options": [
+      "10 décembre",
+      "1er janvier",
+      "8 mai",
+      "14 juillet"
+    ],
+    "reponseCorrecte": "10 décembre",
+    "categorie": "Prix et distinctions",
+    "difficulte": "moyen",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/ceremonies/nobel-prize-award-ceremony-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "10 décembre",
+    "illustrationTexte": "10 décembre — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Nobel Prize ceremony 10 December"
+  },
+  {
+    "question": "Quel film a remporté la Palme d’or 2026 selon le Festival de Cannes ?",
+    "options": [
+      "Fjord",
+      "Minotaure",
+      "Fatherland",
+      "La Bola Negra"
+    ],
+    "reponseCorrecte": "Fjord",
+    "categorie": "Prix et distinctions",
+    "difficulte": "facile",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-79th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Fjord",
+    "illustrationTexte": "Fjord — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Fjord Palme d'Or"
+  },
+  {
+    "question": "Quel prix a reçu Minotaure au Festival de Cannes 2026 ?",
+    "options": [
+      "Grand Prix",
+      "Palme d’or",
+      "Prix du scénario",
+      "Prix du jury"
+    ],
+    "reponseCorrecte": "Grand Prix",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Festival de Cannes",
+    "sourceUrl": "https://www.festival-cannes.com/en/press/press-releases/the-79th-festival-de-cannes-winners-list/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Grand Prix",
+    "illustrationTexte": "Grand Prix — actualité vérifiée (Festival de Cannes)",
+    "imageUrl": "",
+    "imageKeyword": "Minotaure Grand Prix Cannes"
+  },
+  {
+    "question": "Quel album est devenu le premier album en espagnol à remporter l’Album of the Year aux Grammy Awards selon la Recording Academy ?",
+    "options": [
+      "DeBÍ TiRAR MáS FOToS",
+      "Cowboy Carter",
+      "Midnights",
+      "30"
+    ],
+    "reponseCorrecte": "DeBÍ TiRAR MáS FOToS",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Recording Academy",
+    "sourceUrl": "https://www.grammy.com/award/album-of-the-year/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "DeBÍ TiRAR MáS FOToS",
+    "illustrationTexte": "DeBÍ TiRAR MáS FOToS — actualité vérifiée (Recording Academy)",
+    "imageUrl": "",
+    "imageKeyword": "first Spanish-language Album of the Year Grammy"
+  },
+  {
+    "question": "Quel film a remporté le Best Picture aux Oscars 2025 ?",
+    "options": [
+      "Anora",
+      "One Battle after Another",
+      "Oppenheimer",
+      "Everything Everywhere All at Once"
+    ],
+    "reponseCorrecte": "Anora",
+    "categorie": "Prix et distinctions",
+    "difficulte": "facile",
+    "sourceLabel": "Academy Awards",
+    "sourceUrl": "https://www.oscars.org/oscars/ceremonies/2025",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Anora",
+    "illustrationTexte": "Anora — actualité vérifiée (Academy Awards)",
+    "imageUrl": "",
+    "imageKeyword": "Anora Oscars 2025"
+  },
+  {
+    "question": "Quel film a remporté le Best Picture aux Oscars 2026 ?",
+    "options": [
+      "One Battle after Another",
+      "Anora",
+      "Dune: Part Two",
+      "Conclave"
+    ],
+    "reponseCorrecte": "One Battle after Another",
+    "categorie": "Prix et distinctions",
+    "difficulte": "facile",
+    "sourceLabel": "Academy Awards",
+    "sourceUrl": "https://www.oscars.org/oscars/ceremonies/2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "One Battle after Another",
+    "illustrationTexte": "One Battle after Another — actualité vérifiée (Academy Awards)",
+    "imageUrl": "",
+    "imageKeyword": "One Battle after Another Oscar Best Picture"
+  },
+  {
+    "question": "Quel prix Nobel 2025 comprend Joel Mokyr parmi ses lauréats ?",
+    "options": [
+      "Sciences économiques",
+      "Paix",
+      "Littérature",
+      "Chimie"
+    ],
+    "reponseCorrecte": "Sciences économiques",
+    "categorie": "Prix et distinctions",
+    "difficulte": "difficile",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Sciences économiques",
+    "illustrationTexte": "Sciences économiques — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Joel Mokyr Nobel Economics 2025"
+  },
+  {
+    "question": "Quel événement footballistique de 2030 sera organisé principalement par le Maroc, le Portugal et l’Espagne ?",
+    "options": [
+      "Coupe du monde FIFA 2030",
+      "Euro 2030",
+      "CAN 2030",
+      "Copa América 2030"
+    ],
+    "reponseCorrecte": "Coupe du monde FIFA 2030",
+    "categorie": "Géopolitique et international",
+    "difficulte": "facile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://inside.fifa.com/tournament-organisation/world-cup-2030",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Coupe du monde FIFA 2030",
+    "illustrationTexte": "Coupe du monde FIFA 2030 — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "FIFA World Cup 2030 Morocco Portugal Spain"
+  },
+  {
+    "question": "Quelle particularité historique le Mondial 2030 doit-il célébrer ?",
+    "options": [
+      "Le centenaire de la Coupe du monde",
+      "Les 50 ans de l’UEFA",
+      "La première CAN",
+      "La première Ligue des champions"
+    ],
+    "reponseCorrecte": "Le centenaire de la Coupe du monde",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://inside.fifa.com/tournament-organisation/world-cup-2030",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Le centenaire de la Coupe du monde",
+    "illustrationTexte": "Le centenaire de la Coupe du monde — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "World Cup centenary 2030"
+  },
+  {
+    "question": "Dans quel pays doit se jouer un des matches du centenaire du Mondial 2030, là où s’est tenue la première Coupe du monde ?",
+    "options": [
+      "Uruguay",
+      "France",
+      "Japon",
+      "Afrique du Sud"
+    ],
+    "reponseCorrecte": "Uruguay",
+    "categorie": "Géopolitique et international",
+    "difficulte": "difficile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://inside.fifa.com/tournament-organisation/world-cup-2030",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Uruguay",
+    "illustrationTexte": "Uruguay — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "Uruguay 1930 World Cup 2030"
+  },
+  {
+    "question": "Quelle organisation internationale publie les documents officiels de la COP30 ?",
+    "options": [
+      "UNFCCC",
+      "FIFA",
+      "OCDE",
+      "NASA"
+    ],
+    "reponseCorrecte": "UNFCCC",
+    "categorie": "Géopolitique et international",
+    "difficulte": "facile",
+    "sourceLabel": "UNFCCC",
+    "sourceUrl": "https://unfccc.int/cop30/about-cop30",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "UNFCCC",
+    "illustrationTexte": "UNFCCC — actualité vérifiée (UNFCCC)",
+    "imageUrl": "",
+    "imageKeyword": "UNFCCC COP30 documents"
+  },
+  {
+    "question": "Quel pays d’Amérique du Sud fait partie des trois pays accueillant un match du centenaire en 2030 avec l’Uruguay et l’Argentine ?",
+    "options": [
+      "Paraguay",
+      "Chili",
+      "Brésil",
+      "Pérou"
+    ],
+    "reponseCorrecte": "Paraguay",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://inside.fifa.com/tournament-organisation/world-cup-2030",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Paraguay",
+    "illustrationTexte": "Paraguay — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "Paraguay World Cup 2030"
+  },
+  {
+    "question": "Quelle institution européenne indique que le Data Act vise une économie des données plus équitable et innovante ?",
+    "options": [
+      "Commission européenne",
+      "Conseil de sécurité de l’ONU",
+      "CAF",
+      "OMS"
+    ],
+    "reponseCorrecte": "Commission européenne",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/data-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Commission européenne",
+    "illustrationTexte": "Commission européenne — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "European Commission Data Act"
+  },
+  {
+    "question": "Quel organisme a déterminé que l’urgence mpox 2024 n’était plus une PHEIC le 5 septembre 2025 ?",
+    "options": [
+      "Directeur général de l’OMS",
+      "Président de la FIFA",
+      "Comité Nobel",
+      "Commission européenne"
+    ],
+    "reponseCorrecte": "Directeur général de l’OMS",
+    "categorie": "Géopolitique et international",
+    "difficulte": "difficile",
+    "sourceLabel": "OMS",
+    "sourceUrl": "https://www.who.int/news/item/30-10-2025-fifth-meeting-of-the-international-health-regulations-%282005%29-emergency-committee-regarding-the-upsurge-of-mpox-2024",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Directeur général de l’OMS",
+    "illustrationTexte": "Directeur général de l’OMS — actualité vérifiée (OMS)",
+    "imageUrl": "",
+    "imageKeyword": "WHO Director-General mpox PHEIC ended"
+  },
+  {
+    "question": "Quel organisme présente le WEO comme son rapport sur les perspectives économiques mondiales ?",
+    "options": [
+      "FMI",
+      "OMC",
+      "UEFA",
+      "ESA"
+    ],
+    "reponseCorrecte": "FMI",
+    "categorie": "Géopolitique et international",
+    "difficulte": "facile",
+    "sourceLabel": "FMI",
+    "sourceUrl": "https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "FMI",
+    "illustrationTexte": "FMI — actualité vérifiée (FMI)",
+    "imageUrl": "",
+    "imageKeyword": "IMF WEO"
+  },
+  {
+    "question": "Quel organisme a publié une projection de croissance mondiale de 2,9 % en 2026 dans son interim outlook de mars 2026 ?",
+    "options": [
+      "OCDE",
+      "FIFA",
+      "Vatican",
+      "Cannes"
+    ],
+    "reponseCorrecte": "OCDE",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "OCDE",
+    "sourceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2026_d4623013-en.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "OCDE",
+    "illustrationTexte": "OCDE — actualité vérifiée (OCDE)",
+    "imageUrl": "",
+    "imageKeyword": "OECD Interim Economic Outlook March 2026"
+  },
+  {
+    "question": "Dans le cadre du Digital Markets Act, comment appelle-t-on les grandes plateformes jouant un rôle de passage obligé ?",
+    "options": [
+      "Gatekeepers",
+      "Goalkeepers",
+      "Streamers",
+      "Ministers"
+    ],
+    "reponseCorrecte": "Gatekeepers",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "Commission européenne",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/designated-gatekeepers-must-now-comply-all-obligations-under-digital-markets-act",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Gatekeepers",
+    "illustrationTexte": "Gatekeepers — actualité vérifiée (Commission européenne)",
+    "imageUrl": "",
+    "imageKeyword": "DMA gatekeepers"
+  },
+  {
+    "question": "Quelle ville accueille le siège de la plupart des cérémonies Nobel scientifiques et littéraires ?",
+    "options": [
+      "Stockholm",
+      "Oslo",
+      "Bruxelles",
+      "Washington"
+    ],
+    "reponseCorrecte": "Stockholm",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/ceremonies/nobel-prize-award-ceremony-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Stockholm",
+    "illustrationTexte": "Stockholm — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Stockholm Nobel ceremony"
+  },
+  {
+    "question": "Quel pays est associé à Maria Corina Machado, lauréate du prix Nobel de la paix 2025 ?",
+    "options": [
+      "Venezuela",
+      "Canada",
+      "Japon",
+      "Norvège"
+    ],
+    "reponseCorrecte": "Venezuela",
+    "categorie": "Géopolitique et international",
+    "difficulte": "difficile",
+    "sourceLabel": "Nobel Prize",
+    "sourceUrl": "https://www.nobelprize.org/all-nobel-prizes-2025/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Venezuela",
+    "illustrationTexte": "Venezuela — actualité vérifiée (Nobel Prize)",
+    "imageUrl": "",
+    "imageKeyword": "Maria Corina Machado Venezuela"
+  },
+  {
+    "question": "Quel pays est le premier pays d’origine d’un pape américain selon le Vatican en 2025 ?",
+    "options": [
+      "États-Unis",
+      "Mexique",
+      "Canada",
+      "Brésil"
+    ],
+    "reponseCorrecte": "États-Unis",
+    "categorie": "Géopolitique et international",
+    "difficulte": "facile",
+    "sourceLabel": "Vatican",
+    "sourceUrl": "https://www.vatican.va/content/leo-xiv/en/biography/documents/biografia_leone-xiv.html",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "États-Unis",
+    "illustrationTexte": "États-Unis — actualité vérifiée (Vatican)",
+    "imageUrl": "",
+    "imageKeyword": "Pope from United States"
+  },
+  {
+    "question": "Quelle organisation a annoncé que le Mondial 2026 réunirait trois pays hôtes ?",
+    "options": [
+      "FIFA",
+      "UEFA",
+      "CAF",
+      "CIO"
+    ],
+    "reponseCorrecte": "FIFA",
+    "categorie": "Géopolitique et international",
+    "difficulte": "facile",
+    "sourceLabel": "FIFA",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-hosts-cities-dates-usa-mexico-canada",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "FIFA",
+    "illustrationTexte": "FIFA — actualité vérifiée (FIFA)",
+    "imageUrl": "",
+    "imageKeyword": "FIFA 2026 hosts"
+  },
+  {
+    "question": "Quel événement culturel européen de 2026 est associé à Vienna dans les informations officielles consultées ?",
+    "options": [
+      "Eurovision 2026",
+      "Cannes 2026",
+      "Oscars 2026",
+      "Grammy Awards 2026"
+    ],
+    "reponseCorrecte": "Eurovision 2026",
+    "categorie": "Géopolitique et international",
+    "difficulte": "moyen",
+    "sourceLabel": "Eurovision",
+    "sourceUrl": "https://eurovision.tv/",
+    "dateReference": "2026-05-27",
+    "wikidataId": null,
+    "wikidataLabel": "Eurovision 2026",
+    "illustrationTexte": "Eurovision 2026 — actualité vérifiée (Eurovision)",
+    "imageUrl": "",
+    "imageKeyword": "Vienna 2026 Eurovision"
+  }
+]

@@ -1,0 +1,1129 @@
+/* ═══════════════════════════════════════════════
+   RSP-RESULTS.CSS — Responsive amélioré : Intros · Résultats · Podium
+   Amélioration ADDITIVE — ne redéfinit pas les règles déjà couvertes
+   par style.css (responsive.css, screens.css, multiplayer.css).
+
+   Breakpoints couverts :
+     < 360px  — très petit mobile (320px)
+     360–479px — mobile portrait standard
+     480–599px — mobile large
+     (orientation: landscape) and (max-height: 500px) — paysage mobile
+     600–767px — tablette portrait
+     768–1023px — tablette paysage / petit desktop
+     1024–1279px — desktop standard
+     1280–1399px — grand desktop
+     ≥ 1400px  — TV / présentation salle
+
+   Sections :
+     A. INTRO MANCHES
+     B. PODIUM
+     C. FIN MANCHE / FIN PARTIE
+     D. CLASSEMENT GÉNÉRAL
+     E. RÉVÉLATION & RÉSUMÉ QUESTION
+═══════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════
+   A. INTRO MANCHES
+   Fichiers : intro-manche1.html (et par analogie intro-manche2/3)
+   Classes : .intro-page, .manche-header, .players-list,
+             .player-row, .rule-badge, .btn-wrap, .btn-primary
+══════════════════════════════════════════════ */
+
+/* ── A1. Très petit mobile < 360px ─────────── */
+@media (max-width: 359px) {
+  /* Padding minimal pour ne pas écraser les éléments */
+  .intro-page {
+    padding-top: 12px;
+    padding-bottom: max(env(safe-area-inset-bottom, 12px), 12px);
+    gap: 0;
+  }
+
+  /* Badge règle : permet le retour à la ligne sur écran étroit */
+  .rule-badge {
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    padding: 8px 14px;
+    line-height: 1.5;
+  }
+
+  /* Bouton lancer : pleine largeur pour touche facile */
+  .btn-wrap .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Réduit la hauteur min des lignes joueurs */
+  .intro-page .player-row {
+    min-height: 52px;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+}
+
+
+/* ── A2. Mobile portrait 360–479px ─────────── */
+/*
+   Note : style.css couvre déjà (max-width: 479px) pour :
+   .intro-page min-height, .manche-header__number, avatar sizes.
+   On ajoute uniquement ce qui manque.
+*/
+@media (min-width: 360px) and (max-width: 479px) {
+  /* Rapproche les blocs sur petit écran (moins d'espace entre eux) */
+  .intro-page {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  /* Liste joueurs : si trop de joueurs, scroll vertical */
+  .players-list {
+    max-height: 38vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+    /* Empêche le pull-to-refresh natif sur iOS dans la liste */
+    -webkit-overflow-scrolling: touch;
+  }
+  .players-list::-webkit-scrollbar { display: none; }
+
+  /* Rows compactes pour tenir dans la hauteur disponible */
+  .intro-page .player-row {
+    min-height: 56px;
+    padding: 10px 14px;
+    gap: 12px;
+  }
+}
+
+
+/* ── A3. Paysage mobile ─────────────────────── */
+/*
+   style.css couvre déjà : .intro-page { padding: 12px 20px },
+   .manche-header { gap: 4px; padding-bottom: 6px }.
+   On ajoute le layout 2 colonnes (header | liste+bouton).
+*/
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Layout 2 colonnes : manche-header à gauche, liste + btn à droite */
+  .intro-page {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    overflow-y: auto;
+  }
+
+  /* Header à gauche, largeur fixe */
+  .intro-page .manche-header {
+    flex-shrink: 0;
+    width: clamp(130px, 22vw, 180px);
+    justify-content: center;
+    align-self: center;
+    padding-bottom: 0;
+  }
+
+  /* Liste joueurs prend l'espace central */
+  .intro-page .players-list {
+    flex: 1;
+    max-height: 100%;
+    overflow-y: auto;
+    justify-content: flex-start;
+  }
+
+  /* Badge règle : position dans le flux (après le header) */
+  .intro-page .rule-badge {
+    display: none; /* masqué en landscape pour gagner de la place */
+  }
+
+  /* Bouton à droite ou en bas de la liste — resized */
+  .intro-page .btn-wrap {
+    align-self: flex-end;
+    padding-top: 0;
+    padding-left: 8px;
+    flex-shrink: 0;
+  }
+
+  .intro-page .btn-wrap .btn-primary {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 11px;
+  }
+
+  /* Rows encore plus compactes en paysage */
+  .intro-page .player-row {
+    min-height: 44px;
+    padding: 7px 12px;
+    gap: 10px;
+  }
+}
+
+
+/* ── A4. Desktop > 1024px ───────────────────── */
+@media (min-width: 1024px) {
+  .intro-page {
+    padding-top: clamp(36px, 6vh, 64px);
+    padding-inline: clamp(40px, 5vw, 80px);
+    gap: 20px;
+  }
+
+  /* Liste joueurs élargie sur grand écran */
+  .intro-page .players-list {
+    max-width: min(800px, 100%);
+  }
+
+  /* Rows plus généreuses */
+  .intro-page .player-row {
+    min-height: 72px;
+    padding: 16px 22px;
+  }
+}
+
+/* ── A5. Grand écran ≥ 1280px ───────────────── */
+@media (min-width: 1280px) {
+  .intro-page {
+    gap: 28px;
+  }
+
+  .intro-page .players-list {
+    max-width: min(860px, 100%);
+    gap: 12px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   B. PODIUM
+   Fichier : podium.html
+   Classes : .podium, .podium__step, .podium__base,
+             .podium-name, .podium-meta, .fourth-row,
+             .avatar, .avatar--lg, .avatar--sm
+   Note : style.css couvre déjà les heights de __base
+   pour < 480px, 600–767px, 768px, et 1400px+.
+   On couvre uniquement les aspects visuels manquants.
+══════════════════════════════════════════════ */
+
+/* ── B1. Mobile portrait < 480px ───────────── */
+@media (max-width: 479px) {
+  /* Noms de joueurs tronqués si trop longs */
+  .podium-name {
+    font-size: clamp(12px, 3.5vw, 15px);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Méta (pts, rang) encore plus petite */
+  .podium-meta {
+    font-size: 9px;
+  }
+
+  /* Gap réduit dans chaque colonne de step */
+  .podium__step {
+    gap: 6px;
+  }
+
+  /* Avatar lg (1re place) réduit pour tenir dans la colonne centrale */
+  .podium__step .avatar--lg {
+    width: clamp(44px, 11vw, 54px);
+    height: clamp(44px, 11vw, 54px);
+    font-size: clamp(14px, 3.8vw, 18px);
+  }
+
+  /* Avatar normal (2e et 3e) réduit */
+  .podium__step .avatar:not(.avatar--lg):not(.avatar--sm) {
+    width: clamp(34px, 9vw, 40px);
+    height: clamp(34px, 9vw, 40px);
+    font-size: clamp(10px, 2.8vw, 13px);
+  }
+
+  /* 4e place : compact */
+  .fourth-row {
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  /* Boutons podium */
+  .podium ~ .btn-zone {
+    gap: 8px;
+  }
+}
+
+/* ── B1b. Très petit mobile < 360px ────────── */
+@media (max-width: 359px) {
+  .podium {
+    gap: 4px;
+    min-height: 240px;
+  }
+
+  .podium-name {
+    font-size: 11px;
+  }
+
+  .podium__step {
+    gap: 4px;
+  }
+
+  .podium__step .avatar--lg {
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+  }
+
+  .podium__step .avatar:not(.avatar--lg):not(.avatar--sm) {
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+  }
+}
+
+
+/* ── B2. Paysage mobile ─────────────────────── */
+/*
+   style.css couvre déjà les heights en landscape.
+   On affine le layout et les débordements texte.
+*/
+@media (orientation: landscape) and (max-height: 500px) {
+  .podium {
+    gap: 8px;
+    min-height: 160px;
+    align-items: end;
+  }
+
+  /* Noms avec ellipsis en paysage (colonnes étroites) */
+  .podium-name {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .podium-meta {
+    font-size: 8px;
+    letter-spacing: .10em;
+  }
+
+  .podium__step {
+    gap: 4px;
+  }
+
+  /* Avatars réduits en paysage */
+  .podium__step .avatar--lg {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .podium__step .avatar:not(.avatar--lg):not(.avatar--sm) {
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
+
+  /* 4e place cachée en paysage pour gagner de la place */
+  .fourth-row {
+    display: none;
+  }
+}
+
+
+/* ── B3. Tablette 600–767px ─────────────────── */
+/*
+   style.css couvre déjà les heights de base.
+   On peaufine les proportions et typographie.
+*/
+@media (min-width: 600px) and (max-width: 767px) {
+  .podium {
+    grid-template-columns: 1fr 1.22fr 1fr;
+    gap: 10px;
+    min-height: 300px;
+  }
+
+  .podium-name {
+    font-size: clamp(14px, 2.2vw, 17px);
+  }
+
+  .podium__step {
+    gap: 10px;
+  }
+}
+
+
+/* ── B4. Grand écran ≥ 1280px ───────────────── */
+@media (min-width: 1280px) {
+  .podium {
+    gap: 22px;
+    min-height: 420px;
+  }
+
+  .podium__step {
+    gap: 16px;
+  }
+
+  .podium-name {
+    font-size: clamp(17px, 1.8vw, 22px);
+  }
+
+  .podium-meta {
+    font-size: 11px;
+  }
+
+  /* 4e place plus généreuse */
+  .fourth-row {
+    padding: 16px 22px;
+    gap: 18px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   C. FIN MANCHE / FIN PARTIE
+   Fichiers : fin-manche1.html, fin-manche2.html, fin-partie.html
+   Classes : .page-header-section, .section-title, .section-sub,
+             .rule-badge--result, .content-section, .player-list,
+             .player-row, .champ-row, .champ-info, .champ-name,
+             .champ-score, .champ-title-lbl, .stats-grid, .stat-card,
+             .stat-card__label, .stat-card__value, .btn-zone,
+             .serie-pips, .pip, .badge
+══════════════════════════════════════════════ */
+
+/* ── C1. Mobile < 480px ─────────────────────── */
+@media (max-width: 479px) {
+  /* Section header compact */
+  .page-header-section {
+    padding-bottom: 8px;
+    gap: 4px;
+  }
+
+  .section-title {
+    font-size: clamp(20px, 5.5vw, 26px);
+  }
+
+  .section-sub {
+    font-size: clamp(11px, 2.8vw, 13px);
+  }
+
+  /* Badge résultat compact */
+  .rule-badge--result {
+    font-size: 10px;
+    padding: 8px 14px;
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  /* Liste résultats : scroll si trop de joueurs */
+  .content-section .player-list {
+    max-height: 42vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+  }
+  .content-section .player-list::-webkit-scrollbar { display: none; }
+
+  /* Lignes résultats compactes */
+  .content-section .player-row,
+  .fin-partie-page .player-list .player-row {
+    min-height: 54px;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  /* Pips série : gap réduit */
+  .serie-pips {
+    gap: 3px;
+  }
+  .pip,
+  .pip.empty {
+    width: 7px;
+    height: 7px;
+  }
+
+  /* Champion row : layout vertical si éléments trop larges */
+  .champ-row {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  /* Info champion prend toute la largeur si wrap */
+  .champ-info {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .champ-name {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+
+  .champ-score {
+    font-size: clamp(28px, 7vw, 36px);
+  }
+
+  /* Stats : 1 colonne sur très petit mobile */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .stat-card__label {
+    flex: 1;
+  }
+
+  .stat-card__value {
+    font-size: clamp(18px, 5vw, 24px);
+    margin-top: 0;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Boutons : colonne sur mobile */
+  .btn-zone {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-top: 10px;
+  }
+
+  .btn-zone .btn-primary,
+  .btn-zone .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── C1b. Très petit mobile < 360px ────────── */
+@media (max-width: 359px) {
+  .champ-row {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .stats-grid {
+    gap: 6px;
+  }
+
+  .stat-card {
+    padding: 10px 12px;
+  }
+
+  .stat-card__value {
+    font-size: 18px;
+  }
+
+  .btn-zone {
+    gap: 6px;
+  }
+}
+
+
+/* ── C2. Mobile large 480–599px ─────────────── */
+@media (min-width: 480px) and (max-width: 599px) {
+  /* Stats : 2 colonnes dès 480px */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+    display: block; /* réinitialise le flex du mobile < 480 */
+  }
+
+  .stat-card__value {
+    margin-top: 6px;
+    text-align: left;
+  }
+
+  /* Boutons toujours en colonne sur petit écran */
+  .btn-zone {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-zone .btn-primary,
+  .btn-zone .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ── C3. Tablette 600–767px ─────────────────── */
+@media (min-width: 600px) and (max-width: 767px) {
+  /* Stats : 2 colonnes avec meilleur espacement */
+  .stats-grid {
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-card__value {
+    font-size: clamp(24px, 3.5vw, 28px);
+  }
+
+  /* Champion row avec padding ajusté */
+  .champ-row {
+    padding: 20px 22px;
+    gap: 16px;
+  }
+
+  /* Boutons : retour au flex horizontal */
+  .btn-zone {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-zone .btn-primary,
+  .btn-zone .btn-secondary {
+    width: auto;
+  }
+
+  /* Liste résultats scrollable sur tablette */
+  .content-section .player-list {
+    max-height: 48vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+  }
+}
+
+
+/* ── C4. Desktop 1024px–1279px ──────────────── */
+@media (min-width: 1024px) {
+  /* Champion row : padding généreux */
+  .champ-row {
+    padding: 24px 28px;
+    gap: 22px;
+  }
+
+  /* Stats 2 colonnes (déjà en place) + padding agrandi */
+  .stats-grid {
+    gap: 14px;
+  }
+
+  .stat-card {
+    padding: 20px 22px;
+  }
+
+  /* Fin de partie : liste scrollable à hauteur fixe */
+  .fin-partie-page .player-list {
+    max-height: 36vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+  }
+}
+
+
+/* ── C5. Grand desktop ≥ 1280px ─────────────── */
+@media (min-width: 1280px) {
+  /* Stats : 4 colonnes sur grand écran */
+  .fin-partie-page .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .stat-card {
+    padding: 22px 24px;
+  }
+
+  .stat-card__value {
+    font-size: clamp(26px, 2.4vw, 32px);
+  }
+
+  .champ-row {
+    padding: 28px 32px;
+    gap: 26px;
+  }
+}
+
+
+/* ── C6. Paysage mobile ─────────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Header section compacté */
+  .page-header-section {
+    padding-bottom: 4px;
+  }
+
+  .section-title {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+
+  /* Badge résultat masqué en landscape (espace critique) */
+  .rule-badge--result {
+    display: none;
+  }
+
+  /* Liste scrollable en paysage */
+  .content-section .player-list {
+    max-height: 55vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .content-section .player-list::-webkit-scrollbar { display: none; }
+
+  /* Rows ultra-compactes */
+  .content-section .player-row {
+    min-height: 44px;
+    padding: 7px 12px;
+    gap: 10px;
+  }
+
+  /* Champion row horizontal compact */
+  .champ-row {
+    padding: 10px 14px;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .champ-name {
+    font-size: clamp(16px, 3vw, 20px);
+  }
+
+  .champ-score {
+    font-size: clamp(22px, 4vw, 28px);
+  }
+
+  /* Stats : 4 colonnes en landscape pour compacter verticalement */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .stat-card {
+    padding: 8px 10px;
+  }
+
+  .stat-card__value {
+    font-size: clamp(16px, 2.8vw, 20px);
+    margin-top: 4px;
+  }
+
+  /* Boutons en ligne compact */
+  .btn-zone {
+    flex-direction: row;
+    gap: 8px;
+    padding-top: 6px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   D. CLASSEMENT GÉNÉRAL
+   Fichier : classement-general.html
+   Classes : .lb-gen-page, .page-header, .page-title,
+             .back-btn, .period-tabs, .period-tab,
+             .lb-podium, .lb-pod, .lb-pod__name, .lb-pod__score,
+             .lb-gen-scroll, .lb-gen-row, .lb-gen-rank,
+             .lb-gen-info, .lb-gen-name, .lb-gen-sub,
+             .lb-gen-score, .you-tag
+   Note : style.css couvre déjà .lb-gen-page gap,
+   .lb-gen-scroll, .lb-podium, .lb-pod__, .period-tabs.
+   On couvre les manques et adaptations desktop.
+══════════════════════════════════════════════ */
+
+/* ── D1. Mobile < 480px ─────────────────────── */
+@media (max-width: 479px) {
+  /* En-tête page : back btn + titre compact */
+  .lb-gen-page .page-header {
+    gap: 4px;
+  }
+
+  /* Filtre onglets : prend toute la largeur */
+  .period-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .period-tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 10px;
+    font-size: 10px;
+  }
+
+  /* Podium général : colonnes plus étroites */
+  .lb-podium {
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  /* Noms podium : ellipsis strict */
+  .lb-pod__name {
+    font-size: 11px;
+    max-width: 90%;
+  }
+
+  /* Score podium */
+  .lb-pod__score {
+    font-size: 12px;
+  }
+
+  /* Ligne de la liste générale : compact */
+  .lb-gen-row {
+    padding: 9px 12px;
+    gap: 10px;
+    min-height: 48px;
+  }
+
+  /* Rang : largeur réduite */
+  .lb-gen-rank {
+    width: 24px;
+    font-size: 13px;
+  }
+
+  /* Nom liste */
+  .lb-gen-name {
+    font-size: 13px;
+  }
+
+  .lb-gen-sub {
+    font-size: 10px;
+  }
+
+  /* Score liste */
+  .lb-gen-score {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+}
+
+/* ── D1b. Très petit mobile < 360px ────────── */
+@media (max-width: 359px) {
+  .period-tab {
+    padding: 8px 8px;
+    font-size: 9px;
+    letter-spacing: .06em;
+  }
+
+  .lb-gen-row {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+}
+
+
+/* ── D2. Paysage mobile ─────────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Podium masqué en landscape, économie de hauteur */
+  .lb-gen-page .lb-podium {
+    display: none;
+  }
+
+  /* Liste scrollable occupe la hauteur */
+  .lb-gen-scroll {
+    max-height: 62vh;
+  }
+
+  /* Rows ultra-compactes */
+  .lb-gen-row {
+    min-height: 40px;
+    padding: 6px 12px;
+  }
+}
+
+
+/* ── D3. Tablette 600–767px ─────────────────── */
+@media (min-width: 600px) and (max-width: 767px) {
+  /* Podium légèrement plus grand */
+  .lb-podium {
+    max-width: min(520px, 100%);
+    gap: 12px;
+  }
+
+  .lb-pod__name {
+    font-size: clamp(13px, 2vw, 15px);
+  }
+
+  /* Liste scrollable avec scrollbar visible */
+  .lb-gen-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+  }
+
+  .lb-gen-row {
+    padding: 12px 16px;
+    gap: 14px;
+  }
+}
+
+
+/* ── D4. Desktop ≥ 1024px ────────────────────── */
+@media (min-width: 1024px) {
+  /* Classement général : layout centralisé plus large */
+  .lb-gen-page {
+    padding-inline: clamp(32px, 5vw, 80px);
+  }
+
+  /* Podium plus généreux */
+  .lb-podium {
+    max-width: min(700px, 100%);
+    gap: 18px;
+    padding: 12px 0;
+  }
+
+  .lb-pod__name {
+    font-size: clamp(14px, 1.6vw, 17px);
+  }
+
+  .lb-pod__score {
+    font-size: clamp(16px, 1.8vw, 19px);
+  }
+
+  /* Rows liste avec colonnes bien alignées visuellement */
+  .lb-gen-row {
+    padding: 13px 20px;
+    gap: 16px;
+  }
+
+  .lb-gen-rank {
+    width: 36px;
+    font-size: 16px;
+  }
+
+  .lb-gen-name {
+    font-size: 15px;
+  }
+
+  .lb-gen-score {
+    font-size: clamp(16px, 1.8vw, 20px);
+  }
+
+  /* Scroll avec scrollbar discrète */
+  .lb-gen-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+  }
+  .lb-gen-scroll::-webkit-scrollbar { width: 4px; }
+  .lb-gen-scroll::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 2px;
+  }
+}
+
+/* ── D5. Grand écran ≥ 1280px ───────────────── */
+@media (min-width: 1280px) {
+  .lb-podium {
+    max-width: min(800px, 100%);
+    gap: 24px;
+  }
+
+  .lb-gen-scroll {
+    max-width: min(860px, 100%);
+  }
+
+  .lb-gen-row {
+    padding: 14px 22px;
+  }
+}
+
+
+/* ══════════════════════════════════════════════
+   E. RÉVÉLATION & RÉSUMÉ QUESTION
+   Fichiers : revelation.html, resume-question.html
+   Classes : .revelation-card, .revelation-question,
+             .revelation-answer, .revelation-winner,
+             .revelation-pts, .rounds-info,
+             .score-chip__value, .score-chip__name,
+             .card--glass (score actuel)
+   Note : style.css couvre déjà les clamp de base et
+   < 360px (.revelation-answer { font-size: 22px }).
+   Le résumé-question a ses propres @media inline (820px, 520px).
+══════════════════════════════════════════════ */
+
+/* ── E1. Mobile < 480px ─────────────────────── */
+@media (max-width: 479px) {
+  /* Card révélation : padding réduit */
+  .revelation-card {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+
+  /* Réponse : taille ajustée au-dessus de 360px */
+  .revelation-answer {
+    font-size: clamp(22px, 7vw, 32px);
+    line-height: 1.1;
+  }
+
+  /* Gagnant */
+  .revelation-winner {
+    font-size: clamp(16px, 4.5vw, 20px);
+    text-align: center;
+  }
+
+  /* Points */
+  .revelation-pts {
+    font-size: clamp(22px, 6vw, 28px);
+  }
+
+  /* Tableau score (card--glass avec les deux joueurs) */
+  .revelation-card ~ .card--glass {
+    padding: 10px 12px;
+  }
+
+  /* Scores individuels */
+  .score-chip__value {
+    font-size: clamp(20px, 6vw, 26px);
+  }
+
+  .score-chip__name {
+    font-size: var(--text-xs);
+  }
+
+  /* Info rounds */
+  .rounds-info {
+    font-size: 9px;
+    letter-spacing: .10em;
+  }
+
+  /* Boutons zone */
+  .revelation-card ~ .card--glass ~ .btn-zone {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .revelation-card ~ .card--glass ~ .btn-zone .btn-primary,
+  .revelation-card ~ .card--glass ~ .btn-zone .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── E1b. Très petit mobile < 360px ────────── */
+/* Déjà couvert par style.css : .revelation-answer { font-size: 22px } */
+@media (max-width: 359px) {
+  .revelation-card {
+    padding: 14px 12px;
+    gap: 8px;
+    border-radius: var(--radius-md);
+  }
+
+  .revelation-winner {
+    font-size: 15px;
+  }
+
+  .revelation-pts {
+    font-size: 20px;
+  }
+}
+
+
+/* ── E2. Paysage mobile ─────────────────────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Layout horizontal : card révélation + score côte à côte */
+  .page:has(.revelation-card) {
+    overflow-y: auto;
+  }
+
+  .revelation-card {
+    padding: 14px 20px;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Réponse centrée */
+  .revelation-answer {
+    font-size: clamp(20px, 5vw, 28px);
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Gagnant et pts en ligne */
+  .revelation-winner,
+  .revelation-pts {
+    flex: 1;
+    text-align: center;
+    font-size: clamp(14px, 3.5vw, 18px);
+  }
+
+  /* Score card compact */
+  .revelation-card ~ .card--glass {
+    padding: 8px 12px;
+    margin-top: 6px;
+  }
+
+  /* Boutons en ligne */
+  .revelation-card ~ .card--glass ~ .btn-zone {
+    flex-direction: row;
+    gap: 8px;
+    padding-top: 6px;
+  }
+}
+
+
+/* ── E3. Tablette 600–767px ─────────────────── */
+@media (min-width: 600px) and (max-width: 767px) {
+  /* Card révélation : plus d'espace */
+  .revelation-card {
+    padding: clamp(22px, 4vh, 32px) clamp(20px, 4vw, 30px);
+    gap: 14px;
+  }
+
+  .revelation-answer {
+    font-size: clamp(28px, 5vw, 36px);
+  }
+
+  .revelation-winner {
+    font-size: clamp(18px, 3vw, 22px);
+  }
+}
+
+
+/* ── E4. Desktop ≥ 1024px ────────────────────── */
+@media (min-width: 1024px) {
+  /* Révélation : taille maximale, centré avec max-width */
+  .revelation-card {
+    max-width: min(680px, 100%);
+    align-self: center;
+    width: 100%;
+    padding: clamp(32px, 5vh, 48px) clamp(36px, 5vw, 52px);
+    gap: 18px;
+  }
+
+  .revelation-answer {
+    font-size: clamp(36px, 4vw, 48px);
+  }
+
+  .revelation-winner {
+    font-size: clamp(22px, 2.8vw, 28px);
+  }
+
+  .revelation-pts {
+    font-size: clamp(30px, 3.5vw, 40px);
+  }
+
+  /* Score duel côte à côte plus espacé */
+  .score-chip__value {
+    font-size: clamp(24px, 3vw, 32px);
+  }
+}
+
+/* ── E5. Grand écran ≥ 1280px ───────────────── */
+@media (min-width: 1280px) {
+  .revelation-card {
+    max-width: min(780px, 100%);
+    padding: clamp(36px, 5vh, 56px) clamp(40px, 5vw, 60px);
+  }
+
+  .revelation-answer {
+    font-size: clamp(40px, 3.8vw, 54px);
+  }
+}
