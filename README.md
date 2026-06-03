@@ -154,29 +154,6 @@ Sur le même réseau local, il faut partager l’adresse réseau de la machine h
 http://192.168.1.20:3001/?ecran=rejoindre-salle&code=CHMP-XXXX
 ```
 
-## Variables d’environnement
-
-Le serveur accepte quelques variables optionnelles :
-
-```bash
-PORT=3001
-CORS_ORIGIN=http://localhost:3001
-MAX_ROOMS=500
-QUIZ_QUESTION_DURATION_SEC=20
-```
-
-Exemple PowerShell :
-
-```powershell
-$env:PORT="3001"
-npm start
-```
-
-Exemple Bash :
-
-```bash
-PORT=3001 npm start
-```
 
 ## Questions
 
@@ -200,46 +177,6 @@ Fichiers actuellement utilisés :
 
 - `fond.mp3`
 - `button.ogg`
-
-## Publier sur GitHub
-
-Initialiser Git si nécessaire :
-
-```bash
-git init
-git branch -M main
-git remote add origin https://github.com/abamba-dot/QPUC.git
-```
-
-Vérifier les fichiers qui seront envoyés :
-
-```bash
-git status
-```
-
-Ajouter et committer :
-
-```bash
-git add .
-git commit -m "Initial commit"
-```
-
-Envoyer sur GitHub :
-
-```bash
-git push -u origin main
-```
-
-Le fichier `.gitignore` exclut notamment :
-
-- `.claude/`
-- `.codex/`
-- `.agents/`
-- `node_modules/`
-- `.env`
-- les archives `.zip`
-- les rapports de travail locaux
-- les logs et caches
 
 ## État actuel
 
