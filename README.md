@@ -2,8 +2,6 @@
 
 Application web de quiz inspirée du format “Questions pour un Champion”, développée en HTML, CSS et JavaScript Vanilla, avec un backend Node.js pour le multijoueur en temps réel.
 
-Le projet ne dépend d’aucun framework frontend : pas de React, pas de Vue, pas de Tailwind, pas de bundler.
-
 ## Fonctionnalités
 
 - Interface plein écran responsive.
