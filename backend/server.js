@@ -17,6 +17,7 @@ const MIME_TYPES = {
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
@@ -188,7 +189,7 @@ const server = http.createServer(async (req, res) => {
     }
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-    const isAsset = ['.css', '.js', '.json', '.png', '.jpg', '.svg', '.ico', '.mp3', '.ogg'].includes(ext);
+    const isAsset = ['.css', '.js', '.json', '.webmanifest', '.png', '.jpg', '.svg', '.ico', '.mp3', '.ogg'].includes(ext);
     const isHtml = ext === '.html';
     const isMutableCode = ['.html', '.js', '.css'].includes(ext);
     const etag = `"${stat.mtimeMs.toString(16)}-${stat.size}"`;
