@@ -25,8 +25,8 @@ export const html = `
 <div class="page jeu-m1-page jeu-multi-page quiz-waiting" id="page" data-screen-label="Partie multijoueur">
   <style>
     .jeu-multi-page{--bg:#EFE4D2;--text:#1E160C;--sub:#6F5A41;--card-bg:rgba(255,253,248,.86);--card-border:rgba(255,255,255,.74);--accent-2:#B8482A;display:grid!important;width:100vw!important;min-height:100dvh!important;padding:clamp(20px,3.2vw,38px)!important;gap:clamp(16px,2.2vh,26px)!important;background:var(--bg)!important;overflow:hidden}
-    .jeu-multi-page.quiz-waiting{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(220px,auto) auto minmax(72px,auto)!important;grid-template-areas:"topbar" "question" "buzzer" "scores"!important;align-content:center!important}
-    .jeu-multi-page.quiz-answering{grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)!important;grid-template-rows:auto minmax(0,1fr) minmax(72px,auto)!important;grid-template-areas:"topbar topbar" "question answers" "scores scores"!important;align-content:stretch!important}
+    .jeu-multi-page.quiz-waiting{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(220px,auto) auto auto minmax(72px,auto)!important;grid-template-areas:"topbar" "question" "duel" "buzzer" "scores"!important;align-content:center!important}
+    .jeu-multi-page.quiz-answering{grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)!important;grid-template-rows:auto minmax(0,1fr) auto minmax(72px,auto)!important;grid-template-areas:"topbar topbar" "question answers" "duel duel" "scores scores"!important;align-content:stretch!important}
     .jeu-multi-page .topbar{grid-area:topbar;width:min(100%,1500px);justify-self:center}
     .jeu-multi-page .q-section{grid-area:question;width:min(100%,1350px);justify-self:center;justify-content:center;min-height:0;padding:0}
     .jeu-multi-page .q-card{width:100%;min-height:clamp(230px,36vh,360px);padding:clamp(34px,6vh,76px) clamp(36px,7vw,112px);border-radius:24px;background:var(--card-bg);border:1.5px solid var(--card-border);box-shadow:0 18px 38px rgba(30,22,12,.14);text-align:center;align-items:center;overflow:hidden}
@@ -34,11 +34,22 @@ export const html = `
     .jeu-multi-page .q-category{color:var(--sub);font-size:clamp(12px,1.1vw,15px);margin-bottom:clamp(14px,2.2vh,26px)}
     .jeu-multi-page .buzzer-section{grid-area:buzzer;justify-self:center;align-self:center;padding:0;transform:none!important;z-index:5}
     .jeu-multi-page .buzzer{width:clamp(122px,12vw,156px);height:clamp(122px,12vw,156px)}
+    .jeu-multi-page .duel-panel{grid-area:duel;width:min(100%,980px);justify-self:center;display:grid;gap:10px}
+    .jeu-multi-page .duel-scorebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .jeu-multi-page .duel-finalist{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:18px;background:rgba(255,253,248,.72);border:1px solid rgba(30,22,12,.1);box-shadow:0 12px 24px rgba(30,22,12,.08);font-weight:900;color:var(--text);min-width:0}
+    .jeu-multi-page .duel-finalist__name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .jeu-multi-page .duel-dots{letter-spacing:.18em;color:var(--accent-2);white-space:nowrap}
+    .jeu-multi-page .duel-banner{display:none;align-items:center;justify-content:center;text-align:center;padding:11px 16px;border-radius:16px;background:rgba(184,72,42,.12);border:1px solid rgba(184,72,42,.2);color:var(--text);font-weight:900}
+    .jeu-multi-page .duel-banner--visible{display:flex}
+    .jeu-multi-page .duel-observer-badge{display:none;align-items:center;justify-content:center;padding:16px 20px;border-radius:999px;background:rgba(255,253,248,.72);border:1px solid rgba(30,22,12,.12);box-shadow:0 14px 30px rgba(30,22,12,.1);font-family:var(--font-display);font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--text)}
+    .jeu-multi-page.duel-observer .duel-observer-badge{display:flex}
+    .jeu-multi-page.duel-observer #buzzer-section{display:none!important}
+    .jeu-multi-page.duel-observer #answers-section{display:none!important}
     .jeu-multi-page .answers-section{grid-area:answers;width:100%;min-height:0;justify-content:center;padding:0}
     .jeu-multi-page.quiz-waiting .answers-section{display:none!important}
     .jeu-multi-page .answers-grid{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.4vw,18px)}
     .jeu-multi-page .scores-bar{grid-area:scores;width:min(100%,1500px);justify-self:center;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(8px,1vw,12px);padding:0}
-    @media(max-width:899px){.jeu-multi-page,.jeu-multi-page.quiz-waiting,.jeu-multi-page.quiz-answering{display:flex!important;flex-direction:column;overflow-y:auto}.jeu-multi-page .q-card{min-height:auto;padding:24px 20px}.jeu-multi-page .q-text{font-size:clamp(24px,8vw,38px)}.jeu-multi-page .answers-grid{grid-template-columns:1fr}}
+    @media(max-width:899px){.jeu-multi-page,.jeu-multi-page.quiz-waiting,.jeu-multi-page.quiz-answering{display:flex!important;flex-direction:column;overflow-y:auto}.jeu-multi-page .q-card{min-height:auto;padding:24px 20px}.jeu-multi-page .q-text{font-size:clamp(24px,8vw,38px)}.jeu-multi-page .answers-grid{grid-template-columns:1fr}.jeu-multi-page .duel-scorebar{grid-template-columns:1fr}}
   </style>
   <div class="topbar">
     <div class="q-info">
@@ -71,6 +82,14 @@ export const html = `
       <div class="buzzer__inner"><span class="buzzer__label">Buzz</span></div>
     </div>
     <div class="player-buzz__hint" id="buzz-hint">Buzzez pour répondre</div>
+  </section>
+  <section class="duel-panel cache" id="duel-panel" aria-live="polite">
+    <div class="duel-scorebar" id="duel-scorebar"></div>
+    <div class="duel-banner" id="duel-last"></div>
+    <div class="duel-banner" id="duel-winner"></div>
+  </section>
+  <section class="buzzer-section cache" id="duel-observer">
+    <div class="duel-observer-badge">Tu observes ce duel</div>
   </section>
   <section class="answers-section answers-section--hidden" id="answers-section">
     <div class="answers-grid" id="answers"></div>
@@ -180,7 +199,10 @@ export async function init(conteneur) {
     const answersSection = document.getElementById('answers-section');
     const buzzerSection = document.getElementById('buzzer-section');
     const waitSection = document.getElementById('wait-section');
+    const duelPanel = document.getElementById('duel-panel');
+    const duelObserver = document.getElementById('duel-observer');
     const answersEl = document.getElementById('answers');
+    let duelGameOverHandled = false;
 
     function normalizeKey(event) {
       if (event.key === ' ') return 'ESPACE';
@@ -204,13 +226,24 @@ export async function init(conteneur) {
       for (let i = 0; i < total; i++) { const dot = document.createElement('div'); dot.className = 'progress-dot' + (i < index ? ' progress-dot--done' : i === index ? ' progress-dot--current' : ''); dots.appendChild(dot); }
     }
   
-    function buildScores(players = []) {
+    function buildScores(players = [], room = null) {
       const scores = document.getElementById('scores');
-      const maxScore = Math.max(10, ...players.map(p => p.score || 0));
+      const isSerie = room?.quiz?.mancheMode === 'serie' || currentRoom?.quiz?.mancheMode === 'serie';
+      const maxVal = isSerie
+        ? Math.max(1, ...players.map(p => p.serieMax || p.serie || 0))
+        : Math.max(10, ...players.map(p => p.score || 0));
       scores.innerHTML = '';
-      [...players].sort((a, b) => (b.score || 0) - (a.score || 0)).forEach((p, i) => {
+      const sorted = [...players].sort((a, b) =>
+        isSerie
+          ? (b.serieMax || b.serie || 0) - (a.serieMax || a.serie || 0)
+          : (b.score || 0) - (a.score || 0)
+      );
+      sorted.forEach((p, i) => {
         const chip = document.createElement('div'); chip.className = 'score-chip' + (i === 0 ? ' score-chip--leader' : '');
-        chip.innerHTML = `<div class="score-chip__top"><div class="avatar avatar--sm" style="background:${avatarColor(p.color ?? p.colorIdx ?? i)}">${esc(p.init || getInitials(p.name))}</div><span class="score-chip__name">${esc(p.name)}${String(p.id) === String(me?.id) ? ' · vous' : ''}</span><span class="score-chip__value">${p.score || 0}</span></div><div class="score-chip__bar-bg"><div class="score-chip__bar-fill" style="width:${((p.score || 0) / maxScore) * 100}%"></div></div>`;
+        const mainVal = isSerie ? (p.serieMax || p.serie || 0) : (p.score || 0);
+        const label = isSerie ? `Série ${mainVal}` : String(mainVal);
+        const barPct = (mainVal / maxVal) * 100;
+        chip.innerHTML = `<div class="score-chip__top"><div class="avatar avatar--sm" style="background:${avatarColor(p.color ?? p.colorIdx ?? i)}">${esc(p.init || getInitials(p.name))}</div><span class="score-chip__name">${esc(p.name)}${String(p.id) === String(me?.id) ? ' · vous' : ''}</span><span class="score-chip__value">${label}</span></div><div class="score-chip__bar-bg"><div class="score-chip__bar-fill" style="width:${barPct}%"></div></div>`;
         scores.appendChild(chip);
       });
     }
@@ -223,17 +256,118 @@ export async function init(conteneur) {
         answersEl.appendChild(btn);
       });
     }
+
+    function duelFinalists(room) {
+      const ids = room?.quiz?.duel?.finalists || [];
+      const players = room?.players || [];
+      const selected = ids.map(id => players.find(p => String(p.id) === String(id))).filter(Boolean);
+      return selected.length ? selected : players.slice(0, 2);
+    }
+
+    function duelDots(score = 0) {
+      const n = Math.max(0, Math.min(3, Number(score) || 0));
+      return `${'●'.repeat(n)}${'○'.repeat(3 - n)}`;
+    }
+
+    function duelChoiceLabel(question, choice) {
+      if (!question) return 'sans réponse';
+      if (Number.isInteger(choice)) return question.opts?.[choice] || 'sans réponse';
+      const letters = ['A', 'B', 'C', 'D'];
+      const byLetter = letters.indexOf(String(choice || '').toUpperCase());
+      if (byLetter >= 0) return question.opts?.[byLetter] || String(choice);
+      return choice ? String(choice) : 'sans réponse';
+    }
+
+    function renderDuelState(room) {
+      const isDuel = room?.config?.mode === 'duel';
+      const page = document.getElementById('page');
+      page?.classList.toggle('duel-mode', isDuel);
+      if (!isDuel || !room?.quiz?.duel) {
+        duelPanel?.classList.add('cache');
+        if (duelObserver) duelObserver.style.display = 'none';
+        page?.classList.remove('duel-observer');
+        return false;
+      }
+
+      const finalists = duelFinalists(room);
+      const finalistIds = new Set(finalists.map(p => String(p.id)));
+      const isSpectator = !finalistIds.has(String(me?.id));
+      const scorebar = document.getElementById('duel-scorebar');
+      const lastEl = document.getElementById('duel-last');
+      const winnerEl = document.getElementById('duel-winner');
+      const question = questionOf(room);
+
+      duelPanel?.classList.remove('cache');
+      if (scorebar) {
+        scorebar.innerHTML = '';
+        finalists.slice(0, 2).forEach((player, i) => {
+          const row = document.createElement('div');
+          row.className = 'duel-finalist';
+          row.innerHTML = `<span class="duel-finalist__name">${esc(player.name)}${String(player.id) === String(me?.id) ? ' · vous' : ''}</span><span class="duel-dots">${duelDots(player.score)}</span>`;
+          scorebar.appendChild(row);
+        });
+      }
+
+      page?.classList.toggle('duel-observer', isSpectator);
+      if (duelObserver) duelObserver.style.display = isSpectator ? 'flex' : 'none';
+      if (isSpectator) {
+        answersSection?.classList.add('answers-section--hidden');
+        if (answersSection) answersSection.style.display = 'none';
+      }
+
+      const last = room.quiz.duel.last;
+      if (last && lastEl) {
+        const responder = (room.players || []).find(p => String(p.id) === String(last.responderId));
+        const answerText = duelChoiceLabel(question, last.choice);
+        lastEl.textContent = `${responder?.name || 'Un joueur'} a répondu ${answerText} — ${last.correct ? 'correct' : 'raté'}${last.points ? ` — +${last.points} pts` : ''}`;
+        lastEl.classList.add('duel-banner--visible');
+      } else if (lastEl) {
+        lastEl.textContent = '';
+        lastEl.classList.remove('duel-banner--visible');
+      }
+
+      if ((room.quiz.duel.gameOver || last?.gameOver) && !duelGameOverHandled) {
+        duelGameOverHandled = true;
+        const winner = [...finalists].sort((a, b) => (b.score || 0) - (a.score || 0))[0];
+        if (winnerEl) {
+          winnerEl.textContent = `${winner?.name || 'Le finaliste'} remporte le duel !`;
+          winnerEl.classList.add('duel-banner--visible');
+        }
+        setTimeout(() => {
+          if (ecranActif) naviguer('podium.html');
+        }, 1000);
+      } else if (!room.quiz.duel.gameOver && winnerEl) {
+        duelGameOverHandled = false;
+        winnerEl.textContent = '';
+        winnerEl.classList.remove('duel-banner--visible');
+      }
+
+      return isSpectator;
+    }
   
     function resetForQuestion(room) {
       const page = document.getElementById('page');
       const buzzer = document.getElementById('buzzer');
       if (!page || !buzzer || !answersSection || !buzzerSection || !waitSection) return;
       selectedChoice = null; buzzed = false;
+      duelGameOverHandled = false;
+
+      const isSerie = room?.quiz?.mancheMode === 'serie';
       page.classList.remove('quiz-answering'); page.classList.add('quiz-waiting');
       buzzer.classList.remove('buzzer--pressed');
-      document.getElementById('buzz-hint').textContent = 'Buzzez pour répondre';
-      buzzerSection.style.display = 'flex'; waitSection.style.display = 'none';
-      answersSection.style.display = 'flex'; answersSection.classList.add('answers-section--hidden');
+
+      if (isSerie) {
+        // Mode série : afficher directement les réponses, pas de buzzer
+        buzzerSection.style.display = 'none';
+        waitSection.style.display = 'none';
+        answersSection.style.display = 'flex';
+        answersSection.classList.remove('answers-section--hidden');
+        page.classList.remove('quiz-waiting'); page.classList.add('quiz-answering');
+      } else {
+        document.getElementById('buzz-hint').textContent = 'Buzzez pour répondre';
+        buzzerSection.style.display = 'flex'; waitSection.style.display = 'none';
+        answersSection.style.display = 'flex'; answersSection.classList.add('answers-section--hidden');
+      }
     }
   
     function revealAnswers() {
@@ -291,9 +425,50 @@ export async function init(conteneur) {
       if (!ecranActif) return;
       if (!room || room.code !== roomCode) return;
       persistRoom(room);
-      if (room.quiz?.status === 'finished') { naviguer('podium.html'); return; }
-      if (room.quiz?.revealed || room.quiz?.status === 'revealed') { if (room.config?.mode === 'quiz-multijoueur') { document.getElementById('wait-text').textContent = "Réponse révélée · en attente de l'hôte…"; buildScores((room.players || []).filter(p => !p.host)); } else naviguer('resume-question.html'); return; }
-      if (room.quiz?.status === 'question') renderQuestion(room);
+
+      // Phase manche-results → écran inter-manche
+      if (room.phase === 'manche-results') { naviguer('fin-manche-multi.html'); return; }
+
+      const isDuel = room.config?.mode === 'duel';
+      const isClassique = room.config?.mode === 'multijoueur';
+      const isDuelSpectator = renderDuelState(room);
+      if (isDuel && room.quiz?.duel?.gameOver) return;
+
+      if (room.quiz?.status === 'finished') {
+        // Mode classique multi-manche : l'hôte déclenche la transition, les autres attendent
+        const totalManches = Number(room.config?.manches || 1);
+        const currentManche = Number(room.manche || 1);
+        if (isClassique && totalManches > 1 && currentManche < totalManches) {
+          const isHost = Boolean((room.players || []).find(p => String(p.id) === String(me?.id))?.host || me?.host);
+          if (isHost && realtime) {
+            realtime.finishManche().catch(() => {});
+          } else {
+            const waitEl = document.getElementById('wait-text');
+            if (waitEl) waitEl.textContent = 'Fin de la manche · résultats en cours…';
+            showWaiting();
+          }
+          return;
+        }
+        naviguer('podium.html');
+        return;
+      }
+
+      if (room.quiz?.revealed || room.quiz?.status === 'revealed') {
+        if (room.config?.mode === 'quiz-multijoueur') {
+          document.getElementById('wait-text').textContent = "Réponse révélée · en attente de l'hôte…";
+          buildScores((room.players || []).filter(p => !p.host));
+        } else if (isDuel) {
+          renderQuestion(room);
+          renderDuelState(room);
+        } else {
+          naviguer('resume-question.html');
+        }
+        return;
+      }
+      if (room.quiz?.status === 'question') {
+        renderQuestion(room);
+        if (isDuelSpectator || isDuel) renderDuelState(room);
+      }
     }
   
     function emitBuzz() {

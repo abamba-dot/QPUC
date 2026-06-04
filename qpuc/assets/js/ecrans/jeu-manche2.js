@@ -14,10 +14,159 @@ import { playCorrect, playWrong } from '../sound.js';
 const { bindThemeDots } = Utils;
 const fitTextToBox = Utils.fitTextToBox || (() => {});
 
+let _nettoyages = [];
+function _ajouterNettoyage(fn) { if (typeof fn === 'function') _nettoyages.push(fn); }
+
 export const titre = 'Jeu Manche 2 — CHAMPION.';
 
 export const html = `
 <div class="page jeu-m2-page" id="page">
+  <style>
+    .jeu-m2-page{
+      --m2-panel:rgba(255,253,248,.23);
+      --m2-panel-strong:rgba(255,253,248,.32);
+      --m2-border:rgba(255,255,255,.34);
+      width:100vw!important;
+      min-height:100dvh!important;
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr);
+      grid-template-rows:auto auto minmax(210px,auto) auto auto auto;
+      align-content:center!important;
+      justify-items:center!important;
+      gap:clamp(12px,1.9vh,22px)!important;
+      padding:clamp(22px,4vw,52px)!important;
+      overflow:hidden!important;
+    }
+    .jeu-m2-page .game-header,
+    .jeu-m2-page .passage-strip,
+    .jeu-m2-page .q-card,
+    .jeu-m2-page .answers-grid,
+    .jeu-m2-page .serie-card,
+    .jeu-m2-page .sim-btns{
+      width:min(100%,1080px)!important;
+    }
+    .jeu-m2-page .game-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      margin:0!important;
+    }
+    .jeu-m2-page .game-title{
+      font-size:clamp(32px,4vw,56px);
+      line-height:.95;
+      letter-spacing:0;
+    }
+    .jeu-m2-page .passage-strip{
+      min-height:76px;
+      padding:14px 18px;
+      border-radius:22px;
+      background:linear-gradient(135deg,var(--m2-panel-strong),rgba(255,255,255,.14));
+      border:1px solid var(--m2-border);
+      box-shadow:0 18px 42px rgba(34,24,68,.18),inset 0 1px 0 rgba(255,255,255,.3);
+      backdrop-filter:blur(8px);
+    }
+    .jeu-m2-page #passage-avatar{
+      width:56px;
+      height:56px;
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+      border:2px solid rgba(255,255,255,.48);
+    }
+    .jeu-m2-page .passage-strip__label{
+      color:rgba(255,255,255,.76);
+      font-size:11px;
+    }
+    .jeu-m2-page .passage-strip__name{
+      font-size:clamp(28px,3.2vw,42px);
+      line-height:1;
+    }
+    .jeu-m2-page .q-card{
+      min-height:clamp(210px,31vh,320px);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      padding:clamp(34px,5vw,64px);
+      border-radius:26px;
+      background:linear-gradient(145deg,rgba(255,253,248,.22),rgba(255,255,255,.1));
+      border:1px solid var(--m2-border);
+      box-shadow:0 24px 56px rgba(34,24,68,.22),inset 0 1px 0 rgba(255,255,255,.32);
+      backdrop-filter:blur(10px);
+      text-align:center;
+      overflow:hidden;
+    }
+    .jeu-m2-page .q-theme{
+      color:rgba(255,255,255,.78);
+      font-size:clamp(10px,1vw,12px);
+      letter-spacing:.22em;
+    }
+    .jeu-m2-page .q-text{
+      max-width:900px;
+      font-size:clamp(30px,4.4vw,58px);
+      line-height:1.08;
+      text-wrap:balance;
+    }
+    .jeu-m2-page .answers-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:clamp(10px,1.4vw,16px);
+      margin:0!important;
+    }
+    .jeu-m2-page .ans-btn{
+      min-height:78px;
+      border-radius:18px;
+      background:rgba(255,253,248,.18);
+      border:1px solid rgba(255,255,255,.3);
+      box-shadow:0 12px 28px rgba(34,24,68,.14);
+      color:#fff;
+      backdrop-filter:blur(7px);
+    }
+    .jeu-m2-page .ans-letter{
+      background:rgba(255,255,255,.22);
+      color:#fff;
+    }
+    .jeu-m2-page .ans-text{
+      font-size:clamp(15px,1.5vw,18px);
+      color:#fff;
+    }
+    .jeu-m2-page .serie-card{
+      padding:12px 16px;
+      margin:0!important;
+      border-radius:999px;
+      background:rgba(255,253,248,.22);
+      border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 12px 28px rgba(34,24,68,.14);
+    }
+    .jeu-m2-page .serie-cases{
+      display:none;
+    }
+    .jeu-m2-page .sim-btns{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      gap:12px;
+      margin:0!important;
+    }
+    .jeu-m2-page .sim-btns button{
+      min-height:56px;
+    }
+    @media(max-width:760px){
+      .jeu-m2-page{
+        overflow-y:auto!important;
+        align-content:start!important;
+      }
+      .jeu-m2-page .game-header{
+        align-items:center;
+      }
+      .jeu-m2-page .answers-grid,
+      .jeu-m2-page .sim-btns{
+        grid-template-columns:1fr;
+      }
+      .jeu-m2-page .q-card{
+        min-height:auto;
+      }
+    }
+  </style>
   <div class="theme-dots" style="top:14px;right:14px;bottom:auto">
     <div class="theme-dot active" data-theme-key="celadon" style="background:#B4D3D9"></div>
     <div class="theme-dot" data-theme-key="beige" style="background:#F2EAE0;border-color:#ccc"></div>
@@ -92,6 +241,7 @@ export const html = `
 `;
 
 export async function init(conteneur) {
+  cleanup();
   /* ── Conversion des événements inline ── */
   conteneur.querySelectorAll('[data-onclick]').forEach(el => {
     const code = el.dataset.onclick;
@@ -160,10 +310,12 @@ export async function init(conteneur) {
 
   // Rendre navigate accessible aux attributs onclick=""
   window.naviguer = naviguer;
-  
+
   // Initialisation thème et points de couleur
   initTheme();
   bindThemeDots();
+    let ecranActif = true;
+    _ajouterNettoyage(() => { ecranActif = false; });
     const state = getState();
     const qualified = state.rounds?.m1?.results?.length
       ? state.rounds.m1.results.filter(p => p.qualified)
@@ -242,6 +394,7 @@ export async function init(conteneur) {
     }
   
     function nextQuestion() {
+      if (!ecranActif) return;
       questionIndex++;
       playerQuestionCount++;
       if (serie >= 4 || playerQuestionCount >= PASS_LIMIT) {
@@ -267,7 +420,9 @@ export async function init(conteneur) {
       else playWrong();
   
       updateSerie(ok ? serie + 1 : 0);
-      setTimeout(nextQuestion, ok ? 850 : 1300);
+      if (ok) players[currentPlayerIndex].score = (players[currentPlayerIndex].score || 0) + 2;
+      const _tid = setTimeout(nextQuestion, ok ? 850 : 1300);
+      _ajouterNettoyage(() => clearTimeout(_tid));
     };
   
     window.passQuestion = function() {
@@ -275,14 +430,16 @@ export async function init(conteneur) {
       answered = true;
       timer && timer.pause();
       updateSerie(Math.max(0, serie - 1));
-      setTimeout(nextQuestion, 450);
+      const _tid = setTimeout(nextQuestion, 450);
+      _ajouterNettoyage(() => clearTimeout(_tid));
     };
   
     window.finishCurrentPlayer = finishCurrentPlayer;
     function finishCurrentPlayer() {
+      if (!ecranActif) return;
       timer && timer.stop();
       players[currentPlayerIndex].serie = serie;
-      players[currentPlayerIndex].score = (players[currentPlayerIndex].score || 0) + serie;
+      players[currentPlayerIndex].score = players[currentPlayerIndex].score || 0;
   
       if (currentPlayerIndex + 1 >= players.length) {
         finishManche2(players);
@@ -310,8 +467,19 @@ export async function init(conteneur) {
         }
       });
     });
+
+    const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+    const keydownHandler = e => {
+      if (answered || e.ctrlKey || e.altKey || e.metaKey) return;
+      const mapped = keyMap[e.key.toLowerCase()];
+      if (mapped !== undefined) { e.preventDefault(); window.answer(mapped); }
+    };
+    document.addEventListener('keydown', keydownHandler);
+    _ajouterNettoyage(() => document.removeEventListener('keydown', keydownHandler));
+    _ajouterNettoyage(() => { if (timer) { timer.stop(); timer = null; } });
 }
 
 export function cleanup() {
-  // TODO : nettoyer les listeners globaux, timers, etc.
+  _nettoyages.forEach(fn => { try { fn(); } catch (e) {} });
+  _nettoyages = [];
 }

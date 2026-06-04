@@ -58,7 +58,7 @@ export const html = `
       </div>
       <div class="mode-card__body">
         <div class="mode-card__title">Duel</div>
-        <div class="mode-card__desc">Même format que le local : jusqu'à 4 joueurs, 3 manches, puis duel final.</div>
+        <div class="mode-card__desc">Premier à marquer 3 points gagne. Buzzez en premier et répondez correctement. 4 joueurs max.</div>
       </div>
       <div class="mode-card__arrow"><svg width="20" height="20" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </div>

@@ -325,6 +325,15 @@ function isDuelMode(room) {
   return mode === 'duel-multijoueur' || mode === 'duel';
 }
 
+function questionPoints(room) {
+  const mancheMode = room?.quiz?.mancheMode;
+  if (mancheMode === 'duel-final') return 2;
+  if (mancheMode === 'serie') return 1;
+  // Buzz (manche 1) : escalade 1 → 2 → 3 selon joueurs qualifiés
+  const qualCount = (room?.quiz?.manche1Qualified || []).length;
+  return qualCount === 0 ? 1 : qualCount === 1 ? 2 : 3;
+}
+
 function quizPlayers(room) {
   if (!room) return [];
   return room.config?.mode === 'quiz-multijoueur'
@@ -377,18 +386,19 @@ function revealQuiz(room) {
     const answer = responderId ? room.quiz.answers[responderId] : null;
     const responder = room.players.find(p => String(p.id) === String(responderId));
     const isCorrect = Number.isInteger(answer?.choice) && answer.choice === question.c;
-    const points = Math.max(1, 3 - Number(room.quiz.duel?.hintIndex || 0));
+    const points = questionPoints(room);
     if (isCorrect && responder) responder.score = (responder.score || 0) + points;
-    const gameOver = Boolean(responder && (responder.score || 0) >= 3);
+    const gameOver = Boolean(responder && (responder.score || 0) >= 12);
+    const previousLast = room.quiz.duel?.last || null;
     room.quiz.duel = {
       ...(room.quiz.duel || {}),
-      last: {
+      last: responderId ? {
         responderId,
         choice: Number.isInteger(answer?.choice) ? answer.choice : null,
         correct: isCorrect,
         points: isCorrect ? points : 0,
         gameOver,
-      },
+      } : previousLast,
       gameOver,
     };
     room.quiz.revealed = true;
@@ -405,8 +415,27 @@ function revealQuiz(room) {
     .sort((a, b) => (room.quiz.answers[a.id].at || 0) - (room.quiz.answers[b.id].at || 0));
 
   correctAnswerers.forEach((player, rank) => {
-    player.score = (player.score || 0) + Math.max(40, 100 - rank * 8);
+    player.score = (player.score || 0) + questionPoints(room);
   });
+
+  // Qualification manche 1 (mode buzz)
+  if (!isDuelMode(room) && isClassicBuzzMode(room) && room.quiz.manche1Qualified !== undefined) {
+    const MANCHE1_THRESHOLD = 9;
+    const players = quizPlayers(room);
+    players.forEach(player => {
+      if ((player.score || 0) >= MANCHE1_THRESHOLD && !room.quiz.manche1Qualified.includes(String(player.id))) {
+        room.quiz.manche1Qualified.push(String(player.id));
+      }
+    });
+    // Si tous sauf 1 sont qualifiés → terminer la manche
+    const notQualified = players.filter(p => !room.quiz.manche1Qualified.includes(String(p.id)));
+    if (players.length > 1 && notQualified.length <= 1) {
+      room.quiz.revealed = true;
+      room.quiz.status = 'finished';
+      clearQuizTimers(room);
+      return;
+    }
+  }
 
   room.quiz.revealed = true;
   room.quiz.status = 'revealed';
@@ -452,7 +481,7 @@ function scheduleClassicAutoNext(room) {
     advanceQuiz(liveRoom);
     touchRoom(liveRoom);
     emitRoom(liveRoom);
-  }, 5000);
+  }, 10000);
 }
 
 function toPublicRoom(room) {
@@ -463,7 +492,10 @@ function toPublicRoom(room) {
     config: room.config,
     phase: room.phase || (room.quiz ? 'playing' : 'lobby'),
     intro: room.intro || null,
-    players: room.players.map(toPublicPlayer),
+    manche: room.manche || 1,
+    mancheMode: room.mancheMode || 'buzz',
+    mancheResults: room.mancheResults || null,
+    players: room.players.map(p => ({ ...toPublicPlayer(p), serie: p.serie || 0, serieMax: p.serieMax || 0 })),
     quizPlayerCount: quizPlayers(room).length,
     quiz: room.quiz ? {
       status: room.quiz.status,
@@ -477,6 +509,7 @@ function toPublicRoom(room) {
       startedAt: room.quiz.startedAt,
       duration: room.quiz.duration || QUIZ_QUESTION_DURATION_SEC,
       duel: room.quiz.duel || null,
+      manche1Qualified: room.quiz.manche1Qualified || [],
     } : null,
     createdAt: room.createdAt,
   };
@@ -674,6 +707,10 @@ io.on('connection', socket => {
       ack({ ok: false, error: 'Aucune question disponible pour cette configuration' });
       return;
     }
+    const mancheMode = room.mancheMode || 'buzz';
+    const isDuelFinal = mancheMode === 'duel-final' || isDuelMode({ config });
+    // Serie mode: shorter questions; duel-final uses duel mechanics
+    const questionDuration = mancheMode === 'serie' ? 8 : QUIZ_QUESTION_DURATION_SEC;
     room.quiz = {
       status: 'question',
       index: 0,
@@ -684,8 +721,10 @@ io.on('connection', socket => {
       counts: [0, 0, 0, 0],
       revealed: false,
       startedAt: Date.now(),
-      duration: QUIZ_QUESTION_DURATION_SEC,
-      duel: isDuelMode({ config }) ? {
+      duration: questionDuration,
+      mancheMode,
+      manche1Qualified: [],
+      duel: isDuelFinal ? {
         finalists: quizPlayers(room).slice(0, 2).map(p => p.id),
         hintIndex: 0,
         last: null,
@@ -727,7 +766,8 @@ io.on('connection', socket => {
       ack({ ok: false, error: 'L’hôte anime la partie, il ne répond pas' });
       return;
     }
-    if (!room.quiz.buzzes?.some(b => b.playerId === meta.playerId)) {
+    const isSerie = room.quiz.mancheMode === 'serie';
+    if (!isSerie && !room.quiz.buzzes?.some(b => b.playerId === meta.playerId)) {
       ack({ ok: false, error: 'Buzz requis avant de répondre' });
       return;
     }
@@ -740,13 +780,51 @@ io.on('connection', socket => {
       ack({ ok: false, error: 'Réponse invalide' });
       return;
     }
-    room.quiz.answers[meta.playerId] = {
-      choice,
-      at: Date.now(),
-    };
-    if (isDuelMode(room)) revealQuiz(room);
+    room.quiz.answers[meta.playerId] = { choice, at: Date.now() };
+
+    // Streak tracking for serie mode
+    if (isSerie) {
+      const question = room.quiz.questions[room.quiz.index];
+      const player = room.players.find(p => p.id === meta.playerId);
+      if (player) {
+        if (choice === question.c) {
+          player.serie = (player.serie || 0) + 1;
+          player.serieMax = Math.max(player.serieMax || 0, player.serie);
+          player.score = (player.score || 0) + questionPoints(room);
+        } else {
+          player.serie = 0;
+        }
+      }
+    }
+
+    if (isDuelMode(room)) {
+      const question = room.quiz.questions[room.quiz.index];
+      const isCorrect = choice === question.c;
+      if (isCorrect) {
+        revealQuiz(room);
+      } else {
+        room.quiz.duel = {
+          ...(room.quiz.duel || {}),
+          last: {
+            responderId: meta.playerId,
+            choice,
+            correct: false,
+            points: 0,
+            gameOver: false,
+          },
+          gameOver: false,
+        };
+        room.quiz.firstBuzz = null;
+        const finalists = room.quiz.duel?.finalists || [];
+        const everyFinalistTried = finalists.length > 0
+          && finalists.every(id => room.quiz.answers[id]);
+        if (everyFinalistTried) {
+          revealQuiz(room);
+        }
+      }
+    }
     const expectedAnswers = quizPlayers(room).length;
-    if (!isDuelMode(room) && isClassicBuzzMode(room) && expectedAnswers > 0 && Object.keys(room.quiz.answers).length >= expectedAnswers) revealQuiz(room);
+    if (!isDuelMode(room) && (isClassicBuzzMode(room) || isSerie) && expectedAnswers > 0 && Object.keys(room.quiz.answers).length >= expectedAnswers) revealQuiz(room);
     touchRoom(room);
     ack({ ok: true, room: toPublicRoom(room) });
     emitRoom(room);
@@ -792,6 +870,14 @@ io.on('connection', socket => {
     }
     if (isDuelMode(room) && !room.quiz.duel?.finalists?.some(id => String(id) === String(meta.playerId))) {
       ack({ ok: false, error: 'Tu observes ce duel' });
+      return;
+    }
+    if (room.quiz.answers?.[meta.playerId]) {
+      ack({ ok: false, error: 'Tu as déjà tenté cette question' });
+      return;
+    }
+    if (isDuelMode(room) && room.quiz.firstBuzz && String(room.quiz.firstBuzz.playerId) !== String(meta.playerId)) {
+      ack({ ok: false, error: 'Un autre joueur répond' });
       return;
     }
     if (room.quiz.buzzes?.some(b => b.playerId === meta.playerId)) {
@@ -845,6 +931,112 @@ io.on('connection', socket => {
     ack({ ok: true, room: toPublicRoom(room) });
     emitRoom(room);
   });
+
+  // ── Multi-manche (mode classique) ──────────────────────────────────────────
+
+  socket.on('game:finish-manche', (payload = {}, ack = () => {}) => {
+    const room = roomForSocket(socket);
+    const meta = socketMeta.get(socket.id);
+    if (!room || !meta || !meta.host || meta.playerId !== room.hostId) {
+      ack({ ok: false, error: 'Seul l\'hôte peut terminer la manche' });
+      return;
+    }
+    if (!room.quiz || room.quiz.status !== 'finished') {
+      ack({ ok: false, error: 'La manche n\'est pas encore terminée' });
+      return;
+    }
+    const mancheNum = Number(room.manche || 1);
+    const players = quizPlayers(room);
+    // Manche 2 (série) : tri par meilleure série puis score ; manche 1/3 : tri par score
+    const sorted = [...players].sort((a, b) =>
+      mancheNum === 2
+        ? (b.serieMax || b.serie || 0) - (a.serieMax || a.serie || 0) || (b.score || 0) - (a.score || 0)
+        : (b.score || 0) - (a.score || 0)
+    );
+
+    let qualifiedIds = [];
+    let nextManche = null;
+
+    if (mancheNum === 1) {
+      const qualCount = Math.min(sorted.length, sorted.length <= 3 ? 2 : 3);
+      qualifiedIds = sorted.slice(0, qualCount).map(p => p.id);
+      nextManche = qualCount <= 2 ? 3 : 2;
+    } else if (mancheNum === 2) {
+      qualifiedIds = sorted.slice(0, 2).map(p => p.id);
+      nextManche = 3;
+    }
+
+    const results = sorted.map((p, i) => ({
+      id: p.id, name: p.name, init: p.init, color: p.color,
+      score: p.score || 0,
+      serie: p.serieMax || p.serie || 0,
+      qualified: qualifiedIds.includes(p.id),
+    }));
+
+    room.mancheResults = room.mancheResults || {};
+    room.mancheResults[`m${mancheNum}`] = { results, qualifiedIds, nextManche };
+    room.manche = mancheNum;
+    room.phase = 'manche-results';
+    room.quiz = null;
+
+    // Filter players to only qualified for next manche (keep host)
+    if (nextManche && qualifiedIds.length) {
+      room.players = room.players.filter(p => p.host || qualifiedIds.includes(p.id));
+    }
+
+    touchRoom(room);
+    ack({ ok: true, room: toPublicRoom(room), results, qualifiedIds, nextManche });
+    emitRoom(room);
+  });
+
+  socket.on('game:start-next-manche', (payload = {}, ack = () => {}) => {
+    const room = roomForSocket(socket);
+    const meta = socketMeta.get(socket.id);
+    if (!room || !meta || !meta.host || meta.playerId !== room.hostId) {
+      ack({ ok: false, error: 'Seul l\'hôte peut lancer la manche suivante' });
+      return;
+    }
+    if (room.phase !== 'manche-results') {
+      ack({ ok: false, error: 'Aucun résultat de manche en attente' });
+      return;
+    }
+    const currentManche = Number(room.manche || 1);
+    const nextManche = currentManche + 1;
+    room.manche = nextManche;
+
+    if (nextManche === 2) {
+      room.mancheMode = 'serie';
+      // Reset per-manche streaks on players
+      room.players.forEach(p => { p.serie = 0; p.serieMax = 0; });
+    } else if (nextManche >= 3) {
+      room.mancheMode = 'duel-final';
+      // Keep only the 2 finalists (+ host)
+      const m2 = room.mancheResults?.m2;
+      const finalistIds = m2?.qualifiedIds?.length >= 2
+        ? m2.qualifiedIds.slice(0, 2)
+        : [...room.players].filter(p => !p.host).sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 2).map(p => p.id);
+      room.players = room.players.filter(p => p.host || finalistIds.some(id => String(id) === String(p.id)));
+      // Reset scores for the duel (fresh start)
+      room.players.forEach(p => { p.score = 0; });
+      // Switch config to duel so isDuelMode() works throughout
+      room.config = normalizeConfig({ ...room.config, mode: 'duel' });
+    } else {
+      room.mancheMode = 'buzz';
+    }
+
+    room.phase = 'intro';
+    room.intro = {
+      manche: nextManche,
+      title: payload.title || (nextManche === 2 ? 'Manche 2 · 4 à la Suite' : nextManche >= 3 ? 'Manche 3 · Face à Face' : `Manche ${nextManche}`),
+      subtitle: payload.subtitle || (nextManche === 2 ? 'Enchaînez les bonnes réponses' : nextManche >= 3 ? 'Le duel final' : 'Préparez-vous'),
+      startsAt: Date.now() + 450,
+    };
+    touchRoom(room);
+    ack({ ok: true, room: toPublicRoom(room) });
+    emitRoom(room);
+  });
+
+  // ───────────────────────────────────────────────────────────────────────────
 
   socket.on('disconnect', () => {
     const meta = socketMeta.get(socket.id);

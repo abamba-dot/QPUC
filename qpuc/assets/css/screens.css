@@ -1732,3 +1732,151 @@ body {
 
 .theme-tag,
 .theme-dots { display: none !important; }
+
+/* ═══════════════════════════════════════════════
+   18. MANCHE 3 — Face à Face (buzzer duel)
+═══════════════════════════════════════════════ */
+
+.duel-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.duel-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid var(--accent);
+}
+
+.duel-dot--filled {
+  background: var(--accent);
+}
+
+.duel-buzz-btn {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--glass-strong);
+  border: 2px solid var(--glass-border);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text);
+}
+
+.duel-buzz-btn .buzz-key {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  color: var(--sub);
+  text-transform: uppercase;
+}
+
+.duel-buzz-btn--active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb, 180,211,217), .3);
+  transform: scale(1.06);
+}
+
+.duel-buzz-btn--disabled {
+  opacity: .38;
+  pointer-events: none;
+}
+
+.duel-buzz-btn--wrong {
+  border-color: var(--color-error);
+}
+
+.duel-player--buzzing {
+  border-color: var(--accent) !important;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.18), var(--elevation-3);
+}
+
+.duel-bandeau {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--glass-strong);
+  border-top: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: var(--text);
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .3s;
+  flex-shrink: 0;
+}
+
+.duel-bandeau--correct {
+  background: rgba(61,200,122,.15);
+  border-top-color: rgba(61,200,122,.3);
+  color: #1a7a45;
+}
+
+.duel-bandeau--wrong {
+  background: rgba(232,90,58,.12);
+  border-top-color: rgba(232,90,58,.3);
+  color: #a03020;
+}
+
+.duel-winner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  animation: fadeIn .4s ease;
+}
+
+.duel-winner-badge {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 8vw, 72px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -.04em;
+  text-shadow: 0 4px 32px rgba(0,0,0,.6);
+  text-align: center;
+}
+
+.duel-winner-sub {
+  font-size: 16px;
+  font-weight: 800;
+  color: rgba(255,255,255,.7);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .duel-buzz-btn {
+    width: 72px;
+    height: 72px;
+    font-size: 18px;
+  }
+
+  .duel-bandeau {
+    font-size: 11px;
+    padding: 10px 14px;
+  }
+}

@@ -90,6 +90,12 @@ export const html = `
           </div>
         </div>
       </div>
+      <div class="pseudo-block largeur-100" style="margin-top:4px">
+        <div class="pseudo-top">
+          <span class="pseudo-lbl">Votre pseudo (hôte)</span>
+        </div>
+        <input class="pseudo-input" id="host-name" placeholder="Joueur 1" maxlength="14" aria-label="Votre pseudo" style="width:100%">
+      </div>
       <div class="launch-summary">
         <div class="sum-row">
           <span class="sum-key">Code de la salle</span>
@@ -227,8 +233,17 @@ export async function init(conteneur) {
     }
     updateSummary();
   
+    // Pre-fill host name from localStorage
+    const savedName = localStorage.getItem('champ_player_name') || '';
+    const hostInput = document.getElementById('host-name');
+    if (hostInput && savedName) hostInput.value = savedName;
+    hostInput?.addEventListener('input', () => {
+      const v = hostInput.value.trim();
+      if (v) localStorage.setItem('champ_player_name', v);
+    });
+
     window.createRoom = function() {
-      const hostName = localStorage.getItem('champ_player_name') || 'Joueur 1';
+      const hostName = (document.getElementById('host-name')?.value.trim()) || localStorage.getItem('champ_player_name') || 'Hôte';
       const room = {
         config: { category: cfg.category, difficulty: cfg.difficulty, nbQuestions: Number(cfg.nbQuestions), manches: Number(cfg.manches), maxPlayers: Number(cfg.maxPlayers), visibility: cfg.visibility },
         players: [{ id: crypto.randomUUID?.() || String(Date.now()), name: hostName, init: hostName === 'Joueur 1' ? 'J1' : hostName.slice(0, 2).toUpperCase(), color: 0, host: true, ready: true }],

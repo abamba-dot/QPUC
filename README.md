@@ -152,6 +152,36 @@ Sur le même réseau local, il faut partager l’adresse réseau de la machine h
 http://192.168.1.20:3001/?ecran=rejoindre-salle&code=CHMP-XXXX
 ```
 
+## Variables d’environnement
+
+Le serveur accepte quelques variables optionnelles :
+
+```bash
+NODE_ENV=production
+PORT=3001
+CORS_ORIGIN=https://qpuc.pro
+MAX_ROOMS=500
+QUIZ_QUESTION_DURATION_SEC=20
+```
+
+Exemple PowerShell :
+
+```powershell
+$env:PORT="3001"
+npm start
+```
+
+Exemple Bash :
+
+```bash
+PORT=3001 npm start
+```
+
+Un modèle prêt à copier est disponible dans :
+
+```text
+.env.example
+```
 
 ## Questions
 
@@ -175,6 +205,124 @@ Fichiers actuellement utilisés :
 
 - `fond.mp3`
 - `button.ogg`
+
+## Publier sur GitHub
+
+Initialiser Git si nécessaire :
+
+```bash
+git init
+git branch -M main
+git remote add origin https://github.com/abamba-dot/QPUC.git
+```
+
+Vérifier les fichiers qui seront envoyés :
+
+```bash
+git status
+```
+
+Ajouter et committer :
+
+```bash
+git add .
+git commit -m "Initial commit"
+```
+
+Envoyer sur GitHub :
+
+```bash
+git push -u origin main
+```
+
+Le fichier `.gitignore` exclut notamment :
+
+- `.claude/`
+- `.codex/`
+- `.agents/`
+- `node_modules/`
+- `.env`
+- les archives `.zip`
+- les rapports de travail locaux
+- les logs et caches
+
+## Déploiement sur Ubuntu
+
+Le dépôt contient les fichiers de production suivants :
+
+```text
+.env.example
+ecosystem.config.cjs
+deploy/nginx-qpuc.conf
+deploy/DEPLOIEMENT_UBUNTU.md
+```
+
+Déploiement cible :
+
+```text
+VPS : ubuntu@51.38.187.235
+Domaine : qpuc.pro
+```
+
+Avant de lancer HTTPS, modifier la zone DNS OVH :
+
+```text
+@     A    51.38.187.235
+www   A    51.38.187.235
+```
+
+Les anciennes entrées `A` vers `213.186.33.5` doivent être remplacées.
+
+Guide complet :
+
+```text
+deploy/DEPLOIEMENT_UBUNTU.md
+```
+
+Résumé côté serveur :
+
+```bash
+ssh ubuntu@51.38.187.235
+sudo apt update
+sudo apt install -y git nginx curl ca-certificates
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+sudo npm install -g pm2
+
+cd /var/www
+sudo git clone https://github.com/abamba-dot/QPUC.git qpuc
+sudo chown -R ubuntu:ubuntu /var/www/qpuc
+cd /var/www/qpuc
+npm ci --omit=dev
+cp .env.example .env
+pm2 start ecosystem.config.cjs
+pm2 save
+```
+
+Configurer Nginx :
+
+```bash
+sudo cp deploy/nginx-qpuc.conf /etc/nginx/sites-available/qpuc
+sudo ln -s /etc/nginx/sites-available/qpuc /etc/nginx/sites-enabled/qpuc
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+Activer HTTPS :
+
+```bash
+sudo apt install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d qpuc.pro -d www.qpuc.pro
+```
+
+Mise à jour après un nouveau push :
+
+```bash
+cd /var/www/qpuc
+git pull
+npm ci --omit=dev
+pm2 restart qpuc
+```
 
 ## État actuel
 

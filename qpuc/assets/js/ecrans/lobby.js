@@ -262,6 +262,7 @@ export async function init(conteneur) {
     if (!currentPlayer) currentPlayer = players[0];
     let realtime = null;
     let isOnline = sessionStorage.getItem('champ_room_backend') === 'online';
+    let receivedRoomUpdate = false;
     document.getElementById('connection-status').textContent = isOnline ? 'Online' : 'Local';
   
     const playersEl = document.getElementById('players');
@@ -269,16 +270,20 @@ export async function init(conteneur) {
       playersEl.innerHTML = '';
       const visiblePlayers = mode === 'quiz' ? players.filter(p => !p.host) : players;
       visiblePlayers.forEach((p, i) => {
+        const disconnected = p.connected === false;
         const row = document.createElement('div');
-        row.className = 'lobby-player';
+        row.className = 'lobby-player' + (disconnected ? ' lobby-player--offline' : '');
         row.style.animationDelay = (i * 0.06) + 's';
         const crown = p.host && mode === 'quiz'
           ? `<span class="host-crown" title="Hôte"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 7l4 4 5-7 5 7 4-4-2 12H5z"/></svg></span>`
           : '';
+        const discBadge = disconnected
+          ? `<span class="disconn-tag" title="Joueur déconnecté" style="font-size:10px;color:var(--sub);font-weight:700;letter-spacing:.04em">Absent</span>`
+          : '';
         row.innerHTML = `
-          <div class="avatar" style="background:${avatarColor(p.color)}">${esc(p.init)}</div>
-          <span class="lobby-player__name">${esc(p.name)}${crown}</span>
-          <span class="ready-pill ${p.ready ? 'ready-pill--yes' : 'ready-pill--no'}">${p.ready ? 'Prêt' : 'En attente'}</span>`;
+          <div class="avatar" style="background:${avatarColor(p.color)};opacity:${disconnected ? '.4' : '1'}">${esc(p.init)}</div>
+          <span class="lobby-player__name">${esc(p.name)}${crown}${discBadge}</span>
+          <span class="ready-pill ${disconnected ? 'ready-pill--no' : p.ready ? 'ready-pill--yes' : 'ready-pill--no'}">${disconnected ? 'Déconnecté' : p.ready ? 'Prêt' : 'En attente'}</span>`;
         playersEl.appendChild(row);
       });
       // Slots vides
@@ -310,17 +315,18 @@ export async function init(conteneur) {
       startBtn.style.display = isHost ? 'inline-flex' : 'none';
       readyBtn.style.display = isHost ? 'none' : 'inline-flex';
       readyBtn.textContent = me?.ready ? 'Je ne suis plus prêt' : 'Je suis prêt';
-      startBtn.disabled = !enoughPlayers || (requiresReady && notReady > 0);
+      startBtn.disabled = !enoughPlayers;
+
       if (!enoughPlayers) {
         info.textContent = mode === 'quiz' ? 'En attente d\'au moins 1 joueur…' : 'En attente d\'au moins 2 joueurs…';
       } else if (!isHost) {
         info.textContent = mode === 'quiz'
           ? "Connecté · en attente du lancement par l'hôte"
           : (me?.ready ? "Prêt · en attente du lancement par l'hôte" : 'Prépare-toi puis confirme.');
-      } else if (!requiresReady || notReady === 0) {
+      } else if (notReady === 0) {
         info.innerHTML = `<span style="color:var(--color-correct);font-weight:700">Tous les joueurs sont prêts !</span>`;
       } else {
-        info.textContent = `En attente de ${notReady} joueur${notReady > 1 ? 's' : ''}…`;
+        info.textContent = `${notReady} joueur${notReady > 1 ? 's' : ''} pas encore prêt${notReady > 1 ? 's' : ''} — vous pouvez lancer.`;
       }
     }
     render();
@@ -339,10 +345,12 @@ export async function init(conteneur) {
       arreterEcouteSalle = realtime.onRoomUpdate(room => {
         if (!room || room.code !== code) return;
         if (room.phase === 'intro') {
+          nettoyerEcoutesLobby();
           naviguer('intro-multi.html');
           return;
         }
         if (room.quiz?.status === 'question') {
+          nettoyerEcoutesLobby();
           const me = (room.players || []).find(p => String(p.id) === String(currentPlayer?.id)) || currentPlayer;
           const roomMode = room.config?.mode || mode;
           const cible = roomMode === 'quiz-multijoueur' && me?.host
@@ -351,6 +359,7 @@ export async function init(conteneur) {
           naviguer(cible);
           return;
         }
+        receivedRoomUpdate = true;
         activeConfig = room.config || activeConfig;
         players = (room.players || players).map(p => ({ ...p }));
         currentPlayer = players.find(p => String(p.id) === String(currentPlayer?.id)) || currentPlayer;
@@ -379,12 +388,45 @@ export async function init(conteneur) {
           activeConfig = response.room.config || activeConfig;
           players = (response.room.players || players).map(p => ({ ...p }));
           currentPlayer = players.find(p => String(p.id) === String(currentPlayer?.id)) || currentPlayer;
+          try {
+            sessionStorage.setItem('champ_room_config', JSON.stringify(activeConfig));
+            sessionStorage.setItem('champ_room_players', JSON.stringify(players));
+            sessionStorage.setItem('champ_current_player', JSON.stringify(currentPlayer));
+          } catch(e) {}
+          // Si la partie est déjà lancée (ex : reconnexion tardive), rattraper
+          if (response.room.phase === 'intro') { nettoyerEcoutesLobby(); naviguer('intro-multi.html'); return; }
+          if (response.room.quiz?.status === 'question') {
+            nettoyerEcoutesLobby();
+            const roomMode = response.room.config?.mode || mode;
+            const cible = roomMode === 'quiz-multijoueur' && currentPlayer?.host ? 'hote-quiz.html' : 'jeu-multi.html';
+            naviguer(cible); return;
+          }
           render();
           renderQr();
           return;
         }
+        // Si onRoomUpdate a déjà confirmé la salle, c'est un simple timeout d'ACK :
+        // le socket est bien dans la salle côté serveur — pas d'erreur fatale.
+        if (receivedRoomUpdate) {
+          render();
+          return;
+        }
+        // Salle expirée ou introuvable — proposer de recréer
         document.getElementById('connection-status').textContent = 'Erreur';
-        document.getElementById('ready-info').textContent = response?.error || 'Salle introuvable ou expirée.';
+        const infoEl = document.getElementById('ready-info');
+        const errMsg = response?.error || 'Salle introuvable ou expirée.';
+        const isSalleExpired = errMsg.includes('introuvable') || errMsg.includes('expir');
+        if (isSalleExpired) {
+          infoEl.innerHTML = `${esc(errMsg)} — <button class="btn-link" style="font-weight:900;text-decoration:underline;cursor:pointer" id="new-room-btn">Créer une nouvelle salle</button>`;
+          document.getElementById('new-room-btn')?.addEventListener('click', () => {
+            sessionStorage.removeItem('champ_room_code');
+            sessionStorage.removeItem('champ_room_host_token');
+            sessionStorage.removeItem('champ_room_player_token');
+            naviguer('creer-salle.html');
+          });
+        } else {
+          infoEl.textContent = errMsg;
+        }
         document.getElementById('start-btn').disabled = true;
       });
     }).catch(err => {
@@ -431,81 +473,54 @@ export async function init(conteneur) {
       const me = players.find(p => String(p.id) === String(currentPlayer?.id)) || currentPlayer;
       const startBtn = document.getElementById('start-btn');
       const info = document.getElementById('ready-info');
-      if (!me?.host) {
-        updateReadyInfo();
-        return;
-      }
+      if (!me?.host) { updateReadyInfo(); return; }
       const playablePlayers = mode === 'quiz' ? players.filter(p => !p.host) : players;
       if ((mode === 'quiz' && playablePlayers.length < 1) || (mode !== 'quiz' && playablePlayers.length < 2)) {
-        updateReadyInfo();
-        return;
-      }
-      if (isOnline && !realtime) {
-        info.textContent = 'Connexion temps réel pas encore prête…';
-        return;
+        updateReadyInfo(); return;
       }
       clearInterval(simInterval);
-      const gamePlayers = playablePlayers.map((p, i) => ({
-        id: p.id,
-        name: p.name,
-        init: p.init,
-        colorIdx: p.color ?? i,
-        score: 0,
-        streak: 0,
-      }));
       mergeState({
-        players: gamePlayers,
-        config: {
-          mode: mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : 'multijoueur', // local state uses 'duel'; server-side uses 'duel' mapped via isDuelMode
-          category: activeConfig.category,
-          difficulty: activeConfig.difficulty,
-          nbQuestions: activeConfig.nbQuestions,
-        },
-        manche: 1,
-        qualified: [],
-        eliminated: [],
+        players: playablePlayers.map((p, i) => ({ id: p.id, name: p.name, init: p.init, colorIdx: p.color ?? i, score: 0, streak: 0 })),
+        config: { mode: mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : 'multijoueur', category: activeConfig.category, difficulty: activeConfig.difficulty, nbQuestions: activeConfig.nbQuestions },
+        manche: 1, qualified: [], eliminated: [],
       });
-      if (isOnline && realtime) {
-        if (typeof realtime.prepareGame !== 'function') {
-          // Reconnect automatically — stale client from browser module cache
-          info.textContent = 'Reconnexion…';
-          startBtn.disabled = true;
-          const freshClient = await connectRealtime();
-          if (!freshClient || typeof freshClient.prepareGame !== 'function') {
-            info.textContent = 'Connexion impossible — rechargez la page (Ctrl+Maj+R).';
-            startBtn.disabled = false;
-            return;
-          }
-          realtime = freshClient;
-        }
-        startBtn.disabled = true;
-        info.textContent = 'Préparation du countdown…';
-        const introTitle = mode === 'quiz'
-          ? 'Quiz animé'
-          : mode === 'duel'
-            ? 'Duel · Premier à 3 points'
-            : 'Manche 1 · Les 9 Points Gagnants';
-        const introSubtitle = mode === 'quiz'
-          ? "L'hôte anime, les joueurs répondent"
-          : mode === 'duel'
-            ? 'Buzzez en premier, répondez correctement'
-            : 'Buzzer, rapidité et bonnes réponses';
-        const serverMode = mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : 'multijoueur';
-        const prepared = await realtime.prepareGame({
-          manche: 1,
-          title: introTitle,
-          subtitle: introSubtitle,
-          config: { ...activeConfig, mode: serverMode },
-        });
-        if (!prepared?.ok) {
-          info.textContent = prepared?.error || 'Impossible de préparer la partie.';
-          startBtn.disabled = false;
-          return;
-        }
-        naviguer('intro-multi.html');
+      if (!isOnline || !realtime) {
+        naviguer(mode === 'quiz' ? 'hote-quiz.html' : 'intro-manche1.html');
         return;
       }
-      naviguer(mode === 'quiz' ? 'hote-quiz.html' : 'intro-manche1.html');
+      startBtn.disabled = true;
+      info.textContent = 'Lancement…';
+      const serverMode = mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : 'multijoueur';
+      const started = await realtime.startQuiz({
+        config: { ...activeConfig, mode: serverMode },
+      });
+      if (!started?.ok) {
+        // Réessayer après reconnexion si le socket était périmé
+        try {
+          const fresh = await connectRealtime();
+          if (fresh) {
+            realtime = fresh;
+            await realtime.joinRoom({ code, player: currentPlayer, hostToken: sessionStorage.getItem('champ_room_host_token') || undefined });
+            const retry = await realtime.startQuiz({ config: { ...activeConfig, mode: serverMode } });
+            if (retry?.ok && retry.room) {
+              nettoyerEcoutesLobby();
+              sessionStorage.setItem('champ_last_room', JSON.stringify(retry.room));
+              naviguer(mode === 'quiz' ? 'hote-quiz.html' : 'jeu-multi.html');
+              return;
+            }
+            info.textContent = retry?.error || 'Impossible de lancer la partie.';
+          } else {
+            info.textContent = 'Serveur injoignable — redémarrez le backend.';
+          }
+        } catch (_) {
+          info.textContent = 'Erreur de connexion.';
+        }
+        startBtn.disabled = false;
+        return;
+      }
+      nettoyerEcoutesLobby();
+      sessionStorage.setItem('champ_last_room', JSON.stringify(started.room));
+      naviguer(mode === 'quiz' ? 'hote-quiz.html' : 'jeu-multi.html');
     };
 }
 

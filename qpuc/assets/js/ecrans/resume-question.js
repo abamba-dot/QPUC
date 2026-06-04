@@ -209,7 +209,7 @@ export async function init(conteneur) {
       ranked.forEach((p, i) => { const row = document.createElement('div'); row.className = 'resume-rank-row' + (String(p.id) === String(me?.id) ? ' resume-rank-row--me' : ''); row.innerHTML = `<span class="resume-rank-num">${i + 1}</span><div class="avatar avatar--sm" style="background:${avatarColor(p.color ?? p.colorIdx ?? i)}">${esc(p.init || getInitials(p.name))}</div><span class="resume-rank-name">${esc(p.name)}${String(p.id) === String(me?.id) ? '<span class="you-tag">Vous</span>' : ''}</span><span class="resume-rank-score">${p.score || 0}</span>`; list.appendChild(row); });
       try { sessionStorage.setItem('champ_previous_scores', JSON.stringify(Object.fromEntries((room.players || []).map(p => [p.id, p.score || 0])))); } catch(e) {}
       const fill = document.getElementById('next-fill');
-      requestAnimationFrame(() => { fill.style.transition = 'width 5s linear'; fill.style.width = '100%'; });
+      requestAnimationFrame(() => { fill.style.transition = 'width 10s linear'; fill.style.width = '100%'; });
     }
   
     function applyRoom(room) {
@@ -217,6 +217,7 @@ export async function init(conteneur) {
       if (!room || room.code !== roomCode) return;
       roomState = room;
       try { sessionStorage.setItem('champ_last_room', JSON.stringify(room)); if (room.quiz?.revealed) sessionStorage.setItem('champ_last_revealed_room', JSON.stringify(room)); } catch(e) {}
+      if (room.phase === 'manche-results') { naviguer('fin-manche-multi.html'); return; }
       if (room.quiz?.status === 'finished') { naviguer('podium.html'); return; }
       if (room.quiz?.status === 'question' && !room.quiz.revealed) { naviguer('jeu-multi.html'); return; }
       render(room);
@@ -239,6 +240,8 @@ export async function init(conteneur) {
         ajouterNettoyage(realtime.onRoomUpdate(applyRoom));
         const joined = await realtime.joinRoom({ code: roomCode, player: me, hostToken: sessionStorage.getItem('champ_room_host_token') || undefined, playerToken: sessionStorage.getItem('champ_room_player_token') || undefined });
         if (joined?.ok) applyRoom(joined.room);
+      }).catch(err => {
+        console.warn('[resume-question] connectRealtime échouée:', err);
       });
     }
 }

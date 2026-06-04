@@ -29,6 +29,7 @@ const ECRANS = {
   'rejoindre-salle':         () => import('./ecrans/rejoindre-salle.js'),
   'lobby':                   () => import('./ecrans/lobby.js'),
   'attente-manche':          () => import('./ecrans/attente-manche.js'),
+  'fin-manche-multi':        () => import('./ecrans/fin-manche-multi.js'),
   'intro-multi':             () => import('./ecrans/intro-multi.js'),
   'jeu-multi':               () => import('./ecrans/jeu-multi.js'),
   'joueur-quiz':             () => import('./ecrans/joueur-quiz.js'),

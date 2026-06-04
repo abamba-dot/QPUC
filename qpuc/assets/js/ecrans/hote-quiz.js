@@ -307,7 +307,16 @@ export async function init(conteneur) {
       realtime = client; document.getElementById('buzz-btn').style.display = 'none';
       ajouterNettoyage(realtime.onRoomUpdate(applyOnlineRoom));
       const join = await realtime.joinRoom({ code: roomCode, player: currentPlayer, hostToken: sessionStorage.getItem('champ_room_host_token') || undefined, playerToken: sessionStorage.getItem('champ_room_player_token') || undefined });
-      if (join?.ok) { if (join.playerToken) sessionStorage.setItem('champ_room_player_token', join.playerToken); applyOnlineRoom(join.room); if (currentPlayer?.host && !join.room?.quiz) { const started = await realtime.startQuiz({ config: roomConfig }); if (started?.ok) applyOnlineRoom(started.room); } }
+      if (join?.ok) {
+        if (join.playerToken) sessionStorage.setItem('champ_room_player_token', join.playerToken);
+        applyOnlineRoom(join.room);
+        // Only start quiz if host AND no quiz running AND room not in intro phase (intro-multi handles that)
+        const phase = join.room?.phase;
+        if (currentPlayer?.host && !join.room?.quiz && phase !== 'intro') {
+          const started = await realtime.startQuiz({ config: join.room?.config || roomConfig });
+          if (started?.ok) applyOnlineRoom(started.room);
+        }
+      }
     }).catch(err => {
       console.warn('[hote-quiz] connectRealtime échouée:', err);
     });
@@ -344,7 +353,7 @@ export async function init(conteneur) {
       avatarsEl.querySelectorAll('.host-mini-av').forEach(a => a.classList.add('host-mini-av--answered'));
       document.querySelectorAll('.host-ans').forEach((el, i) => { el.classList.add('host-ans--revealed'); el.querySelector('.host-ans__count').textContent = counts[i]; el.classList.add(i === CORRECT ? 'host-ans--correct' : 'host-ans--dim'); });
       const nextScores = readJSON('champ_quiz_scores', {});
-      players.forEach((p, i) => { const gain = picks[i] === CORRECT ? Math.max(40, 100 - i * 8) : 0; nextScores[p.id] = (nextScores[p.id] || 0) + gain; });
+      players.forEach((p, i) => { const gain = picks[i] === CORRECT ? 2 : 0; nextScores[p.id] = (nextScores[p.id] || 0) + gain; });
       sessionStorage.setItem('champ_quiz_scores', JSON.stringify(nextScores));
       document.getElementById('reveal-btn').style.display = 'none'; document.getElementById('next-btn').style.display = 'inline-flex';
     };

@@ -67,6 +67,9 @@ function initTheme(opts = {}) {
   const key    = urlTheme
     ? urlTheme
     : (stored && THEMES.includes(stored)) ? stored : randomTheme();
+  if (!urlTheme) {
+    try { localStorage.setItem(STORAGE_KEY, key); } catch (_) {}
+  }
   _apply(key);
 
   // Permet à l'iframe parent de pousser un nouveau thème en live

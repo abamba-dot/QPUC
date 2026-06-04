@@ -208,7 +208,7 @@ export async function init(conteneur) {
         playCorrect();
         streak += 1; correctCount += 1;
         bestStreak = Math.max(bestStreak, streak);
-        const gain = 10 + Math.min(streak - 1, 4) * 2;
+        const gain = 2;
         score += gain; scoreEl.textContent = score;
         spawnScoreFloat(selected, `+${gain}`);
         spawnParticles(selected);

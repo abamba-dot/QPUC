@@ -8,6 +8,8 @@ import { naviguer } from '../routeur.js';
 import { init as initAudio, bgPlay, playBtn } from '../audio-hooks.js';
 import { bindThemeDots } from '../utils.js';
 
+let _tTitle = null, _tSub = null, _tBtn = null, _observer = null;
+
 export const titre = 'Quiz Champion';
 
 export const html = `
@@ -68,6 +70,7 @@ export const html = `
 `;
 
 export async function init(conteneur) {
+  cleanup();
   /* ── Conversion des événements inline ── */
   conteneur.querySelectorAll('[data-onclick]').forEach(el => {
     const code = el.dataset.onclick;
@@ -159,6 +162,7 @@ export async function init(conteneur) {
   
     let cur = 0, typing = false;
     let tTitle = null, tSub = null, tBtn = null;
+    _tTitle = null; _tSub = null; _tBtn = null;
   
     /* ── Navigation ── */
     window.goToMenu = () => {
@@ -202,10 +206,13 @@ export async function init(conteneur) {
                 strings: [l.btn], typeSpeed: 42, showCursor: false,
                 onComplete: () => { typing = false; }
               });
+              _tBtn = tBtn;
             }
           });
+          _tSub = tSub;
         }
       });
+      _tTitle = tTitle;
     }
   
     /* ── Switch langue ── */
@@ -245,6 +252,7 @@ export async function init(conteneur) {
     // Observer les changements de thème
     const observer = new MutationObserver(() => { updateTag(); window.__splashBgRecolor && window.__splashBgRecolor(); });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    _observer = observer;
   
     typeAll(0);
   
@@ -253,5 +261,8 @@ export async function init(conteneur) {
 }
 
 export function cleanup() {
-  // TODO : nettoyer les listeners globaux, timers, etc.
+  if (_tTitle) { try { _tTitle.destroy(); } catch(e) {} _tTitle = null; }
+  if (_tSub)   { try { _tSub.destroy();   } catch(e) {} _tSub   = null; }
+  if (_tBtn)   { try { _tBtn.destroy();   } catch(e) {} _tBtn   = null; }
+  if (_observer) { _observer.disconnect(); _observer = null; }
 }

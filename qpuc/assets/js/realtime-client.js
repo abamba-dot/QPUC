@@ -4,7 +4,10 @@
  * si le serveur n'est pas disponible.
  */
 
-const DEFAULT_URL = `${location.protocol}//${location.hostname}:3001`;
+const isLocalHost = ['localhost', '127.0.0.1'].includes(location.hostname);
+const DEFAULT_URL = isLocalHost
+  ? `${location.protocol}//${location.hostname}:3001`
+  : location.origin;
 let socketIoPromise = null;
 let socketPromise = null;
 
@@ -147,6 +150,12 @@ function createClient(socket) {
     },
     nextQuestion() {
       return emitAck(socket, 'quiz:next');
+    },
+    finishManche(payload = {}) {
+      return emitAck(socket, 'game:finish-manche', payload);
+    },
+    startNextManche(payload = {}) {
+      return emitAck(socket, 'game:start-next-manche', payload);
     },
   };
 }

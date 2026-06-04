@@ -156,8 +156,6 @@ export async function init(conteneur) {
     const CORRECT = quizState.correct ?? 0;
     const SHAPES = { 0:'<path d="M36 8l30 56H6z"/>', 1:'<path d="M36 5l31 31-31 31L5 36z"/>', 2:'<circle cx="36" cy="36" r="31"/>', 3:'<rect x="8" y="8" width="56" height="56" rx="7"/>' };
     const COLORS = ['var(--quiz-a)','var(--quiz-b)','var(--quiz-c)','var(--quiz-d)'];
-    const isClassicBuzzMode = (sessionStorage.getItem('champ_mp_mode') || 'classique') !== 'quiz';
-  
     const pads = document.getElementById('pads');
     const stateEl = document.getElementById('state');
     const qhint  = document.getElementById('qhint');
@@ -238,7 +236,7 @@ export async function init(conteneur) {
       const changedQuestion = appliedQuizIndex !== quiz.index;
       if (changedQuestion) resetPlayerUi();
       appliedQuizIndex = quiz.index;
-      onlineQuizState = { index: quiz.index, total: quiz.questions.length, question: question.q, opts: question.opts, correct: question.c, revealed: quiz.revealed, firstBuzz: quiz.firstBuzz, buzzes: quiz.buzzes || [], players: room.players, answers: quiz.answers };
+      onlineQuizState = { index: quiz.index, total: quiz.questions.length, mode: room.config?.mode, question: question.q, opts: question.opts, correct: question.c, revealed: quiz.revealed, firstBuzz: quiz.firstBuzz, buzzes: quiz.buzzes || [], players: room.players, answers: quiz.answers };
       try {
         sessionStorage.setItem('champ_room_players', JSON.stringify(room.players));
         sessionStorage.setItem('champ_quiz_state', JSON.stringify(onlineQuizState));
@@ -302,7 +300,7 @@ export async function init(conteneur) {
     function handleBuzz() {
       if (buzzed) return; playBuzzer(); buzzed = true;
       document.getElementById('buzzer').classList.add('buzzer--pressed');
-      if (realtime && isClassicBuzzMode) {
+      if (realtime && onlineQuizState.mode !== 'quiz-multijoueur') {
         qhint.querySelector('.player-qhint__label').textContent = 'Buzz envoyé…';
         qhint.querySelector('.player-qhint__text').textContent = onlineQuizState.question || quizState.question;
         emitBuzz().then(response => {

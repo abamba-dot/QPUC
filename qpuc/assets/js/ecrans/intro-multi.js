@@ -135,14 +135,43 @@ export async function init() {
         onGo: () => playCountdownGo(),
         onComplete: async () => {
           if (!ecranActif) return;
+          const waitEl = document.getElementById('intro-wait');
           if (me?.host) {
-            const started = await realtime?.startQuiz?.({ config: room.config });
+            let started = await realtime?.startQuiz?.({ config: room.config });
+            if (!started?.ok) {
+              // Socket potentiellement déconnecté — reconnecter et réessayer une fois
+              try {
+                const freshClient = await connectRealtime();
+                if (freshClient && ecranActif) {
+                  realtime = freshClient;
+                  await realtime.joinRoom({
+                    code: roomCode, player: me,
+                    hostToken: sessionStorage.getItem('champ_room_host_token') || undefined,
+                  });
+                  started = await realtime.startQuiz({ config: room.config });
+                }
+              } catch (_) {}
+            }
+            if (!ecranActif) return;
             if (started?.ok && started.room) {
               sessionStorage.setItem('champ_last_room', JSON.stringify(started.room));
               naviguer(cibleJeu(started.room));
               return;
             }
-            document.getElementById('intro-wait').textContent = started?.error || 'Impossible de lancer la manche.';
+            if (waitEl) waitEl.textContent = started?.error || 'Impossible de lancer la manche.';
+          } else {
+            // Non-host : attente passive du room:update, mais vérification active après 2s
+            setTimeout(async () => {
+              if (!ecranActif) return;
+              try {
+                const refreshed = await realtime?.joinRoom?.({
+                  code: roomCode, player: me,
+                  playerToken: sessionStorage.getItem('champ_room_player_token') || undefined,
+                });
+                if (!ecranActif) return;
+                if (refreshed?.ok && refreshed.room) applyRoom(refreshed.room);
+              } catch (_) {}
+            }, 2000);
           }
         },
       });

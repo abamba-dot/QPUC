@@ -14,6 +14,9 @@ import { playBuzzer, playCorrect, playWrong } from '../sound.js';
 const { spawnScoreFloat, spawnParticles, bindThemeDots, esc } = Utils;
 const fitTextToBox = Utils.fitTextToBox || (() => {});
 
+let _nettoyages = [];
+function _ajouterNettoyage(fn) { if (typeof fn === 'function') _nettoyages.push(fn); }
+
 export const titre = 'Jeu — Manche 1';
 
 export const html = `
@@ -115,6 +118,7 @@ export const html = `
 `;
 
 export async function init(conteneur) {
+  cleanup();
   /* ── Conversion des événements inline ── */
   conteneur.querySelectorAll('[data-onclick]').forEach(el => {
     const code = el.dataset.onclick;
@@ -183,10 +187,12 @@ export async function init(conteneur) {
 
   // Rendre navigate accessible aux attributs onclick=""
   window.naviguer = naviguer;
-  
+
   // Initialisation thème et points de couleur
   initTheme();
   bindThemeDots();
+    let ecranActif = true;
+    _ajouterNettoyage(() => { ecranActif = false; });
     const state = getState();
     const PLAYERS = (state.players.length ? state.players : [
       { name: 'Amara K.', init: 'AK', colorIdx: 0, score: 340 },
@@ -200,23 +206,33 @@ export async function init(conteneur) {
     const QS = await loadQuestions({
       category: config.category,
       difficulty: config.difficulty,
-      limit: TOTAL,
+      limit: 60,
       fallback: DEMO.QUESTIONS,
     });
-  
+
+    const GOAL = 9;
     let curQ = 0, answered = false, answersRevealed = false;
     let activePlayerId = PLAYERS[0]?.id ?? 1;
+    let failedBuzzers = new Set();
+    let qualifiedIds = new Set();
+    let qualifiedCount = 0;
     let timer = null;
+
+    function currentPoints() {
+      return qualifiedCount === 0 ? 1 : qualifiedCount === 1 ? 2 : 3;
+    }
   
     function hideAnswers() {
+      if (!ecranActif) return;
       answersRevealed = false;
       document.getElementById('answers').classList.add('answers-section--hidden');
       activePlayerId = PLAYERS[0]?.id ?? activePlayerId;
       updateBuzzStatus();
       buildScores();
     }
-  
+
     function revealAnswers() {
+      if (!ecranActif) return;
       answersRevealed = true;
       document.getElementById('answers').classList.remove('answers-section--hidden');
       updateBuzzStatus();
@@ -260,33 +276,40 @@ export async function init(conteneur) {
             buzzForPlayer(p.id);
           }
         });
+        const isQual = qualifiedIds.has(p.id);
+        const sc = p.score || 0;
+        const barPct = isQual ? 100 : Math.round(sc / GOAL * 100);
         chip.innerHTML = `
           <div class="score-chip__top">
             <span class="avatar avatar--sm" style="background:${color}">${esc(p.init || p.name[0])}</span>
             <span class="score-chip__name">${esc(p.name.split(' ')[0])}</span>
-            ${p.buzzKey ? `<span class="score-chip__buzz">${esc(p.buzzKey)}</span>` : p.id === activePlayerId ? '<span class="score-chip__buzz">BUZZ</span>' : i === 0 ? '<div class="score-chip__live"></div>' : ''}
+            ${isQual ? '<span class="score-chip__buzz" style="background:var(--color-correct);color:#fff;font-size:9px">✓ Qualifié</span>' : p.buzzKey ? `<span class="score-chip__buzz">${esc(p.buzzKey)}</span>` : p.id === activePlayerId ? '<span class="score-chip__buzz">BUZZ</span>' : i === 0 ? '<div class="score-chip__live"></div>' : ''}
           </div>
-          <div class="score-chip__value">${p.score || 0}</div>
+          <div class="score-chip__value">${isQual ? '<span style="color:var(--color-correct)">✓</span>' : `${sc}<span style="opacity:.45;font-size:.6em">/${GOAL}</span>`}</div>
           <div class="score-chip__bar-bg">
-            <div class="score-chip__bar-fill" style="width:${Math.round((p.score || 0) / max * 100)}%"></div>
+            <div class="score-chip__bar-fill" style="width:${barPct}%;${isQual ? 'background:var(--color-correct)' : ''}"></div>
           </div>`;
         bar.appendChild(chip);
       });
     }
   
-    /* ── Progress dots ── */
+    /* ── Point value indicator ── */
     function buildDots() {
+      const pts = currentPoints();
+      document.getElementById('q-label').textContent = `Question ${curQ + 1}`;
       const wrap = document.getElementById('q-dots');
       wrap.innerHTML = '';
-      for (let i = 0; i < TOTAL; i++) {
+      for (let i = 0; i < pts; i++) {
         const d = document.createElement('div');
-        d.className = 'progress-dot';
-        d.style.width = i === curQ ? '20px' : '16px';
-        if (i < curQ)       d.classList.add('progress-dot--done');
-        else if (i === curQ) d.classList.add('progress-dot--current');
+        d.className = 'progress-dot progress-dot--current';
+        d.style.background = pts === 3 ? 'var(--accent-2)' : pts === 2 ? '#D4A820' : 'var(--accent)';
+        d.style.width = '14px';
         wrap.appendChild(d);
       }
-      document.getElementById('q-label').textContent = `Question ${curQ + 1} / ${TOTAL}`;
+      const lbl = document.createElement('span');
+      lbl.style.cssText = 'font-size:10px;font-weight:900;color:var(--sub);letter-spacing:.06em;margin-left:5px;text-transform:uppercase';
+      lbl.textContent = `${pts} pt${pts > 1 ? 's' : ''}`;
+      wrap.appendChild(lbl);
     }
   
     /* ── Style bouton réponse ── */
@@ -300,6 +323,11 @@ export async function init(conteneur) {
   
     function buzzForPlayer(playerId) {
       if (answered || answersRevealed) return;
+      if (failedBuzzers.has(playerId)) {
+        const status = document.getElementById('buzz-status');
+        if (status) status.textContent = 'Ce joueur a déjà tenté cette question';
+        return;
+      }
       playBuzzer();
       activePlayerId = playerId;
       updateBuzzStatus();
@@ -343,30 +371,54 @@ export async function init(conteneur) {
   
       const btn = document.getElementById('a' + idx);
       if (ok) {
+        const pts = currentPoints();
         playCorrect();
         btn.classList.add('ans-btn--correct');
         document.getElementById('ac' + idx).textContent = '✓';
         document.getElementById('ac' + idx).style.color = 'var(--color-correct)';
         activePlayer.streak = (activePlayer.streak || 0) + 1;
-        spawnScoreFloat(btn, '+10');
+        spawnScoreFloat(btn, `+${pts}`);
         spawnParticles(btn);
-        activePlayer.score = (activePlayer.score || 0) + 10;
+        activePlayer.score = (activePlayer.score || 0) + pts;
+        tryQualify(activePlayer);
       } else {
         playWrong();
         btn.classList.add('ans-btn--wrong');
         document.getElementById('ac' + idx).textContent = '✗';
         document.getElementById('ac' + idx).style.color = 'var(--color-error)';
         activePlayer.streak = 0;
-        // Afficher la bonne réponse
-        const cb = document.getElementById('a' + q.c);
-        cb.classList.add('ans-btn--correct');
-        document.getElementById('ac' + q.c).textContent = '✓';
-        document.getElementById('ac' + q.c).style.color = 'var(--color-correct)';
+        failedBuzzers.add(activePlayer.id);
+        const remainingPlayers = isSolo ? [] : PLAYERS.filter(p => !failedBuzzers.has(p.id));
+        if (remainingPlayers.length) {
+          document.getElementById('streak-txt').textContent = `${activePlayer.name.split(' ')[0]} ×0`;
+          buildScores();
+          const _t1 = setTimeout(() => {
+            if (!ecranActif) return;
+            answered = false;
+            activePlayerId = remainingPlayers[0].id;
+            for (let i = 0; i < 4; i++) styleDefault(i);
+            hideAnswers();
+            const status = document.getElementById('buzz-status');
+            if (status) status.textContent = 'Mauvaise réponse · main aux autres';
+            const rest = Math.max(3, timer?.getRemaining?.() || 8);
+            timer?.reset?.(rest);
+            timer?.start?.();
+          }, 850);
+          _ajouterNettoyage(() => clearTimeout(_t1));
+          return;
+        } else {
+          // Afficher la bonne réponse quand tout le monde a tenté.
+          const cb = document.getElementById('a' + q.c);
+          cb.classList.add('ans-btn--correct');
+          document.getElementById('ac' + q.c).textContent = '✓';
+          document.getElementById('ac' + q.c).style.color = 'var(--color-correct)';
+        }
       }
   
       document.getElementById('streak-txt').textContent = `${activePlayer.name.split(' ')[0]} ×${activePlayer.streak || 0}`;
       buildScores();
-      setTimeout(nextQuestion, 1800);
+      const _t2 = setTimeout(nextQuestion, 1800);
+      _ajouterNettoyage(() => clearTimeout(_t2));
     };
   
     function timeUp() {
@@ -381,18 +433,27 @@ export async function init(conteneur) {
       cb.classList.add('ans-btn--correct');
       document.getElementById('ac' + q.c).textContent = '✓';
       document.getElementById('ac' + q.c).style.color = 'var(--color-correct)';
-      setTimeout(nextQuestion, 1600);
+      const _t3 = setTimeout(nextQuestion, 1600);
+      _ajouterNettoyage(() => clearTimeout(_t3));
     }
   
     function nextQuestion() {
-      if (curQ + 1 >= TOTAL || curQ + 1 >= QS.length) {
+      if (!ecranActif) return;
+      const unqualified = PLAYERS.filter(p => !qualifiedIds.has(p.id));
+      if (!isSolo && unqualified.length <= 1) {
+        const _t4 = setTimeout(endManche, 700);
+        _ajouterNettoyage(() => clearTimeout(_t4));
+        return;
+      }
+      if (curQ + 1 >= QS.length) {
         endManche();
         return;
       }
-  
+
       timer && timer.stop();
       curQ += 1;
       answered = false;
+      failedBuzzers = new Set();
       hideAnswers();
       for (let i = 0; i < 4; i++) styleDefault(i);
   
@@ -419,6 +480,22 @@ export async function init(conteneur) {
       timer.start();
     }
   
+    /* ── Qualification 9 pts ── */
+    function tryQualify(player) {
+      if (qualifiedIds.has(player.id) || (player.score || 0) < GOAL) return false;
+      qualifiedIds.add(player.id);
+      qualifiedCount++;
+      buildScores();
+      buildDots();
+      // Bannière de qualification
+      const banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:200;background:var(--color-correct);color:#fff;padding:18px 36px;border-radius:var(--radius-lg);font-family:var(--font-display);font-size:clamp(20px,4vw,36px);font-weight:900;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.28);pointer-events:none;animation:slideUp .35s var(--ease-spring) both';
+      banner.textContent = `${player.name} · QUALIFIÉ !`;
+      document.body.appendChild(banner);
+      setTimeout(() => banner.remove(), 1900);
+      return true;
+    }
+
     /* ── Fin de manche ── */
     window.endManche = endManche;
     function endManche() {
@@ -472,8 +549,11 @@ export async function init(conteneur) {
       buzzForPlayer(player.id);
     };
     document.addEventListener('keydown', keydownHandler);
+    _ajouterNettoyage(() => document.removeEventListener('keydown', keydownHandler));
+    _ajouterNettoyage(() => { if (timer) { timer.stop(); timer = null; } });
 }
 
 export function cleanup() {
-  // TODO : nettoyer les listeners globaux, timers, etc.
+  _nettoyages.forEach(fn => { try { fn(); } catch (e) {} });
+  _nettoyages = [];
 }
