@@ -396,6 +396,7 @@ export async function init(conteneur) {
     document.body.appendChild(overlay);
 
     _m3After(() => {
+      overlay.remove();
       finishGame({
         finalists,
         winnerId: winner.id,

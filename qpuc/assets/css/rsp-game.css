@@ -1145,3 +1145,83 @@
     font-size: clamp(36px, 4.5vw, 52px);
   }
 }
+
+
+/* ══════════════════════════════════════════════
+   ══ CORRECTIONS MOBILES JEU — COMPLÉMENTS ══
+══════════════════════════════════════════════ */
+
+/* ── Jeu Manche 1 : topbar 3 colonnes + layout flex robuste ── */
+@media (max-width: 479px) {
+  .jeu-m1-page .topbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 6px;
+    padding: 10px var(--page-padding, 16px) 6px;
+    flex-shrink: 0;
+  }
+
+  .jeu-m1-page .timer-ring,
+  .jeu-m1-page .conteneur-minuterie {
+    justify-self: center;
+  }
+
+  .jeu-m1-page .streak-badge,
+  .jeu-m1-page .badge-serie {
+    justify-self: end;
+    white-space: nowrap;
+  }
+
+  .jeu-m1-page .q-card,
+  .jeu-m1-page .carte-question {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .jeu-m1-page .answers-section,
+  .jeu-m1-page .zone-reponses {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-height: 0;
+  }
+
+  .jeu-m1-page .answers-row,
+  .jeu-m1-page .rangee-reponses {
+    display: flex;
+    gap: 7px;
+    min-height: 0;
+  }
+
+  .jeu-m1-page .ans-btn,
+  .jeu-m1-page .bouton-reponse {
+    flex: 1;
+    max-height: none;
+  }
+
+  .jeu-m1-page .buzzer-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+    flex-shrink: 0;
+  }
+
+  .jeu-m1-page .scores-bar,
+  .jeu-m1-page .barre-scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    flex-shrink: 0;
+  }
+}
+
+/* ── Fix iOS : empêcher le zoom sur les champs de saisie ── */
+input, textarea, select {
+  font-size: max(16px, 1em);
+}

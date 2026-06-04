@@ -1127,3 +1127,116 @@
     font-size: clamp(40px, 3.8vw, 54px);
   }
 }
+
+
+/* ══════════════════════════════════════════════
+   ══ CORRECTIONS MOBILES RÉSULTATS — COMPLÉMENTS ══
+══════════════════════════════════════════════ */
+
+/* ── Badges qualifié/éliminé : pas de débordement ── */
+@media (max-width: 479px) {
+  .badge-qual,
+  .badge-elim,
+  .badge-qualifie,
+  .badge-elimine,
+  .badge {
+    font-size: clamp(7px, 1.8vw, 9px);
+    padding: 3px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .result-row,
+  .content-section .player-row {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 6px;
+  }
+
+  .result-row > *,
+  .content-section .player-row > * {
+    min-width: 0;
+  }
+}
+
+/* ── Podium : vertical sur mobile < 480px ── */
+@media (max-width: 479px) {
+  .podium-wrapper {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .podium__base--1,
+  .podium__base--2,
+  .podium__base--3 {
+    height: auto !important;
+    min-height: 64px;
+    padding: 10px;
+  }
+
+  /* Limiter les confettis pour éviter le lag mobile */
+  .confetti-piece:nth-child(n+20) {
+    display: none;
+  }
+}
+
+/* ── Intros manches : chiffre géant + chain slots ── */
+@media (max-width: 479px) {
+  .manche-header__number,
+  .numero-manche {
+    font-size: clamp(44px, 16vw, 68px) !important;
+    line-height: 0.85;
+  }
+
+  .btn-lancer,
+  .bouton-lancer {
+    position: sticky;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    z-index: 5;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Chain slots Manche 2 */
+  .chain-slots,
+  .emplacements-chaine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .slot,
+  .emplacement {
+    width: clamp(36px, 9vw, 46px);
+    height: clamp(36px, 9vw, 46px);
+    flex-shrink: 0;
+  }
+}
+
+/* ── Paramètres : scroll amélioré, slider plus facile ── */
+@media (max-width: 479px) {
+  .settings-scroll {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+    scrollbar-width: none;
+  }
+  .settings-scroll::-webkit-scrollbar { display: none; }
+
+  .slider-thumb,
+  .poignee-curseur {
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .settings-row,
+  .ios-row,
+  .rangee-parametre {
+    min-height: 52px;
+  }
+}

@@ -5,7 +5,7 @@
 
 import { initTheme, setTheme } from '../theme.js';
 import { naviguer } from '../routeur.js';
-import { init as initAudio, bgPlay, playBtn } from '../audio-hooks.js';
+import { playBtn, unlockOnSplashCta } from '../audio-hooks.js';
 import { bindThemeDots } from '../utils.js';
 
 let _tTitle = null, _tSub = null, _tBtn = null, _observer = null;
@@ -168,9 +168,8 @@ export async function init(conteneur) {
     window.goToMenu = () => {
       destroyAll();
       typing = false;
-      initAudio();
+      unlockOnSplashCta();
       playBtn();
-      bgPlay(800);
       naviguer('menu.html');
     };
   

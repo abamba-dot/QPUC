@@ -703,3 +703,71 @@
     padding: 18px 26px;
   }
 }
+
+
+/* ══════════════════════════════════════════════
+   ══ CORRECTIONS MOBILES COMPLÉMENTAIRES ══
+   Ajouts ciblés pour écrans < 480px
+══════════════════════════════════════════════ */
+
+/* ── Splash : bouton CTA pleine largeur sur mobile ── */
+@media (max-width: 479px) {
+  .splash-btn {
+    width: calc(100% - 32px);
+    max-width: 320px;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ── Menu : flèches navigation min 44px ── */
+@media (max-width: 479px) {
+  .nav-btn {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ── Mode Local : inputs anti-zoom iOS + boutons sticky en bas ── */
+@media (max-width: 479px) {
+  .pseudo-input,
+  .saisie-pseudo {
+    min-height: 44px;
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  .pseudo-grid,
+  .grille-pseudos {
+    padding-bottom: 40px;
+  }
+
+  .step-actions,
+  .nav-btns {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+    padding: 12px 0 max(12px, env(safe-area-inset-bottom));
+    z-index: 5;
+  }
+
+  .cfg-opts {
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: flex-end;
+  }
+
+  .cfg-opt {
+    font-size: clamp(9px, 2.2vw, 11px);
+    padding: 5px 10px;
+    min-height: 32px;
+    min-width: 44px;
+  }
+}

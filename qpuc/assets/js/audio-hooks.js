@@ -95,8 +95,29 @@ function unlockAudio() {
   syncScreenAudio(currentScreen() === 'splash.html' ? 1500 : 600);
 }
 
-['pointerdown', 'keydown', 'touchstart'].forEach(eventName => {
+// Appelé par splash.js au clic du bouton CTA — démarre la musique sans délai
+function unlockOnSplashCta() {
+  init();
+  try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {}
+  applySettings();
+  bgPlay(800);
+}
+
+['pointerdown', 'keydown', 'touchstart', 'click', 'touchend'].forEach(eventName => {
   document.addEventListener(eventName, unlockAudio, { once: true, passive: true });
+});
+
+// Reprendre la musique au retour de l'app (fond d'écran → avant-plan)
+// En mode SPA, QPUCShell.syncAudioFor gère le routage correct ; sinon lecture directe
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    if (window.QPUCShell) {
+      // Déclenche la synchronisation avec le bon écran (géré par application.js)
+      window.dispatchEvent(new CustomEvent('qpuc:visibility-restore'));
+    } else {
+      bgPlay(400);
+    }
+  }
 });
 
 try {
@@ -104,6 +125,18 @@ try {
     setTimeout(() => unlockAudio(), 80);
   }
 } catch (e) {}
+
+// Tentative de démarrage automatique (certains navigateurs l'autorisent)
+// Ne s'exécute qu'une fois au chargement initial du module
+function _tenterAutoplay() {
+  // En SPA, écran initial = param URL (avant toute navigation)
+  const ecranInitial = new URLSearchParams(location.search).get('ecran') || 'splash';
+  const JEUX_SPA = new Set(['jeu-manche1', 'jeu-manche2', 'jeu-manche3', 'course-contre-la-montre', 'hote-quiz', 'joueur-quiz', 'jeu-multi']);
+  if (JEUX_SPA.has(ecranInitial)) return;
+  localInit();
+  localBgPlay(800);
+}
+setTimeout(_tenterAutoplay, 120);
 
 document.addEventListener('click', event => {
   const target = event.target.closest('button, [role="button"], a, .stack, .cfg-opt, .theme-dot, .lang-opt, .reaction-btn, .mode-stack, .np-btn, .ios-row, .lang-row');
@@ -144,4 +177,5 @@ export {
   saveSettings,
   applySettings,
   syncScreenAudio,
+  unlockOnSplashCta,
 };

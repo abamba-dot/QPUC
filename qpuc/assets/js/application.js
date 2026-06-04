@@ -39,8 +39,16 @@ function synchroniserAudio(nomEcran, dureeMs = 600) {
   else jouerMusique(dureeMs);
 }
 
+let _ecranCourant = ecranInitial();
+
 window.addEventListener('qpuc:ecran-change', (e) => {
+  _ecranCourant = e.detail.ecran;
   synchroniserAudio(e.detail.ecran, 450);
+});
+
+// Reprendre la musique au retour depuis l'arrière-plan
+window.addEventListener('qpuc:visibility-restore', () => {
+  synchroniserAudio(_ecranCourant, 400);
 });
 
 /* ── Déverrouillage audio ── */

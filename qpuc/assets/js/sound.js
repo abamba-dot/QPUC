@@ -5,9 +5,14 @@
  * - Effets Web Audio API : buzzer, correct, wrong, countdown
  */
 
+function resolveAudioPath(file) {
+  const base = document.querySelector('base')?.href || location.origin;
+  return new URL('./assets/audio/' + file, base).href;
+}
+
 const AUDIO_FILES = {
-  fond: new URL('../audio/fond.mp3', import.meta.url).href,
-  button: new URL('../audio/button.ogg', import.meta.url).href,
+  fond:   resolveAudioPath('fond.mp3'),
+  button: resolveAudioPath('button.ogg'),
 };
 
 /* ── ÉTAT ── */
@@ -70,7 +75,16 @@ function bgPlay(fadeMs = 1200) {
   }
   _bgMode = 'fading-in';
   _bgMusic.volume = 0;
-  _bgMusic.play().catch(() => {});
+  const _playResult = _bgMusic.play();
+  if (_playResult) {
+    _playResult.catch(() => {
+      // Autoplay bloqué — remettre l'état à 'stopped' pour permettre
+      // une nouvelle tentative lors du premier geste utilisateur
+      clearInterval(_bgFadeTimer);
+      _bgFadeTimer = null;
+      _bgMode = 'stopped';
+    });
+  }
 
   const steps   = 30;
   const stepMs  = fadeMs / steps;

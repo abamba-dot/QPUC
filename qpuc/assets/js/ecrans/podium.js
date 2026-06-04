@@ -12,33 +12,6 @@ export const titre = 'Podium — CHAMPION.';
 
 export const html = `
 <div class="page" id="page">
-  <style>
-    .podium-champion-overlay{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(78,45,24,.52),rgba(18,14,10,.82) 62%);backdrop-filter:blur(3px);transition:opacity .55s ease,visibility .55s ease}
-    .podium-champion-overlay.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
-    .podium-champion-card{position:relative;width:min(92vw,720px);padding:42px 54px;border-radius:26px;background:linear-gradient(145deg,rgba(255,247,229,.96),rgba(255,210,151,.9));border:1px solid rgba(255,255,255,.72);box-shadow:0 34px 90px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.72);text-align:center;color:#21150b;overflow:hidden}
-    .podium-champion-card::before{content:"";position:absolute;inset:14px;border-radius:20px;border:1px solid rgba(104,67,31,.16);pointer-events:none}
-    .podium-champion-card__rank{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:950;color:rgba(95,61,28,.18);line-height:1}
-    .podium-champion-card__name{position:relative;font-family:var(--font-display);font-size:clamp(40px,6vw,70px);font-weight:950;line-height:1.02;color:#1d1208;text-shadow:0 7px 0 rgba(255,255,255,.45)}
-    .podium-champion-card__sub{position:relative;margin-top:18px;font-size:13px;font-weight:950;letter-spacing:.16em;text-transform:uppercase;color:#6e4b27}
-    .podium-champion-card__cup{display:inline-grid;place-items:center;width:72px;height:72px;margin-bottom:10px;border-radius:999px;background:linear-gradient(145deg,#fff3ba,#d99b1d);box-shadow:0 18px 36px rgba(159,91,23,.26);color:#5b3510}
-    .podium-champion-card__cup svg{width:38px;height:38px}
-  </style>
-  <div class="podium-champion-overlay" id="champion-overlay" aria-live="polite">
-    <div class="podium-champion-card">
-      <div class="podium-champion-card__cup" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M8 4h8v3.6c0 3.1-1.7 5.4-4 5.4S8 10.7 8 7.6V4Z" fill="currentColor"/>
-          <path d="M8 6H5.4C4.6 6 4 6.6 4 7.4C4 9.8 5.6 11.5 8.5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M16 6h2.6c.8 0 1.4.6 1.4 1.4c0 2.4-1.6 4.1-4.5 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M12 13v4M8.5 20h7M10 17h4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="podium-champion-card__rank">1</div>
-      <div class="podium-champion-card__name" id="champion-overlay-name">Champion</div>
-      <div class="podium-champion-card__sub">remporte le duel !</div>
-    </div>
-  </div>
-
   <!-- Confettis -->
   <div class="confetti-container" id="confetti"></div>
 
@@ -253,8 +226,6 @@ export function init(conteneur) {
       }
     }
 
-    const overlay = document.getElementById('champion-overlay');
-    setTimeout(() => overlay?.classList.add('is-hidden'), 5000);
 }
 
 export function cleanup() {
