@@ -121,6 +121,10 @@ function createClient(socket) {
       socket.on('room:update', handler);
       return () => socket.off('room:update', handler);
     },
+    onDifficultyUpdate(handler) {
+      socket.on('difficulte:mise-a-jour', handler);
+      return () => socket.off('difficulte:mise-a-jour', handler);
+    },
     createRoom(payload) {
       return emitAck(socket, 'room:create', payload);
     },

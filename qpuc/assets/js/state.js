@@ -12,6 +12,11 @@ const STORAGE_KEY = 'qpuc_state';
 
 /* ── Couleurs avatars par joueur ── */
 const AVATAR_COLORS = ['#9B8EC7', '#D4A820', '#3DC87A', '#E85A3A'];
+const DUREES_TIMER = {
+  facile: 30,
+  moyen: 20,
+  difficile: 12,
+};
 
 /* ── État par défaut ── */
 const DEFAULT_STATE = {
@@ -24,6 +29,10 @@ const DEFAULT_STATE = {
   ],
   qualified:  [],   // IDs des joueurs qualifiés par manche
   eliminated: [],   // IDs des joueurs éliminés
+  niveauDifficulte: 'facile',
+  serieEnCours: 0,
+  dureeTimer: DUREES_TIMER.facile,
+  DUREES_TIMER,
   config: {
     mode:       'duel',
     category:   'Culture',
@@ -78,7 +87,7 @@ const DEMO = { M1_RESULTS: DEMO_M1_RESULTS, M2_RESULTS: DEMO_M2_RESULTS, FINAL_R
 function getState() {
   try {
     const raw = sessionStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) return _normaliserEtat(JSON.parse(raw));
   } catch (e) { /* ignore */ }
   return JSON.parse(JSON.stringify(DEFAULT_STATE));
 }
@@ -102,6 +111,27 @@ function mergeState(partial) {
   const s = getState();
   Object.assign(s, partial);
   _save(s);
+}
+
+function mettreAJourNiveauDifficulte(bonneReponse) {
+  const etat = getState();
+  etat.DUREES_TIMER = { ...DUREES_TIMER };
+
+  if (bonneReponse) {
+    etat.serieEnCours = Number(etat.serieEnCours || 0) + 1;
+    if (etat.serieEnCours >= 6) etat.niveauDifficulte = 'difficile';
+    else if (etat.serieEnCours >= 3) etat.niveauDifficulte = 'moyen';
+    else etat.niveauDifficulte = 'facile';
+  } else {
+    if (etat.niveauDifficulte === 'difficile') etat.niveauDifficulte = 'moyen';
+    else if (etat.niveauDifficulte === 'moyen') etat.niveauDifficulte = 'facile';
+    else etat.niveauDifficulte = 'facile';
+    etat.serieEnCours = 0;
+  }
+
+  etat.dureeTimer = DUREES_TIMER[etat.niveauDifficulte] || DUREES_TIMER.facile;
+  _save(etat);
+  return etat.niveauDifficulte;
 }
 
 /**
@@ -229,9 +259,20 @@ function _save(s) {
   try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) { /* ignore */ }
 }
 
+function _normaliserEtat(s = {}) {
+  const etat = { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...s };
+  etat.DUREES_TIMER = { ...DUREES_TIMER };
+  etat.niveauDifficulte = ['facile', 'moyen', 'difficile'].includes(etat.niveauDifficulte)
+    ? etat.niveauDifficulte
+    : 'facile';
+  etat.serieEnCours = Math.max(0, Number(etat.serieEnCours || 0));
+  etat.dureeTimer = DUREES_TIMER[etat.niveauDifficulte] || DUREES_TIMER.facile;
+  return etat;
+}
+
 /** Retourne la couleur d'avatar pour un joueur par colorIdx. */
 function getAvatarColor(colorIdx) {
   return AVATAR_COLORS[colorIdx % AVATAR_COLORS.length];
 }
 
-export { getState, setState, mergeState, finishManche1, finishManche2, finishGame, resetState, getAvatarColor, DEMO, DEFAULT_STATE };
+export { getState, setState, mergeState, mettreAJourNiveauDifficulte, finishManche1, finishManche2, finishGame, resetState, getAvatarColor, DEMO, DEFAULT_STATE, DUREES_TIMER };

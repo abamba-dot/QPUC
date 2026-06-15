@@ -45,6 +45,13 @@ function labelDifficulty(value) {
   return 'Moyen';
 }
 
+export function normalizeDifficulty(value) {
+  const v = normalizeText(value);
+  if (['easy', 'facile'].includes(v)) return 'facile';
+  if (['hard', 'difficile'].includes(v)) return 'difficile';
+  return 'moyen';
+}
+
 function matchesFilter(value, filter) {
   if (!filter) return true;
   const source = normalizeText(value);
@@ -56,15 +63,51 @@ function matchesFilter(value, filter) {
   return source === target || source.includes(target) || target.includes(source);
 }
 
+function melangerOptions(question) {
+  const sourceOptions = Array.isArray(question.opts)
+    ? question.opts
+    : Array.isArray(question.options)
+      ? question.options
+      : [];
+  const options = [...sourceOptions];
+  const indexCorrect = Number.isInteger(question.c)
+    ? question.c
+    : Number.isInteger(question.indexCorrect)
+      ? question.indexCorrect
+      : 0;
+  const bonneReponse = options[indexCorrect] ?? question.correct_answer ?? question.bonneReponse ?? question.reponseCorrecte;
+  const items = options.map((texte, index) => ({
+    texte,
+    correct: texte === bonneReponse || index === indexCorrect,
+  }));
+
+  for (let i = items.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  const nouvelIndexCorrect = Math.max(0, items.findIndex(item => item.correct));
+  const optionsMelangees = items.map(item => item.texte);
+  return {
+    ...question,
+    opts: optionsMelangees,
+    options: optionsMelangees,
+    c: nouvelIndexCorrect,
+    indexCorrect: nouvelIndexCorrect,
+  };
+}
+
 function toGameQuestion(raw, index = 0) {
   const opts = Array.isArray(raw.options) ? raw.options : [];
   const correctIndex = opts.findIndex(opt => opt === raw.reponseCorrecte);
   const correctText = correctIndex >= 0 ? opts[correctIndex] : raw.reponseCorrecte;
 
-  return {
+  return melangerOptions({
     id: raw.id || `actualite-${index + 1}`,
     q: raw.question,
     cat: `${raw.categorie || 'Actualité'} · ${labelDifficulty(raw.difficulte)}`,
+    difficulte: normalizeDifficulty(raw.difficulte || raw.difficulty),
+    difficulty: normalizeDifficulty(raw.difficulte || raw.difficulty),
     opts,
     c: correctIndex >= 0 ? correctIndex : 0,
     fact: raw.illustrationTexte || `${correctText || 'La bonne réponse'} — ${raw.sourceLabel || 'information vérifiée'}`,
@@ -77,7 +120,24 @@ function toGameQuestion(raw, index = 0) {
     sourceLabel: raw.sourceLabel || '',
     sourceUrl: raw.sourceUrl || '',
     dateReference: raw.dateReference || '',
+  });
+}
+
+export function getQuestionParNiveau(questions, niveau) {
+  const correspondance = {
+    facile:    ['easy',   'facile',   'easy '],
+    moyen:     ['medium', 'moyen',    'medium '],
+    difficile: ['hard',   'difficile','hard '],
   };
+  const niveauxAcceptes = correspondance[niveau] || correspondance.facile;
+  const filtrees = questions.filter(q => {
+    const diff = (q.difficulty || q.difficulte || q.niveau || 'easy')
+                 .toLowerCase()
+                 .trim();
+    return niveauxAcceptes.includes(diff);
+  });
+  const pool = filtrees.length > 0 ? filtrees : questions;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 async function loadQuestions(options = {}) {
@@ -102,8 +162,8 @@ async function loadQuestions(options = {}) {
     return shuffle(pool).slice(0, Math.max(1, limit));
   } catch (err) {
     console.warn('[questions] Chargement JSON impossible, fallback DEMO utilisé.', err);
-    return shuffle(fallback).slice(0, Math.max(1, limit));
+    return shuffle(fallback.map(q => melangerOptions(q))).slice(0, Math.max(1, limit));
   }
 }
 
-export { loadQuestions, toGameQuestion };
+export { loadQuestions, toGameQuestion, melangerOptions };

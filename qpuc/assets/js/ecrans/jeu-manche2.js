@@ -30,12 +30,21 @@ export const html = `
       min-height:100dvh!important;
       display:grid!important;
       grid-template-columns:minmax(0,1fr);
-      grid-template-rows:auto auto minmax(210px,auto) auto auto auto;
-      align-content:center!important;
+      grid-template-rows:auto auto auto auto auto auto;
+      align-content:start!important;
       justify-items:center!important;
       gap:clamp(12px,1.9vh,22px)!important;
       padding:clamp(22px,4vw,52px)!important;
-      overflow:hidden!important;
+      overflow-y:auto!important;
+      overflow-x:hidden!important;
+    }
+    .jeu-m2-page .passage-strip,
+    .jeu-m2-page .q-card{
+      position:relative!important;
+      z-index:1!important;
+    }
+    .jeu-m2-page .passage-strip{
+      z-index:2!important;
     }
     .jeu-m2-page .game-header,
     .jeu-m2-page .passage-strip,
@@ -151,10 +160,6 @@ export const html = `
       min-height:56px;
     }
     @media(max-width:760px){
-      .jeu-m2-page{
-        overflow-y:auto!important;
-        align-content:start!important;
-      }
       .jeu-m2-page .game-header{
         align-items:center;
       }
@@ -163,7 +168,7 @@ export const html = `
         grid-template-columns:1fr;
       }
       .jeu-m2-page .q-card{
-        min-height:auto;
+        min-height:clamp(120px,20vh,200px);
       }
     }
   </style>

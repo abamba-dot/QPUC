@@ -418,6 +418,88 @@
   animation: streakFlame .7s ease-in-out infinite;
 }
 
+.streak-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ────────────────────────────────────────────
+   BADGE DIFFICULTÉ ADAPTATIVE
+──────────────────────────────────────────── */
+.badge-difficulte {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background .4s ease, border-color .4s ease, color .4s ease;
+}
+
+.badge-difficulte[data-niveau="facile"] {
+  background: rgba(61, 200, 122, .12);
+  border-color: rgba(61, 200, 122, .35);
+  color: #166534;
+}
+
+.badge-difficulte[data-niveau="facile"] .badge-difficulte__point {
+  background: #3DC87A;
+  animation: pulsation-point 1.8s ease-in-out infinite;
+}
+
+.badge-difficulte[data-niveau="moyen"] {
+  background: rgba(255, 144, 96, .12);
+  border-color: rgba(255, 144, 96, .35);
+  color: #854F0B;
+}
+
+.badge-difficulte[data-niveau="moyen"] .badge-difficulte__point {
+  background: #FF9060;
+  animation: pulsation-point 1.2s ease-in-out infinite;
+}
+
+.badge-difficulte[data-niveau="difficile"] {
+  background: rgba(232, 90, 58, .12);
+  border-color: rgba(232, 90, 58, .35);
+  color: #991B1B;
+}
+
+.badge-difficulte[data-niveau="difficile"] .badge-difficulte__point {
+  background: #E85A3A;
+  animation: pulsation-point .7s ease-in-out infinite;
+}
+
+.badge-difficulte__point {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.badge-difficulte.changement {
+  animation: changement-niveau .4s ease both;
+}
+
+@keyframes pulsation-point {
+  0%, 100% { transform: scale(1); opacity: .72; }
+  50% { transform: scale(1.45); opacity: 1; }
+}
+
+@keyframes changement-niveau {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  70% { transform: scale(.95); }
+  100% { transform: scale(1); }
+}
+
 /* ────────────────────────────────────────────
    SCORE CHIP
 ──────────────────────────────────────────── */
@@ -442,6 +524,17 @@
 
 .score-chip--buzzable:hover {
   transform: translateY(-2px);
+}
+
+.score-chip--disabled {
+  opacity: .48;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.score-chip--disabled.score-chip--active {
+  box-shadow: none;
+  transform: none;
 }
 
 .score-chip--leader {
@@ -843,6 +936,14 @@
 }
 
 .buzzer--pressed { animation: buzzerGlow .4s ease; }
+
+.buzzer--desactive {
+  opacity: 0.35;
+  pointer-events: none;
+  animation: none !important;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
 
 .buzzer__inner {
   width: calc(var(--buzzer-size) * .76);

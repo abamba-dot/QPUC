@@ -5,6 +5,7 @@
 const DUREE_SORTIE = 240;
 
 const ECRANS = {
+  'connexion':               () => import('./ecrans/connexion.js'),
   'splash':                  () => import('./ecrans/splash.js'),
   'menu':                    () => import('./ecrans/menu.js'),
   'mode-local':              () => import('./ecrans/mode-local.js'),

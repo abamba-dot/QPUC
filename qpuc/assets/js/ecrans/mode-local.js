@@ -223,25 +223,36 @@ export function init(conteneur) {
     let buzzKeys = ['A', 'Z', 'K', 'M'];
     let listeningKeyIndex = null;
   
-    /* ── Stepper ── */
+    /* ── Stepper — reconstruit selon le mode ── */
     function updateStepper() {
-      for (let i = 0; i < 4; i++) {
-        const d = document.getElementById('sd' + i);
-        const l = document.getElementById('sl' + i);
-        if (i < curStep) {
-          d.className = 'stepper__dot stepper__dot--done';
-          d.textContent = '✓'; d.style.fontSize = '11px';
-        } else if (i === curStep) {
-          d.className = 'stepper__dot stepper__dot--active';
-          d.textContent = i + 1; d.style.fontSize = '10px';
-        } else {
-          d.className = 'stepper__dot';
-          d.textContent = i + 1; d.style.fontSize = '10px';
-        }
-        l.className = 'stepper__label' + (i <= curStep ? ' stepper__label--active' : '');
-        if (i < 3) {
-          document.getElementById('sline' + i).className = 'stepper__line' + (i < curStep ? ' stepper__line--done' : '');
-        }
+      const stepper = document.getElementById('stepper');
+      if (!stepper) return;
+
+      if (selMode === 'duel') {
+        // Duel : 3 étapes — Mode (0), Joueurs (2), Lancer (3)
+        const vizStep = curStep === 0 ? 0 : curStep === 2 ? 1 : 2;
+        const labels  = ['Mode', 'Joueurs', 'Lancer'];
+        stepper.innerHTML = labels.map((lbl, i) => {
+          const done   = i < vizStep;
+          const active = i === vizStep;
+          const dCls   = 'stepper__dot' + (done ? ' stepper__dot--done' : active ? ' stepper__dot--active' : '');
+          const lCls   = 'stepper__label' + (i <= vizStep ? ' stepper__label--active' : '');
+          const line   = i < labels.length - 1
+            ? `<div class="stepper__line${done ? ' stepper__line--done' : ''}"></div>` : '';
+          return `<div class="stepper__col"><div class="${dCls}" style="font-size:${done?'11':'10'}px">${done?'✓':i+1}</div><div class="${lCls}">${lbl}</div></div>${line}`;
+        }).join('');
+      } else {
+        // Solo ou initial : 4 étapes — Mode, Config, Joueurs, Lancer
+        const labels = ['Mode', 'Config', 'Joueurs', 'Lancer'];
+        stepper.innerHTML = labels.map((lbl, i) => {
+          const done   = i < curStep;
+          const active = i === curStep;
+          const dCls   = 'stepper__dot' + (done ? ' stepper__dot--done' : active ? ' stepper__dot--active' : '');
+          const lCls   = 'stepper__label' + (i <= curStep ? ' stepper__label--active' : '');
+          const line   = i < labels.length - 1
+            ? `<div class="stepper__line${done ? ' stepper__line--done' : ''}"></div>` : '';
+          return `<div class="stepper__col"><div class="${dCls}" style="font-size:${done?'11':'10'}px">${done?'✓':i+1}</div><div class="${lCls}">${lbl}</div></div>${line}`;
+        }).join('');
       }
     }
   
@@ -260,7 +271,12 @@ export function init(conteneur) {
     }
   
     window.nextStep = () => { if (curStep < 3) showStep(curStep + 1); };
-    window.prevStep = () => { if (curStep > 0) showStep(curStep - 1); };
+    window.prevStep = () => {
+      if (curStep === 0) return;
+      // Duel : depuis les joueurs (step 2), revenir à la sélection mode (step 0) — pas de config
+      if (selMode === 'duel' && curStep === 2) showStep(0);
+      else showStep(curStep - 1);
+    };
   
     /* ── Back button ── */
     document.getElementById('back-btn').addEventListener('click', () => {
@@ -276,7 +292,8 @@ export function init(conteneur) {
       else nbPlayers = 2;
       document.getElementById('ms-solo').classList.toggle('mode-stack--selected', m === 'solo');
       document.getElementById('ms-duel').classList.toggle('mode-stack--selected', m === 'duel');
-      setTimeout(() => showStep(1), 220);
+      // Duel → passe directement aux joueurs (pas de config), Solo → config
+      setTimeout(() => showStep(m === 'duel' ? 2 : 1), 220);
     };
   
     /* ── Config options ── */
@@ -403,8 +420,10 @@ export function init(conteneur) {
       const rows = [
         ['Mode',       selMode === 'duel' ? `Duel — ${nbPlayers} joueurs` : 'Solo'],
         ['Joueur(s)', ns.join(' · ')],
-        ...(selMode === 'duel' ? [['Touches', keys.join(' · ')]] : []),
-        ['Catégorie', cfg.cat], ['Difficulté', cfg.diff], ['Questions', cfg.nb],
+        ...(selMode === 'duel'
+          ? [['Touches', keys.join(' · ')]]
+          : [['Catégorie', cfg.cat], ['Difficulté', cfg.diff], ['Questions', cfg.nb]]
+        ),
       ];
       const sum = document.getElementById('summary'); sum.innerHTML = '';
       rows.forEach((r, i) => {
@@ -423,9 +442,12 @@ export function init(conteneur) {
         id: i + 1, name: pseudos[i] || `Joueur ${i + 1}`, init: (pseudos[i] || `J${i + 1}`).slice(0, 2).toUpperCase(),
         colorIdx: avCI[i], score: 0, streak: 0, buzzKey: selMode === 'duel' ? (buzzKeys[i] || null) : null,
       }));
+      const gameConfig = selMode === 'duel'
+        ? { mode: 'duel', category: null, difficulty: 'adaptative', nbQuestions: null }
+        : { mode: selMode, category: cfg.cat, difficulty: cfg.diff, nbQuestions: parseInt(cfg.nb) };
       mergeState({
         players,
-        config: { mode: selMode, category: cfg.cat, difficulty: cfg.diff, nbQuestions: parseInt(cfg.nb) },
+        config: gameConfig,
         manche: 1,
         qualified: [],
         eliminated: [],

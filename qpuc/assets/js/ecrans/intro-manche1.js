@@ -5,7 +5,7 @@
 
 import { initTheme } from '../theme.js';
 import { naviguer } from '../routeur.js';
-import { getState, DEMO } from '../state.js';
+import { getState, mergeState, DEMO } from '../state.js';
 import { startCountdown as cd } from '../countdown.js';
 import { playCountdownTick, playCountdownGo } from '../sound.js';
 import { bgStop } from '../audio-hooks.js';
@@ -135,8 +135,16 @@ export function init(conteneur) {
   // Initialisation thème et points de couleur
         const state = getState();
     const redirigerVersCourse = state.config?.mode === 'solo' || state.players.length === 1;
+    const redirigerVersFinale = state.players.length === 2 && state.config?.mode !== 'solo';
     if (redirigerVersCourse) {
       naviguer('course-contre-la-montre.html');
+    } else if (redirigerVersFinale) {
+      mergeState({
+        manche: 3,
+        qualified: state.players.map(p => p.id),
+        eliminated: [],
+      });
+      naviguer('intro-manche3.html');
     } else {
 
     const players = state.players.length ? state.players : DEMO.M1_RESULTS;

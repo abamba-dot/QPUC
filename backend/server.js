@@ -6,11 +6,17 @@ const crypto = require('node:crypto');
 const os = require('node:os');
 const { Server } = require('socket.io');
 const QRCode = require('qrcode');
+const { getOuCreerJoueur, sauvegarderPartie, getClassement, getHistoriqueJoueur } = require('./redis');
 
 const PORT = Number(process.env.PORT || 3001);
 const ROOT = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT, 'qpuc');
 const QUESTIONS_FILE = path.join(PUBLIC_DIR, 'assets', 'data', 'questions.json');
+const BACKEND_DATA_DIR = path.join(__dirname, 'data');
+const AUTH_FILE = path.join(BACKEND_DATA_DIR, 'auth.json');
+const SESSION_COOKIE = 'qpuc_session';
+const SESSION_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
+const SESSION_TTL_MS = SESSION_MAX_AGE_SECONDS * 1000;
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -31,6 +37,7 @@ const rooms = new Map();
 const socketMeta = new Map();
 const questions = loadQuestions();
 const qrCache = new Map();
+const sessions = new Map();
 
 const ROOM_MAX_AGE_MS = 4 * 60 * 60 * 1000;
 const ROOM_INACTIVE_MS = 30 * 60 * 1000;
@@ -38,6 +45,11 @@ const MAX_ROOMS = Number(process.env.MAX_ROOMS || 500);
 const RATE_WINDOW_MS = 10 * 1000;
 const RATE_MAX_EVENTS = 80;
 const QUIZ_QUESTION_DURATION_SEC = Number(process.env.QUIZ_QUESTION_DURATION_SEC || 20);
+const DUREES_TIMER = {
+  facile: 30,
+  moyen: 20,
+  difficile: 12,
+};
 
 setInterval(() => {
   const now = Date.now();
@@ -50,6 +62,9 @@ setInterval(() => {
       rooms.delete(code);
       qrCache.delete(code);
     }
+  }
+  for (const [token, session] of sessions) {
+    if (session.expiresAt <= now) sessions.delete(token);
   }
 }, 5 * 60 * 1000);
 
@@ -66,15 +81,126 @@ function loadQuestions() {
   }
 }
 
-function sendJson(res, status, body) {
+function sendJson(res, status, body, extraHeaders = {}) {
   res.writeHead(status, {
     'content-type': 'application/json; charset=utf-8',
     'access-control-allow-origin': process.env.CORS_ORIGIN || '*',
     'x-content-type-options': 'nosniff',
     'referrer-policy': 'strict-origin-when-cross-origin',
     'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    ...extraHeaders,
   });
   res.end(JSON.stringify(body));
+}
+
+function readJsonBody(req, maxBytes = 32 * 1024) {
+  return new Promise((resolve, reject) => {
+    let raw = '';
+    req.on('data', chunk => {
+      raw += chunk;
+      if (raw.length > maxBytes) {
+        reject(new Error('Payload trop volumineux'));
+        req.destroy();
+      }
+    });
+    req.on('end', () => {
+      if (!raw.trim()) { resolve({}); return; }
+      try { resolve(JSON.parse(raw)); } catch (error) { reject(new Error('JSON invalide')); }
+    });
+    req.on('error', reject);
+  });
+}
+
+function sanitizePseudo(value) {
+  return String(value || '')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .replace(/[<>]/g, '')
+    .slice(0, 20);
+}
+
+function normaliserClePseudo(pseudo) {
+  return sanitizePseudo(pseudo).toLocaleLowerCase('fr-FR');
+}
+
+function chargerAuth() {
+  try {
+    if (!fs.existsSync(AUTH_FILE)) return { users: {} };
+    const data = JSON.parse(fs.readFileSync(AUTH_FILE, 'utf8'));
+    return data && typeof data === 'object' && data.users && typeof data.users === 'object'
+      ? data
+      : { users: {} };
+  } catch (error) {
+    console.warn('[auth] Fichier auth illisible, réinitialisation en mémoire:', error.message);
+    return { users: {} };
+  }
+}
+
+function sauverAuth(data) {
+  fs.mkdirSync(BACKEND_DATA_DIR, { recursive: true });
+  const tmp = `${AUTH_FILE}.tmp`;
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2), 'utf8');
+  fs.renameSync(tmp, AUTH_FILE);
+}
+
+function creerHashPin(pin, salt) {
+  return crypto.scryptSync(String(pin), Buffer.from(salt, 'hex'), 64).toString('hex');
+}
+
+function verifierPin(pin, utilisateur) {
+  if (!utilisateur?.pinSalt || !utilisateur?.pinHash) return false;
+  const attendu = Buffer.from(utilisateur.pinHash, 'hex');
+  const recu = Buffer.from(creerHashPin(pin, utilisateur.pinSalt), 'hex');
+  return attendu.length === recu.length && crypto.timingSafeEqual(attendu, recu);
+}
+
+function creerSession(pseudo) {
+  const token = crypto.randomBytes(32).toString('hex');
+  sessions.set(token, {
+    pseudo,
+    expiresAt: Date.now() + SESSION_TTL_MS,
+  });
+  return token;
+}
+
+function lireCookies(req) {
+  return Object.fromEntries(String(req.headers.cookie || '')
+    .split(';')
+    .map(part => part.trim())
+    .filter(Boolean)
+    .map(part => {
+      const index = part.indexOf('=');
+      if (index < 0) return [part, ''];
+      return [decodeURIComponent(part.slice(0, index)), decodeURIComponent(part.slice(index + 1))];
+    }));
+}
+
+function sessionDepuisRequete(req) {
+  const token = lireCookies(req)[SESSION_COOKIE];
+  if (!token) return null;
+  const session = sessions.get(token);
+  if (!session) return null;
+  if (session.expiresAt <= Date.now()) {
+    sessions.delete(token);
+    return null;
+  }
+  return { token, ...session };
+}
+
+function pseudoDepuisSession(req) {
+  return sessionDepuisRequete(req)?.pseudo || null;
+}
+
+function creerCookieSession(token, maxAge = SESSION_MAX_AGE_SECONDS) {
+  const parts = [
+    `${SESSION_COOKIE}=${encodeURIComponent(token || '')}`,
+    'HttpOnly',
+    'SameSite=Lax',
+    'Path=/',
+    `Max-Age=${maxAge}`,
+  ];
+  if (process.env.NODE_ENV === 'production') parts.push('Secure');
+  return parts.join('; ');
 }
 
 function networkOrigins() {
@@ -140,6 +266,109 @@ const server = http.createServer(async (req, res) => {
       origin: `http://${req.headers.host || `localhost:${PORT}`}`,
       lanOrigins: networkOrigins(),
     });
+    return;
+  }
+
+  if (req.url === '/api/session' && req.method === 'GET') {
+    const pseudo = pseudoDepuisSession(req);
+    sendJson(res, 200, pseudo ? { connecte: true, pseudo } : { connecte: false });
+    return;
+  }
+
+  if (req.url === '/api/deconnexion' && req.method === 'POST') {
+    const session = sessionDepuisRequete(req);
+    if (session?.token) sessions.delete(session.token);
+    sendJson(res, 200, { ok: true, connecte: false }, {
+      'set-cookie': creerCookieSession('', 0),
+    });
+    return;
+  }
+
+  if (req.url === '/api/connexion' && req.method === 'POST') {
+    try {
+      const body = await readJsonBody(req);
+      const pseudo = sanitizePseudo(body.pseudo);
+      const pin = String(body.pin || '');
+      if (pseudo.length < 2) { sendJson(res, 400, { erreur: 'Pseudo trop court (minimum 2 caractères)' }); return; }
+      if (pin.length < 4) { sendJson(res, 400, { erreur: 'Code secret trop court (minimum 4 caractères)' }); return; }
+      const clePseudo = normaliserClePseudo(pseudo);
+      const auth = chargerAuth();
+      const utilisateur = auth.users[clePseudo];
+      if (!utilisateur) {
+        const pinSalt = crypto.randomBytes(16).toString('hex');
+        auth.users[clePseudo] = {
+          pseudo,
+          pinSalt,
+          pinHash: creerHashPin(pin, pinSalt),
+          createdAt: new Date().toISOString(),
+        };
+        sauverAuth(auth);
+      } else if (!verifierPin(pin, utilisateur)) {
+        sendJson(res, 401, { erreur: 'Pseudo ou code secret incorrect' });
+        return;
+      }
+      const joueur = await getOuCreerJoueur(pseudo);
+      const token = creerSession(pseudo);
+      sendJson(res, 200, { succes: true, ok: true, pseudo, stats: joueur }, {
+        'set-cookie': creerCookieSession(token),
+      });
+    } catch (error) {
+      console.error('Erreur /api/connexion :', error);
+      sendJson(res, 500, { erreur: 'Erreur serveur' });
+    }
+    return;
+  }
+
+  if ((req.url || '').startsWith('/api/classement') && req.method === 'GET') {
+    try {
+      const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+      const pseudo = sanitizePseudo(url.searchParams.get('pseudo') || '');
+      sendJson(res, 200, await getClassement(pseudo || null));
+    } catch (error) {
+      console.error('Erreur /api/classement :', error);
+      sendJson(res, 500, { erreur: 'Erreur serveur' });
+    }
+    return;
+  }
+
+  if (req.url === '/api/score' && req.method === 'POST') {
+    try {
+      const body = await readJsonBody(req);
+      const pseudo = sanitizePseudo(body.pseudo);
+      if (pseudo.length < 2) { sendJson(res, 400, { erreur: 'Pseudo manquant' }); return; }
+      const pseudoSession = pseudoDepuisSession(req);
+      if (!pseudoSession) {
+        sendJson(res, 401, { erreur: 'Connexion requise' });
+        return;
+      }
+      if (normaliserClePseudo(pseudoSession) !== normaliserClePseudo(pseudo)) {
+        sendJson(res, 403, { erreur: 'Session invalide pour ce pseudo' });
+        return;
+      }
+      await sauvegarderPartie(pseudo, {
+        score: parseInt(body.score, 10) || 0,
+        victoire: Boolean(body.victoire),
+        serieMax: parseInt(body.serieMax, 10) || 0,
+        manche: parseInt(body.manche, 10) || 1,
+        mode: body.mode || 'fidele',
+      });
+      sendJson(res, 200, { succes: true, ok: true, ...(await getClassement(pseudo)) });
+    } catch (error) {
+      console.error('Erreur /api/score :', error);
+      sendJson(res, 500, { erreur: 'Erreur serveur' });
+    }
+    return;
+  }
+
+  if ((req.url || '').startsWith('/api/joueur/') && req.method === 'GET') {
+    try {
+      const pseudo = sanitizePseudo(decodeURIComponent((req.url || '').split('/api/joueur/')[1].split('?')[0] || ''));
+      if (pseudo.length < 2) { sendJson(res, 400, { erreur: 'Pseudo manquant' }); return; }
+      sendJson(res, 200, await getHistoriqueJoueur(pseudo));
+    } catch (error) {
+      console.error('Erreur /api/joueur :', error);
+      sendJson(res, 500, { erreur: 'Erreur serveur' });
+    }
     return;
   }
 
@@ -297,6 +526,10 @@ function sanitizePlayer(player = {}, socketId, host = false) {
     host,
     ready: Boolean(player.ready ?? host),
     score: Number(player.score || 0),
+    qualifie: Boolean(player.qualifie || player.qualified),
+    qualified: Boolean(player.qualifie || player.qualified),
+    serieEnCours: Math.max(0, Number(player.serieEnCours || 0)),
+    niveauDifficulte: ['facile', 'moyen', 'difficile'].includes(player.niveauDifficulte) ? player.niveauDifficulte : 'facile',
     connected: true,
   };
 }
@@ -335,6 +568,73 @@ function questionPoints(room) {
   return qualCount === 0 ? 1 : qualCount === 1 ? 2 : 3;
 }
 
+function isJoueurQualifieManche1(room, playerId) {
+  if (!room?.quiz || room.quiz.mancheMode === 'serie' || isDuelMode(room)) return false;
+  const player = room.players.find(p => String(p.id) === String(playerId));
+  const listed = (room.quiz.manche1Qualified || []).some(id => String(id) === String(playerId));
+  return Boolean(player?.qualifie || player?.qualified || listed);
+}
+
+function objectifQualifiesManche1(room) {
+  return Math.min(3, quizPlayers(room).length);
+}
+
+function doitContinuerManche1(room) {
+  if (!room?.quiz || isDuelMode(room) || !isClassicBuzzMode(room)) return false;
+  if (room.quiz.mancheMode === 'serie' || room.quiz.mancheMode === 'duel-final') return false;
+  return (room.quiz.manche1Qualified || []).length < objectifQualifiesManche1(room);
+}
+
+function calculerNiveauDifficulte(serie) {
+  if (serie >= 6) return 'difficile';
+  if (serie >= 3) return 'moyen';
+  return 'facile';
+}
+
+function descendreNiveauDifficulte(niveau) {
+  if (niveau === 'difficile') return 'moyen';
+  if (niveau === 'moyen') return 'facile';
+  return 'facile';
+}
+
+function appliquerResultatDifficulte(player, bonneReponse) {
+  if (!player) return null;
+  player.serieEnCours = Math.max(0, Number(player.serieEnCours || 0));
+  player.niveauDifficulte = player.niveauDifficulte || 'facile';
+
+  if (bonneReponse) {
+    player.serieEnCours += 1;
+    player.niveauDifficulte = calculerNiveauDifficulte(player.serieEnCours);
+  } else {
+    player.niveauDifficulte = descendreNiveauDifficulte(player.niveauDifficulte);
+    player.serieEnCours = 0;
+  }
+
+  return {
+    niveau: player.niveauDifficulte,
+    serie: player.serieEnCours,
+    dureeTimer: DUREES_TIMER[player.niveauDifficulte] || DUREES_TIMER.facile,
+  };
+}
+
+function emettreNiveauDifficulte(room, player, payload) {
+  if (!room || !player || !payload) return;
+  const socketId = player.socketId;
+  if (socketId) io.to(socketId).emit('difficulte:mise-a-jour', payload);
+}
+
+function appliquerTimeoutDifficulte(room) {
+  if (!room?.quiz || room.quiz.timeoutDifficulteApplique) return;
+  room.quiz.timeoutDifficulteApplique = true;
+  const reponses = room.quiz.answers || {};
+  quizPlayers(room).forEach(player => {
+    if (isJoueurQualifieManche1(room, player.id)) return;
+    if (reponses[player.id]) return;
+    const payload = appliquerResultatDifficulte(player, false);
+    emettreNiveauDifficulte(room, player, payload);
+  });
+}
+
 function quizPlayers(room) {
   if (!room) return [];
   return room.config?.mode === 'quiz-multijoueur'
@@ -361,6 +661,7 @@ function scheduleQuestionTimeout(room) {
   room.quiz.questionTimer = setTimeout(() => {
     const liveRoom = rooms.get(room.code);
     if (!liveRoom?.quiz || liveRoom.quiz.status !== 'question' || liveRoom.quiz.revealed) return;
+    appliquerTimeoutDifficulte(liveRoom);
     revealQuiz(liveRoom);
     touchRoom(liveRoom);
     emitRoom(liveRoom);
@@ -426,11 +727,14 @@ function revealQuiz(room) {
     players.forEach(player => {
       if ((player.score || 0) >= MANCHE1_THRESHOLD && !room.quiz.manche1Qualified.includes(String(player.id))) {
         room.quiz.manche1Qualified.push(String(player.id));
+        player.qualifie = true;
+        player.qualified = true;
+      } else if (room.quiz.manche1Qualified.includes(String(player.id))) {
+        player.qualifie = true;
+        player.qualified = true;
       }
     });
-    // Si tous sauf 1 sont qualifiés → terminer la manche
-    const notQualified = players.filter(p => !room.quiz.manche1Qualified.includes(String(p.id)));
-    if (players.length > 1 && notQualified.length <= 1) {
+    if (room.quiz.manche1Qualified.length >= objectifQualifiesManche1(room)) {
       room.quiz.revealed = true;
       room.quiz.status = 'finished';
       clearQuizTimers(room);
@@ -452,8 +756,17 @@ function advanceQuiz(room) {
   }
   const nextIndex = room.quiz.index + 1;
   if (nextIndex >= room.quiz.questions.length) {
-    room.quiz.status = 'finished';
-    return;
+    if (doitContinuerManche1(room)) {
+      const extraQuestion = pickQuestions({ ...room.config, nbQuestions: 1 })[0];
+      if (extraQuestion) room.quiz.questions.push(extraQuestion);
+      else {
+        room.quiz.status = 'finished';
+        return;
+      }
+    } else {
+      room.quiz.status = 'finished';
+      return;
+    }
   }
   room.quiz.index = nextIndex;
   room.quiz.answers = {};
@@ -461,6 +774,7 @@ function advanceQuiz(room) {
   room.quiz.firstBuzz = null;
   room.quiz.counts = [0, 0, 0, 0];
   room.quiz.revealed = false;
+  room.quiz.timeoutDifficulteApplique = false;
   room.quiz.status = 'question';
   room.quiz.startedAt = Date.now();
   if (isDuelMode(room)) {
@@ -535,15 +849,28 @@ function matchQuestion(raw, config) {
   return categoryOk && difficultyOk;
 }
 
+function shuffleQuestionOptions(options, correctIndex) {
+  const items = options.map((text, index) => ({ text, correct: index === correctIndex }));
+  for (let i = items.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  return {
+    options: items.map(item => item.text),
+    correctIndex: Math.max(0, items.findIndex(item => item.correct)),
+  };
+}
+
 function toGameQuestion(raw, index) {
   const options = Array.isArray(raw.options) ? raw.options.slice(0, 4) : [];
   const correct = Math.max(0, options.findIndex(opt => opt === raw.reponseCorrecte));
+  const shuffled = shuffleQuestionOptions(options, correct);
   const imageKeyword = raw.wikidataLabel || raw.reponseCorrecte || raw.categorie || 'quiz';
   return {
     id: raw.id || `question-${index + 1}`,
     q: raw.question,
-    opts: options,
-    c: correct,
+    opts: shuffled.options,
+    c: shuffled.correctIndex,
     cat: `${raw.categorie || 'Culture générale'} · ${raw.difficulte || 'Moyen'}`,
     fact: raw.illustrationTexte || `${raw.reponseCorrecte || 'Réponse'} — ${raw.sourceLabel || 'information vérifiée'}`,
     imageUrl: raw.imageUrl || '',
@@ -646,6 +973,10 @@ io.on('connection', socket => {
       id: previous ? previous.id : (payload.player?.id || socket.id),
       playerToken: previous?.playerToken || makeSecret(),
       score: previous?.score || Number(payload.player?.score || 0),
+      qualifie: Boolean(previous?.qualifie || previous?.qualified || payload.player?.qualifie || payload.player?.qualified),
+      qualified: Boolean(previous?.qualifie || previous?.qualified || payload.player?.qualifie || payload.player?.qualified),
+      serieEnCours: previous?.serieEnCours || Number(payload.player?.serieEnCours || 0),
+      niveauDifficulte: previous?.niveauDifficulte || payload.player?.niveauDifficulte || 'facile',
       ready: previous?.ready ?? Boolean(payload.player?.ready ?? reconnectsHost),
       host: reconnectsHost,
     };
@@ -721,6 +1052,7 @@ io.on('connection', socket => {
       firstBuzz: null,
       counts: [0, 0, 0, 0],
       revealed: false,
+      timeoutDifficulteApplique: false,
       startedAt: Date.now(),
       duration: questionDuration,
       mancheMode,
@@ -755,8 +1087,13 @@ io.on('connection', socket => {
       ack({ ok: false, error: 'Déjà répondu' });
       return;
     }
-    if (!room.players.some(p => p.id === meta.playerId)) {
+    const player = room.players.find(p => p.id === meta.playerId);
+    if (!player) {
       ack({ ok: false, error: 'Joueur inconnu' });
+      return;
+    }
+    if (isJoueurQualifieManche1(room, meta.playerId)) {
+      ack({ ok: false, error: 'Joueur déjà qualifié' });
       return;
     }
     if (isDuelMode(room) && !room.quiz.duel?.finalists?.some(id => String(id) === String(meta.playerId))) {
@@ -781,14 +1118,16 @@ io.on('connection', socket => {
       ack({ ok: false, error: 'Réponse invalide' });
       return;
     }
+    const question = room.quiz.questions[room.quiz.index];
+    const isCorrect = choice === question.c;
     room.quiz.answers[meta.playerId] = { choice, at: Date.now() };
+    const difficultePayload = appliquerResultatDifficulte(player, isCorrect);
+    emettreNiveauDifficulte(room, player, difficultePayload);
 
     // Streak tracking for serie mode
     if (isSerie) {
-      const question = room.quiz.questions[room.quiz.index];
-      const player = room.players.find(p => p.id === meta.playerId);
       if (player) {
-        if (choice === question.c) {
+        if (isCorrect) {
           player.serie = (player.serie || 0) + 1;
           player.serieMax = Math.max(player.serieMax || 0, player.serie);
           player.score = (player.score || 0) + questionPoints(room);
@@ -799,8 +1138,6 @@ io.on('connection', socket => {
     }
 
     if (isDuelMode(room)) {
-      const question = room.quiz.questions[room.quiz.index];
-      const isCorrect = choice === question.c;
       if (isCorrect) {
         revealQuiz(room);
       } else {
@@ -824,7 +1161,9 @@ io.on('connection', socket => {
         }
       }
     }
-    const expectedAnswers = quizPlayers(room).length;
+    const expectedAnswers = quizPlayers(room)
+      .filter(p => !isJoueurQualifieManche1(room, p.id))
+      .length;
     if (!isDuelMode(room) && (isClassicBuzzMode(room) || isSerie) && expectedAnswers > 0 && Object.keys(room.quiz.answers).length >= expectedAnswers) revealQuiz(room);
     touchRoom(room);
     ack({ ok: true, room: toPublicRoom(room) });
@@ -863,6 +1202,10 @@ io.on('connection', socket => {
     const player = room.players.find(p => p.id === meta.playerId);
     if (!player) {
       ack({ ok: false, error: 'Joueur inconnu' });
+      return;
+    }
+    if (isJoueurQualifieManche1(room, meta.playerId)) {
+      ack({ ok: false, error: 'Joueur déjà qualifié' });
       return;
     }
     if (player.host && room.config?.mode === 'quiz-multijoueur') {
@@ -959,9 +1302,16 @@ io.on('connection', socket => {
     let nextManche = null;
 
     if (mancheNum === 1) {
-      const qualCount = Math.min(sorted.length, sorted.length <= 3 ? 2 : 3);
-      qualifiedIds = sorted.slice(0, qualCount).map(p => p.id);
-      nextManche = qualCount <= 2 ? 3 : 2;
+      const objectif = Math.min(3, players.length);
+      const idsQualifiesQuiz = room.quiz?.manche1Qualified || [];
+      qualifiedIds = sorted
+        .filter(p => idsQualifiesQuiz.some(id => String(id) === String(p.id)) || p.qualifie || p.qualified)
+        .slice(0, objectif)
+        .map(p => p.id);
+      if (qualifiedIds.length < objectif) {
+        qualifiedIds = sorted.slice(0, objectif).map(p => p.id);
+      }
+      nextManche = qualifiedIds.length <= 2 ? 3 : 2;
     } else if (mancheNum === 2) {
       qualifiedIds = sorted.slice(0, 2).map(p => p.id);
       nextManche = 3;

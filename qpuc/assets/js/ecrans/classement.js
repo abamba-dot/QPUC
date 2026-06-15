@@ -115,6 +115,15 @@ export async function init(conteneur) {
   // Initialisation thème et points de couleur
   initTheme();
   bindThemeDots();
+    const hasLiveContext = Boolean(
+      sessionStorage.getItem('champ_quiz_state') ||
+      sessionStorage.getItem('champ_room_code') ||
+      sessionStorage.getItem('champ_quiz_scores')
+    );
+    if (!hasLiveContext) {
+      await renderClassementGlobal(conteneur);
+      return;
+    }
     function readJSON(key, fallback) {
       try { const raw = sessionStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch(e) { return fallback; }
     }
@@ -208,4 +217,91 @@ export async function init(conteneur) {
 
 export function cleanup() {
   // TODO : nettoyer les listeners globaux, timers, etc.
+}
+
+async function renderClassementGlobal(conteneur) {
+  const pseudo = sessionStorage.getItem('qpuc-pseudo') || '';
+  conteneur.innerHTML = `
+    <div class="page page-classement" id="page-classement">
+      <div class="page-header">
+        <button class="back-btn" id="btn-retour-classement" aria-label="Retour">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Retour
+        </button>
+        <span class="page-title">Classement</span>
+        <div class="largeur-48"></div>
+      </div>
+
+      <div class="page-header-section">
+        <span class="section-label">Top joueurs</span>
+        <h2 class="section-title" style="opacity:1;animation:none">Classement général</h2>
+      </div>
+
+      <div class="classement-wrap">
+        <div class="mes-stats" id="mes-stats"></div>
+        <div class="classement-liste" id="classement-liste">
+          <div class="classement-chargement">Chargement…</div>
+        </div>
+      </div>
+
+      <div class="btn-zone">
+        <button class="btn-secondary" id="btn-rejouer">Changer de pseudo</button>
+        <button class="btn-primary" id="btn-menu">Menu</button>
+      </div>
+    </div>`;
+
+  document.getElementById('btn-retour-classement')?.addEventListener('click', () => naviguer(pseudo ? 'menu.html' : 'connexion.html'));
+  document.getElementById('btn-rejouer')?.addEventListener('click', () => naviguer('connexion.html'));
+  document.getElementById('btn-menu')?.addEventListener('click', () => naviguer(pseudo ? 'menu.html' : 'connexion.html'));
+
+  await chargerClassementGlobal(pseudo);
+}
+
+async function chargerClassementGlobal(pseudo) {
+  const liste = document.getElementById('classement-liste');
+  const mesStats = document.getElementById('mes-stats');
+
+  try {
+    const url = pseudo
+      ? `/api/classement?pseudo=${encodeURIComponent(pseudo)}`
+      : '/api/classement';
+    const reponse = await fetch(url);
+    if (!reponse.ok) throw new Error('Classement indisponible');
+    const { top10 = [], rangJoueur = null, joueur = null } = await reponse.json();
+
+    if (pseudo) {
+      const stats = joueur || JSON.parse(sessionStorage.getItem('qpuc-stats') || '{}');
+      mesStats.innerHTML = `
+        <div class="mes-stats__carte">
+          <div class="mes-stats__pseudo">${esc(pseudo)}</div>
+          <div class="mes-stats__rang">Rang mondial : ${rangJoueur ? `#${rangJoueur}` : 'non classé'}</div>
+          <div class="mes-stats__grille">
+            <div><span class="mes-stats__val">${Number(stats.victoires || 0)}</span><span class="mes-stats__lbl">victoires</span></div>
+            <div><span class="mes-stats__val">${Number(stats.parties || 0)}</span><span class="mes-stats__lbl">parties</span></div>
+            <div><span class="mes-stats__val">${Number(stats.scoreMoyen || 0)}</span><span class="mes-stats__lbl">moy. pts</span></div>
+            <div><span class="mes-stats__val">${Number(stats.meilleureSerieMax || 0)}</span><span class="mes-stats__lbl">série max</span></div>
+          </div>
+        </div>`;
+    } else {
+      mesStats.innerHTML = '';
+    }
+
+    if (!top10.length) {
+      liste.innerHTML = '<div class="classement-vide">Aucune partie jouée encore.</div>';
+      return;
+    }
+
+    liste.innerHTML = top10.map(j => `
+      <div class="classement-ligne${j.estMoi ? ' classement-ligne--moi' : ''}">
+        <span class="classement-rang">${j.rang}</span>
+        <div class="classement-info">
+          <span class="classement-pseudo">${esc(j.pseudo)}</span>
+          <span class="classement-detail">${Number(j.victoires || 0)} victoire${Number(j.victoires || 0) > 1 ? 's' : ''} · moy. ${Number(j.scoreMoyen || 0)} pts</span>
+        </div>
+        <span class="classement-score">${Number(j.score || 0)} pts</span>
+      </div>
+    `).join('');
+  } catch (err) {
+    liste.innerHTML = '<div class="classement-erreur">Impossible de charger le classement.</div>';
+  }
 }

@@ -180,6 +180,35 @@ export function init(conteneur) {
     const champion = sorted.find(p => p.champion) || sorted[0];
     const statLabels = document.querySelectorAll('.stat-card__label');
     const statValues = document.querySelectorAll('.stat-card__value');
+    const bestSerie = Math.max(0, ...sorted.map(p => p.serie || p.streak || 0));
+
+    async function sauvegarderScore() {
+      const pseudo = sessionStorage.getItem('qpuc-pseudo');
+      if (!pseudo) return;
+      const score = isSolo
+        ? Number(state.rounds?.solo?.score || champion?.score || 0)
+        : Number(champion?.score || 0);
+      const signature = `${pseudo}:${score}:${config.mode || 'fidele'}:${sorted.map(p => `${p.id}-${p.score}`).join('|')}`;
+      if (sessionStorage.getItem('qpuc-score-sauvegarde') === signature) return;
+
+      try {
+        await fetch('/api/score', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pseudo,
+            score,
+            victoire: Boolean(champion),
+            serieMax: isSolo ? (state.rounds?.solo?.bestStreak || bestSerie) : bestSerie,
+            manche: state.manche || 1,
+            mode: config.mode || 'fidele',
+          }),
+        });
+        sessionStorage.setItem('qpuc-score-sauvegarde', signature);
+      } catch (err) {
+        console.warn('Score non sauvegardé :', err);
+      }
+    }
 
     function initials(p) {
       return p.init || p.name.slice(0, 2).toUpperCase();
@@ -197,7 +226,6 @@ export function init(conteneur) {
       champRow.querySelector('.champ-score').textContent = champion.score || 0;
     }
 
-    const bestSerie = Math.max(0, ...sorted.map(p => p.serie || 0));
     if (isSolo) {
       const solo = state.rounds?.solo || {};
       document.getElementById('final-title').textContent = 'Course terminée';
@@ -259,6 +287,8 @@ export function init(conteneur) {
         <span class="player-score">${p.score || 0}</span>`;
       classement.appendChild(row);
     });
+
+    sauvegarderScore();
 }
 
 export function cleanup() {

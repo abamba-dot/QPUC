@@ -5,8 +5,8 @@
 
 import { initTheme } from '../theme.js';
 import { naviguer } from '../routeur.js';
-import { getState, finishManche1, finishGame, DEMO } from '../state.js';
-import { loadQuestions } from '../questions-service.js';
+import { getState, mettreAJourNiveauDifficulte, finishManche1, finishGame, DEMO } from '../state.js';
+import { loadQuestions, getQuestionParNiveau } from '../questions-service.js';
 import { createTimer } from '../timer.js';
 import * as Utils from '../utils.js';
 import { playBuzzer, playCorrect, playWrong } from '../sound.js';
@@ -51,6 +51,10 @@ export const html = `
           <path d="M7 10c0 .55-.45 1-1 1s-1-.45-1-1 1-2 1-2 1 1.45 1 2z" fill="#FFD100"/>
         </svg>
         <span id="streak-txt">×0</span>
+      </div>
+      <div class="badge-difficulte" id="badge-difficulte" data-niveau="facile">
+        <div class="badge-difficulte__point"></div>
+        <span class="badge-difficulte__texte">FACILE</span>
       </div>
     </div>
   </div>
@@ -198,14 +202,21 @@ export async function init(conteneur) {
       { name: 'Amara K.', init: 'AK', colorIdx: 0, score: 340 },
       { name: 'Youssef M.', init: 'YM', colorIdx: 1, score: 290 },
       { name: 'Fatima Z.', init: 'FZ', colorIdx: 2, score: 255 },
-    ]).map((p, i) => ({ ...p, id: p.id ?? i + 1, score: p.score || 0, streak: p.streak || 0 }));
+    ]).map((p, i) => ({
+      ...p,
+      id: p.id ?? i + 1,
+      score: p.score || 0,
+      streak: p.streak || 0,
+      qualified: Boolean(p.qualified || p.qualifie),
+      qualifie: Boolean(p.qualified || p.qualifie),
+    }));
     const COLORS   = ['#9B8EC7', '#D4A820', '#3DC87A', '#E85A3A'];
     const config = state.config || {};
     const isSolo = config.mode === 'solo' || PLAYERS.length === 1;
     const TOTAL    = Math.max(1, Number(config.nbQuestions) || 10);
     const QS = await loadQuestions({
       category: config.category,
-      difficulty: config.difficulty,
+      difficulty: '',
       limit: 60,
       fallback: DEMO.QUESTIONS,
     });
@@ -214,19 +225,70 @@ export async function init(conteneur) {
     let curQ = 0, answered = false, answersRevealed = false;
     let activePlayerId = PLAYERS[0]?.id ?? 1;
     let failedBuzzers = new Set();
-    let qualifiedIds = new Set();
-    let qualifiedCount = 0;
+    let qualifiedIds = new Set(PLAYERS.filter(p => p.qualified || p.qualifie).map(p => p.id));
+    let qualifiedCount = qualifiedIds.size;
     let timer = null;
+    const playedQuestionIds = new Set();
+    let currentQuestion = chooseQuestion();
+
+    function chooseQuestion() {
+      const niveau = getState().niveauDifficulte || 'facile';
+      const disponibles = QS.filter(q => !playedQuestionIds.has(String(q.id || q.q)));
+      const source = disponibles.length ? disponibles : QS;
+      const question = getQuestionParNiveau(source, niveau) || source[0] || DEMO.QUESTIONS[0];
+      if (question) playedQuestionIds.add(String(question.id || question.q));
+      return question;
+    }
+
+    function afficherNiveauDifficulte(niveau = 'facile') {
+      const badge = document.getElementById('badge-difficulte');
+      if (!badge) return;
+      const textes = { facile: 'FACILE', moyen: 'MOYEN', difficile: 'DIFFICILE' };
+      badge.setAttribute('data-niveau', niveau);
+      const texte = badge.querySelector('.badge-difficulte__texte');
+      if (texte) texte.textContent = textes[niveau] || textes.facile;
+      badge.classList.remove('changement');
+      void badge.offsetWidth;
+      badge.classList.add('changement');
+    }
 
     function currentPoints() {
       return qualifiedCount === 0 ? 1 : qualifiedCount === 1 ? 2 : 3;
+    }
+
+    function objectifQualifiesManche1() {
+      return Math.min(3, PLAYERS.length);
+    }
+
+    function joueurEstQualifie(playerId) {
+      const player = PLAYERS.find(p => p.id === playerId);
+      return Boolean(player?.qualified || player?.qualifie || qualifiedIds.has(playerId));
+    }
+
+    function peutBuzzer(playerId) {
+      return isSolo || !joueurEstQualifie(playerId);
+    }
+
+    function premierJoueurDisponible() {
+      return PLAYERS.find(p => !joueurEstQualifie(p.id) && !failedBuzzers.has(p.id))
+        || PLAYERS.find(p => !joueurEstQualifie(p.id))
+        || PLAYERS[0];
+    }
+
+    function updateBuzzerAvailability() {
+      const bz = document.getElementById('buzzer');
+      if (!bz) return;
+      const disabled = !peutBuzzer(activePlayerId);
+      bz.classList.toggle('buzzer--desactive', disabled);
+      bz.setAttribute('aria-disabled', String(disabled));
+      bz.setAttribute('tabindex', disabled ? '-1' : '0');
     }
   
     function hideAnswers() {
       if (!ecranActif) return;
       answersRevealed = false;
       document.getElementById('answers').classList.add('answers-section--hidden');
-      activePlayerId = PLAYERS[0]?.id ?? activePlayerId;
+      activePlayerId = premierJoueurDisponible()?.id ?? activePlayerId;
       updateBuzzStatus();
       buildScores();
     }
@@ -251,6 +313,7 @@ export async function init(conteneur) {
         : isSolo
           ? `${player.name} est prêt`
           : 'Chaque joueur buzze avec sa touche';
+      updateBuzzerAvailability();
     }
   
     /* ── Scores bar ── */
@@ -263,20 +326,22 @@ export async function init(conteneur) {
       sorted.forEach((p, i) => {
         const color = COLORS[(p.colorIdx ?? i) % COLORS.length];
         const chip  = document.createElement('div');
-        chip.className = 'score-chip score-chip--buzzable';
+        const isQual = qualifiedIds.has(p.id) || p.qualified || p.qualifie;
+        chip.className = `score-chip${isQual ? ' score-chip--disabled' : ' score-chip--buzzable'}`;
         if (p.id === activePlayerId) chip.classList.add('score-chip--active');
         if (i === 0) chip.classList.add('score-chip--leader');
         chip.setAttribute('role', 'button');
-        chip.setAttribute('tabindex', '0');
-        chip.setAttribute('aria-label', `${p.name} buzze`);
-        chip.onclick = () => buzzForPlayer(p.id);
+        chip.setAttribute('tabindex', isQual ? '-1' : '0');
+        chip.setAttribute('aria-disabled', String(isQual));
+        chip.setAttribute('aria-label', isQual ? `${p.name} est déjà qualifié` : `${p.name} buzze`);
+        if (!isQual) chip.onclick = () => buzzForPlayer(p.id);
         chip.addEventListener('keydown', e => {
+          if (isQual) return;
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             buzzForPlayer(p.id);
           }
         });
-        const isQual = qualifiedIds.has(p.id);
         const sc = p.score || 0;
         const barPct = isQual ? 100 : Math.round(sc / GOAL * 100);
         chip.innerHTML = `
@@ -291,6 +356,7 @@ export async function init(conteneur) {
           </div>`;
         bar.appendChild(chip);
       });
+      updateBuzzerAvailability();
     }
   
     /* ── Point value indicator ── */
@@ -323,6 +389,12 @@ export async function init(conteneur) {
   
     function buzzForPlayer(playerId) {
       if (answered || answersRevealed) return;
+      if (!peutBuzzer(playerId)) {
+        const status = document.getElementById('buzz-status');
+        if (status) status.textContent = 'Ce joueur est déjà qualifié';
+        updateBuzzerAvailability();
+        return;
+      }
       if (failedBuzzers.has(playerId)) {
         const status = document.getElementById('buzz-status');
         if (status) status.textContent = 'Ce joueur a déjà tenté cette question';
@@ -363,9 +435,11 @@ export async function init(conteneur) {
       answered = true;
       timer && timer.pause();
   
-      const q  = QS[curQ];
+      const q  = currentQuestion;
       const ok = idx === q.c;
       const activePlayer = getActivePlayer();
+      const nouveauNiveau = mettreAJourNiveauDifficulte(ok);
+      afficherNiveauDifficulte(nouveauNiveau);
   
       for (let i = 0; i < 4; i++) document.getElementById('a' + i).classList.add('ans-btn--disabled');
   
@@ -388,7 +462,7 @@ export async function init(conteneur) {
         document.getElementById('ac' + idx).style.color = 'var(--color-error)';
         activePlayer.streak = 0;
         failedBuzzers.add(activePlayer.id);
-        const remainingPlayers = isSolo ? [] : PLAYERS.filter(p => !failedBuzzers.has(p.id));
+        const remainingPlayers = isSolo ? [] : PLAYERS.filter(p => !joueurEstQualifie(p.id) && !failedBuzzers.has(p.id));
         if (remainingPlayers.length) {
           document.getElementById('streak-txt').textContent = `${activePlayer.name.split(' ')[0]} ×0`;
           buildScores();
@@ -427,7 +501,9 @@ export async function init(conteneur) {
       PLAYERS.forEach(p => { p.streak = 0; });
       revealAnswers();
       document.getElementById('streak-txt').textContent = isSolo ? `${getActivePlayer().name.split(' ')[0]} ×0` : '×0';
-      const q = QS[curQ];
+      const q = currentQuestion;
+      const nouveauNiveau = mettreAJourNiveauDifficulte(false);
+      afficherNiveauDifficulte(nouveauNiveau);
       for (let i = 0; i < 4; i++) document.getElementById('a' + i).classList.add('ans-btn--disabled');
       const cb = document.getElementById('a' + q.c);
       cb.classList.add('ans-btn--correct');
@@ -439,13 +515,12 @@ export async function init(conteneur) {
   
     function nextQuestion() {
       if (!ecranActif) return;
-      const unqualified = PLAYERS.filter(p => !qualifiedIds.has(p.id));
-      if (!isSolo && unqualified.length <= 1) {
+      if (!isSolo && qualifiedIds.size >= objectifQualifiesManche1()) {
         const _t4 = setTimeout(endManche, 700);
         _ajouterNettoyage(() => clearTimeout(_t4));
         return;
       }
-      if (curQ + 1 >= QS.length) {
+      if (isSolo && curQ + 1 >= TOTAL) {
         endManche();
         return;
       }
@@ -465,7 +540,8 @@ export async function init(conteneur) {
         b.style.animation = 'none'; void b.offsetWidth; b.style.animation = `slideUp .4s ease ${i * .06}s both`;
       }
   
-      const q = QS[curQ];
+      currentQuestion = chooseQuestion();
+      const q = currentQuestion;
       document.getElementById('q-cat').textContent  = q.cat;
       const qText = document.getElementById('q-text');
       qText.textContent = q.q;
@@ -474,7 +550,7 @@ export async function init(conteneur) {
       buildDots();
   
       timer = createTimer(document.getElementById('timer-wrap'), {
-        duration: 20, urgentAt: 5,
+        duration: getState().dureeTimer || 20, urgentAt: 5,
         onEnd: timeUp,
       });
       timer.start();
@@ -484,7 +560,10 @@ export async function init(conteneur) {
     function tryQualify(player) {
       if (qualifiedIds.has(player.id) || (player.score || 0) < GOAL) return false;
       qualifiedIds.add(player.id);
+      player.qualified = true;
+      player.qualifie = true;
       qualifiedCount++;
+      if (activePlayerId === player.id) activePlayerId = premierJoueurDisponible()?.id ?? activePlayerId;
       buildScores();
       buildDots();
       // Bannière de qualification
@@ -515,7 +594,8 @@ export async function init(conteneur) {
     }
   
     /* ── Init ── */
-    const q = QS[0];
+    afficherNiveauDifficulte(getState().niveauDifficulte || 'facile');
+    const q = currentQuestion;
     document.getElementById('q-cat').textContent  = q.cat;
     document.getElementById('q-text').textContent = q.q;
     requestAnimationFrame(() => fitTextToBox(document.getElementById('q-text'), { container: document.getElementById('q-card'), min: 18, padding: 22 }));
@@ -526,7 +606,7 @@ export async function init(conteneur) {
     updateBuzzStatus();
   
     timer = createTimer(document.getElementById('timer-wrap'), {
-      duration: 20, urgentAt: 5,
+      duration: getState().dureeTimer || 20, urgentAt: 5,
       onEnd: timeUp,
     });
     timer.start();

@@ -75,7 +75,7 @@ export const html = `
       </div>
 
       <!-- classement -->
-      <div class="stack" id="st2" data-onclick="navigate('classement-general.html')" tabindex="0" role="button" aria-label="classement">
+      <div class="stack" id="st2" data-onclick="navigate('classement.html')" tabindex="0" role="button" aria-label="classement">
         <div class="stack__back" id="sb2"></div>
         <div class="stack__mid"  id="sm2"></div>
         <div class="stack__top"  id="st-top2" style="animation-delay:.25s">
