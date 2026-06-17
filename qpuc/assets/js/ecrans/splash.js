@@ -170,7 +170,7 @@ export async function init(conteneur) {
       typing = false;
       unlockOnSplashCta();
       playBtn();
-      naviguer('menu.html');
+      naviguer('connexion.html');
     };
   
     /* ── Typed ── */

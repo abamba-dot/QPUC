@@ -76,7 +76,7 @@ function ecranInitial() {
   if (ecran && typeof ecran === 'string') {
     return ecran;
   }
-  return 'connexion';
+  return 'splash';
 }
 
 naviguer(ecranInitial(), { sansAnimation: true });

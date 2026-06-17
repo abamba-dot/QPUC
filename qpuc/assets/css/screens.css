@@ -198,130 +198,339 @@
 ═══════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════
-   CONNEXION
+   CONNEXION — redesign
 ═══════════════════════════════════════════════ */
 
 .page-connexion {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(22px, 5vw, 56px);
+  padding: clamp(16px, 4vmin, 32px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent),
+    radial-gradient(ellipse 55% 50% at 85% 88%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent),
+    linear-gradient(155deg, var(--bg-deep) 0%, var(--bg) 55%, color-mix(in srgb, var(--bg) 78%, #fff 22%) 100%);
 }
 
-.connexion-contenu {
+/* Orbs décoratifs */
+.cx-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(72px);
+}
+.cx-bg-orb--1 {
+  width: clamp(280px, 48vw, 580px);
+  aspect-ratio: 1;
+  top: -12%;
+  left: -8%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 60%, transparent), transparent 70%);
+  opacity: .28;
+}
+.cx-bg-orb--2 {
+  width: clamp(220px, 38vw, 460px);
+  aspect-ratio: 1;
+  bottom: -10%;
+  right: -6%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-2) 65%, transparent), transparent 70%);
+  opacity: .22;
+}
+.cx-bg-orb--3 {
+  width: clamp(140px, 22vw, 280px);
+  aspect-ratio: 1;
+  top: 45%;
+  right: 22%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 55%, var(--accent-2) 45%), transparent 70%);
+  opacity: .12;
+}
+
+/* ── Card principale ── */
+.cx-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 460px);
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.06) 100%),
+    var(--glass);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border: 1px solid var(--glass-border);
+  border-top-color: color-mix(in srgb, var(--glass-border) 50%, rgba(255,255,255,.35) 50%);
+  border-radius: 28px;
+  padding: clamp(24px, 5vw, 40px);
+  box-shadow:
+    0 1px 0 0 rgba(255,255,255,.18) inset,
+    0 24px 56px color-mix(in srgb, var(--shadow) 60%, transparent),
+    0 6px 18px color-mix(in srgb, var(--shadow-soft) 80%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: cxCardIn .38s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes cxCardIn {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Brand ── */
+.cx-brand {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(24px, 6vw, 38px);
-  width: min(100%, 390px);
-  z-index: 1;
-}
-
-.connexion-logo {
   text-align: center;
+  gap: 8px;
 }
-
-.connexion-logo__titre {
+.cx-brand__logo-wrap {
+  width: clamp(72px, 16vw, 96px);
+  aspect-ratio: 1;
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.72), rgba(255,255,255,.18)),
+    var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--elevation-3);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.cx-brand__logo {
+  width: 135%;
+  height: 135%;
+  object-fit: cover;
+  object-position: center;
+}
+.cx-eyebrow {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.cx-titre {
   font-family: var(--font-display);
-  font-size: clamp(38px, 10vw, 58px);
+  font-size: clamp(20px, 4vw, 28px);
   font-weight: 950;
   color: var(--text);
-  line-height: .92;
-  letter-spacing: -0.05em;
+  line-height: .96;
+  letter-spacing: -0.04em;
 }
-
-.connexion-logo__sous {
-  margin-top: 6px;
+.cx-sous {
   font-family: var(--font-body);
-  font-size: clamp(12px, 3vw, 15px);
-  font-weight: 900;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--sub);
-  letter-spacing: .14em;
-  text-transform: uppercase;
+  letter-spacing: .1em;
+  opacity: .65;
 }
 
-.connexion-form {
-  width: 100%;
+/* ── Séparateur ── */
+.cx-sep {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--glass-border) 25%,
+    var(--glass-border) 75%,
+    transparent 100%);
+  margin: 0 -4px;
+}
+
+/* ── Kicker ── */
+.cx-section-kicker {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: .75;
+  margin-bottom: -4px;
+}
+
+/* ── Form ── */
+.cx-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: clamp(18px, 4vw, 24px);
-  border-radius: var(--radius-lg);
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--elevation-2);
+  gap: 14px;
 }
-
-.connexion-label {
+.cx-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.cx-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
-  letter-spacing: .16em;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--sub);
 }
+.cx-label__icon {
+  color: var(--accent);
+  flex-shrink: 0;
+  opacity: .8;
+}
 
-.connexion-input {
+/* ── Input pseudo ── */
+.cx-input {
   width: 100%;
-  min-height: 56px;
-  padding: 14px 16px;
-  border-radius: var(--radius-md);
-  border: 1.5px solid var(--glass-border);
-  background: var(--glass);
+  height: 56px;
+  padding: 0 18px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 650;
   color: var(--text);
-  font-family: var(--font-display);
-  font-size: max(16px, 1em);
-  font-weight: 850;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.04) 100%),
+    var(--glass);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 14px;
   outline: none;
-  transition: border-color .2s, background .2s, box-shadow .2s;
+  transition: border-color .18s, box-shadow .18s, background .18s;
+  caret-color: var(--accent);
 }
-
-.connexion-input:focus {
+.cx-input:focus {
   border-color: var(--accent);
-  background: var(--glass-strong);
-  box-shadow: 0 0 0 4px rgba(180, 211, 217, .18);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.06) 100%),
+    var(--glass-strong);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent),
+    0 2px 8px color-mix(in srgb, var(--accent) 10%, transparent);
 }
-
-.connexion-input::placeholder {
+.cx-input::placeholder {
+  color: var(--sub);
   opacity: .38;
+  font-weight: 500;
 }
 
-.connexion-btn {
+/* ── OTP PIN ── */
+.cx-otp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.cx-otp__box {
+  width: clamp(58px, 16vw, 80px);
+  height: clamp(62px, 17vw, 80px);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 950;
+  color: var(--text);
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.04) 100%),
+    var(--glass);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 16px;
+  outline: none;
+  transition: border-color .18s, box-shadow .18s, transform .16s, background .18s;
+  caret-color: transparent;
+  cursor: default;
+}
+.cx-otp__box:focus {
+  border-color: var(--accent);
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.25) 0%, rgba(255,255,255,.08) 100%),
+    var(--glass-strong);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 6px 18px color-mix(in srgb, var(--accent) 14%, transparent);
+  transform: translateY(-3px) scale(1.05);
+}
+.cx-otp__box--filled {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--glass-border) 50%);
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.06) 100%),
+    color-mix(in srgb, var(--glass-strong) 80%, transparent);
+}
+.cx-otp__box--filled:not(:focus) {
+  animation: cxBoxPop .22s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes cxBoxPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* ── Hint ── */
+.cx-hint {
+  min-height: 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 750;
+  color: #d94f35;
+  letter-spacing: .03em;
+  margin-top: -2px;
+}
+
+/* ── Bouton principal ── */
+.cx-btn-primary {
   width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--btn-text, #fff);
+  background: var(--btn-gradient, linear-gradient(135deg, var(--accent), var(--accent)));
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform .16s, box-shadow .16s, opacity .16s;
+  box-shadow:
+    0 1px 0 0 rgba(255,255,255,.2) inset,
+    0 6px 20px color-mix(in srgb, var(--accent) 30%, transparent);
   margin-top: 4px;
 }
-
-.connexion-btn:disabled {
+.cx-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.16) 0%, transparent 55%);
+  pointer-events: none;
+}
+.cx-btn-primary:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 0 rgba(255,255,255,.2) inset,
+    0 10px 28px color-mix(in srgb, var(--accent) 42%, transparent);
+}
+.cx-btn-primary:not(:disabled):active { transform: scale(.97); }
+.cx-btn-primary:disabled {
   opacity: .38;
   pointer-events: none;
 }
+.cx-btn-primary svg { flex-shrink: 0; transition: transform .2s; }
+.cx-btn-primary:not(:disabled):hover svg { transform: translateX(3px); }
 
-.connexion-hint {
-  min-height: 16px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-error);
-}
-
-.connexion-classement-lien {
-  border: none;
-  background: transparent;
-  color: var(--sub);
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  cursor: pointer;
-  opacity: .65;
-  transition: opacity .2s, color .2s;
-}
-
-.connexion-classement-lien:hover {
-  opacity: 1;
-  color: var(--text);
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .page-connexion {
+    align-items: center;
+    padding: 14px;
+  }
+  .cx-card {
+    border-radius: 22px;
+    padding: 22px 18px;
+  }
+  .cx-otp { gap: 8px; }
 }
 
 /* ═══════════════════════════════════════════════
