@@ -830,14 +830,18 @@
 ════════════════════════════════════════════════════ */
 .modes-page { align-items: center; }
 .modes-wrap {
-  flex: 1; width: 100%; max-width: min(760px, 100%);
+  flex: 1; min-height: 0; width: 100%; max-width: min(760px, 100%);
   align-self: center;
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex; flex-direction: column; justify-content: flex-start;
   gap: clamp(12px, 2vh, 18px);
   padding: clamp(8px, 2vh, 20px) 0;
+  padding-bottom: 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .mode-card {
   position: relative;
+  flex-shrink: 0;
   display: flex; align-items: center; gap: clamp(16px, 3vw, 22px);
   padding: clamp(18px, 3vw, 26px);
   border-radius: var(--radius-lg);
@@ -1397,7 +1401,7 @@
   font-size: clamp(13px, 2.4vw, 16px);
 }
 
-.jeu-multi-page {
+.jeu-multi-page, .resume-question-page {
   --bg: #EFE4D2;
   --bg-deep: #D9C7A8;
   --text: #1E160C;
@@ -1411,6 +1415,9 @@
   --glass-strong: rgba(30, 22, 12, .11);
   --glass-border: rgba(30, 22, 12, .14);
   --shadow: rgba(30, 22, 12, .15);
+}
+
+.jeu-multi-page {
   width: 100%;
   min-height: 100dvh;
   overflow: hidden;
@@ -1562,19 +1569,6 @@
 }
 
 .resume-question-page {
-  --bg: #EFE4D2;
-  --bg-deep: #D9C7A8;
-  --text: #1E160C;
-  --sub: #6F5A41;
-  --muted: #8B765C;
-  --card-bg: rgba(255, 253, 248, .82);
-  --card-border: rgba(255, 255, 255, .72);
-  --accent: #1E160C;
-  --accent-2: #B8482A;
-  --glass: rgba(30, 22, 12, .05);
-  --glass-strong: rgba(30, 22, 12, .11);
-  --glass-border: rgba(30, 22, 12, .14);
-  --shadow: rgba(30, 22, 12, .15);
   gap: clamp(16px, 3vh, 26px);
 }
 

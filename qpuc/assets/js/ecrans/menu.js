@@ -16,7 +16,7 @@ export const html = `
   <div class="theme-dots">
     <div class="theme-dot active" data-theme-key="celadon" style="background:#B4D3D9" aria-label="Thème celadon"></div>
     <div class="theme-dot" data-theme-key="beige" style="background:#F2EAE0;border-color:#ccc" aria-label="Thème Beige"></div>
-    <div class="theme-dot" data-theme-key="violet" style="background:#9B8El7" aria-label="Thème Violet"></div>
+    <div class="theme-dot" data-theme-key="violet" style="background:#9B8EC7" aria-label="Thème Violet"></div>
   </div>
 
   <!-- Header -->
@@ -105,6 +105,7 @@ export const html = `
         </div>
       </div>
 
+
     </div>
   </div>
 
@@ -120,6 +121,7 @@ export const html = `
       <div class="nav-hint"    id="nh1"></div>
       <div class="nav-hint"    id="nh2"></div>
       <div class="nav-hint"    id="nh3"></div>
+      <div class="nav-hint"    id="nh4"></div>
     </div>
     <button class="nav-btn" id="btn-next" data-onclick="navTo(1)" aria-label="Suivant">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

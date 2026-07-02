@@ -779,10 +779,10 @@
 ═══════════════════════════════════════════════ */
 
 .content {
-  width: 100%; flex: 1;
+  width: 100%; flex: 1; min-height: 0;
   display: flex; flex-direction: column; align-items: center;
   padding: 26px 0 36px; z-index: 2;
-  overflow-y: auto; scrollbar-width: none;
+  overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
 .content::-webkit-scrollbar { display: none; }
 
@@ -904,6 +904,8 @@
   background: transparent; color: var(--sub);
   transition: all .2s; white-space: nowrap;
   min-height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; line-height: 1.25;
 }
 .cfg-opt:hover { color: var(--text); border-color: var(--text); }
 .cfg-opt.selected { background: var(--text); color: var(--bg); border-color: var(--text); }
@@ -2425,3 +2427,103 @@ body {
     padding: 10px 14px;
   }
 }
+
+/* ════════════════════════════════════════════
+   MINI-JEU MÉMO FLASH — Écran de patience
+════════════════════════════════════════════ */
+
+.page-memo-flash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 24px);
+  padding: clamp(20px, 5vw, 32px);
+}
+
+.memo-header {
+  text-align: center;
+}
+.memo-titre {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4.5vw, 24px);
+  font-weight: 800;
+  color: var(--text);
+}
+.memo-sous-titre {
+  font-size: clamp(11px, 2.8vw, 13px);
+  color: var(--sub);
+  font-weight: 600;
+  letter-spacing: .04em;
+  margin-top: 4px;
+}
+
+.memo-compteur {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+
+.memo-grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px, 2.5vw, 14px);
+  width: min(260px, 70vw);
+  aspect-ratio: 1;
+}
+
+.memo-case {
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--couleur-case) 18%, var(--card-bg));
+  border: 2px solid color-mix(in srgb, var(--couleur-case) 35%, transparent);
+  cursor: pointer;
+  transition: all .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.memo-case--actif {
+  background: var(--couleur-case);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--couleur-case) 60%, transparent);
+  transform: scale(1.04);
+}
+
+.memo-case--clic {
+  transform: scale(.92);
+}
+
+.memo-statut {
+  font-size: clamp(13px, 3.2vw, 15px);
+  font-weight: 700;
+  color: var(--text);
+  min-height: 22px;
+  transition: color .3s;
+}
+
+.memo-barre-temps {
+  width: min(280px, 75vw);
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.15);
+  overflow: hidden;
+}
+.memo-barre-temps__fill {
+  height: 100%;
+  width: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.memo-passer {
+  margin-top: 8px;
+  opacity: .6;
+  font-size: 11px;
+  padding: 8px 20px;
+}
+.memo-passer:hover { opacity: 1; }
+
+@media (max-width: 380px) {
+  .memo-grille { width: min(220px, 65vw); }
+}
+

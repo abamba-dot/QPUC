@@ -171,7 +171,9 @@ export async function init(conteneur) {
         hidden.focus();
         return;
       }
-      joinRoomOnline('CHMP-' + hidden.value.toUpperCase());
+      // Envoyer juste le suffixe — le serveur résout automatiquement
+      // vers PARIS-XXXX, CHMP-XXXX, etc. via resolveRoomCode()
+      joinRoomOnline(hidden.value.toUpperCase());
     };
   
     function showJoinError(message) {
@@ -192,6 +194,32 @@ export async function init(conteneur) {
           const playerToken = previousCode === code ? sessionStorage.getItem('champ_room_player_token') : null;
           const response = await client.joinRoom({ code, player, playerToken: playerToken || undefined });
           if (response.ok) {
+            // Routage selon le mode détecté par le serveur
+            const detectedMode = response.mode || 'classique';
+
+            if (detectedMode === 'paris') {
+              sessionStorage.setItem('champ_room_code', response.code);
+              sessionStorage.setItem('champ_player_id', response.player.id);
+              sessionStorage.setItem('champ_player_name', response.player.name);
+              sessionStorage.setItem('mode-multi-actif', 'paris');
+              sessionStorage.setItem('champ_mp_mode', 'paris');
+              if (response.playerToken) sessionStorage.setItem('champ_room_player_token', response.playerToken);
+              naviguer('lobby-paris.html');
+              return;
+            }
+
+            if (detectedMode === 'pouvoirs') {
+              sessionStorage.setItem('champ_room_code', response.code);
+              sessionStorage.setItem('champ_player_id', response.player.id);
+              sessionStorage.setItem('champ_player_name', response.player.name);
+              sessionStorage.setItem('mode-multi-actif', 'pouvoirs');
+              sessionStorage.setItem('champ_mp_mode', 'pouvoirs');
+              if (response.playerToken) sessionStorage.setItem('champ_room_player_token', response.playerToken);
+              naviguer('lobby-pouvoirs.html');
+              return;
+            }
+
+            // Autres modes (classique, duel, quiz) — flow existant
             persistJoinedRoom(response.room, response.player, response.playerToken);
             naviguer('lobby.html');
             return;

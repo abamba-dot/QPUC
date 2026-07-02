@@ -84,6 +84,7 @@ export async function init() {
     const mode = room?.config?.mode;
     const current = (room?.players || []).find(p => String(p.id) === String(me?.id)) || me;
     if (mode === 'quiz-multijoueur' && current?.host) return 'hote-quiz.html';
+    if (mode === 'paris-multi') return 'jeu-multi.html';
     return 'jeu-multi.html';
   }
 

@@ -164,14 +164,25 @@ export async function init(conteneur) {
   bindThemeDots();
     const roomMode = sessionStorage.getItem('champ_mp_mode') || 'classique';
     const cfg = {
-      manches:    roomMode === 'duel' ? '3' : '3',
-      maxPlayers: roomMode === 'duel' ? '4' : '8',
+      manches:    roomMode === 'duel' ? '3' : roomMode === 'paris-multi' ? '1' : '3',
+      maxPlayers: roomMode === 'duel' ? '4' : roomMode === 'paris-multi' ? '4' : '8',
       visibility: 'Privée',
     };
     if (roomMode === 'duel') {
       // En mode duel : 3 manches et 4 joueurs max sont fixes
       document.querySelectorAll('[data-group="manches"] .cfg-opt').forEach(btn => {
         btn.classList.toggle('selected', btn.textContent.trim() === '3');
+        btn.disabled = true;
+      });
+      document.querySelectorAll('[data-group="maxPlayers"] .cfg-opt').forEach(btn => {
+        btn.classList.toggle('selected', btn.textContent.trim() === '4');
+        btn.disabled = true;
+      });
+    }
+    if (roomMode === 'paris-multi') {
+      // Mode Paris : pas de manches (1 fixe), 4 joueurs max fixe
+      document.querySelectorAll('[data-group="manches"] .cfg-opt').forEach(btn => {
+        btn.classList.toggle('selected', btn.textContent.trim() === '1');
         btn.disabled = true;
       });
       document.querySelectorAll('[data-group="maxPlayers"] .cfg-opt').forEach(btn => {
@@ -193,9 +204,10 @@ export async function init(conteneur) {
     });
   
     function updateSummary() {
-      const modeLabel = roomMode === 'duel' ? 'Duel' : roomMode === 'quiz' ? 'Quiz animé' : 'Classique';
-      document.getElementById('summary').textContent =
-        `${modeLabel} · ${cfg.manches} manches · max ${cfg.maxPlayers} joueurs`;
+      const modeLabel = roomMode === 'duel' ? 'Duel' : roomMode === 'quiz' ? 'Quiz animé' : roomMode === 'paris-multi' ? 'Mode Paris' : 'Classique';
+      document.getElementById('summary').textContent = roomMode === 'paris-multi'
+        ? `${modeLabel} · max ${cfg.maxPlayers} joueurs · double ou rien`
+        : `${modeLabel} · ${cfg.manches} manches · max ${cfg.maxPlayers} joueurs`;
     }
     updateSummary();
   
@@ -242,8 +254,8 @@ export async function init(conteneur) {
           config: {
             ...room.config,
             mode: roomMode,
-            manches: roomMode === 'duel' ? 3 : room.config.manches,
-            maxPlayers: roomMode === 'duel' ? 4 : room.config.maxPlayers,
+            manches: roomMode === 'duel' ? 3 : roomMode === 'paris-multi' ? 1 : room.config.manches,
+            maxPlayers: roomMode === 'duel' ? 4 : roomMode === 'paris-multi' ? 4 : room.config.maxPlayers,
           },
           player: room.players[0],
         });

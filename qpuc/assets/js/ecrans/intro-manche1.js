@@ -19,7 +19,7 @@ export const html = `
   <div class="theme-dots">
     <div class="theme-dot active" data-theme-key="celadon" style="background:#B4D3D9"></div>
     <div class="theme-dot" data-theme-key="beige" style="background:#F2EAE0;border-color:#ccc"></div>
-    <div class="theme-dot" data-theme-key="violet" style="background:#9B8El7"></div>
+    <div class="theme-dot" data-theme-key="violet" style="background:#9B8EC7"></div>
   </div>
 
   <!-- Header Manche -->
@@ -148,7 +148,7 @@ export function init(conteneur) {
     } else {
 
     const players = state.players.length ? state.players : DEMO.M1_RESULTS;
-    const COLORS  = ['#9B8El7', '#D4A820', '#3Dl87A', '#E85A3A'];
+    const COLORS  = ['#9B8EC7', '#D4A820', '#3DC87A', '#E85A3A'];
 
     /* ── construire la liste joueurs ── */
     const list = document.getElementById('players-list');

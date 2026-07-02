@@ -29,6 +29,9 @@ secrets.*
 *.tar.gz
 
 # Rapports de travail locaux
+AUDIT_QPUC.md
+rapports-test/
+qpuc/rapports-test/
 qpuc/rapports et test/
 rapports et test/
 

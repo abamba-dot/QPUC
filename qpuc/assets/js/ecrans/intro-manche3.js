@@ -172,7 +172,10 @@ export function init(conteneur) {
         numEl:     document.getElementById('cd-num'),
         onTick: () => playCountdownTick(),
         onGo: () => playCountdownGo(),
-        onComplete: () => naviguer('jeu-manche3.html'),
+        onComplete: () => {
+          sessionStorage.setItem('memo-ecran-suivant', 'jeu-manche3.html');
+          naviguer('memo-flash.html');
+        },
       });
     };
 }

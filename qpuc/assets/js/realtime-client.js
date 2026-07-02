@@ -64,6 +64,8 @@ async function connectRealtime() {
       transports: ['websocket', 'polling'],
       timeout: 1200,
     });
+    socket.setMaxListeners?.(25);
+    socket.io?.engine?.setMaxListeners?.(25);
 
     const connected = await new Promise(resolve => {
       const done = value => {
@@ -125,6 +127,18 @@ function createClient(socket) {
       socket.on('difficulte:mise-a-jour', handler);
       return () => socket.off('difficulte:mise-a-jour', handler);
     },
+    onParisChoisirMise(handler) {
+      socket.on('paris:choisir-mise', handler);
+      return () => socket.off('paris:choisir-mise', handler);
+    },
+    onParisAttenteMise(handler) {
+      socket.on('paris:attente-mise', handler);
+      return () => socket.off('paris:attente-mise', handler);
+    },
+    onParisMiseConfirmee(handler) {
+      socket.on('paris:mise-confirmee', handler);
+      return () => socket.off('paris:mise-confirmee', handler);
+    },
     createRoom(payload) {
       return emitAck(socket, 'room:create', payload);
     },
@@ -154,6 +168,9 @@ function createClient(socket) {
     },
     nextQuestion() {
       return emitAck(socket, 'quiz:next');
+    },
+    confirmerMise(mise) {
+      return emitAck(socket, 'paris:confirmer-mise', { mise });
     },
     finishManche(payload = {}) {
       return emitAck(socket, 'game:finish-manche', payload);

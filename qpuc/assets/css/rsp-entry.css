@@ -68,6 +68,15 @@
   }
 }
 
+/* ── < 480px : réserver l'espace du sélecteur de langue (colonne gauche)
+     pour que le bouton "Prêt à jouer ?" ne le chevauche jamais, même
+     quand le bouton s'étire en pleine largeur sur les très petits écrans ── */
+@media (max-width: 479px) {
+  .splash-page .splash-center {
+    max-width: calc(100vw - 96px);
+  }
+}
+
 /* ── Paysage téléphone : hauteur limitée (max-height: 480px) ── */
 @media (orientation: landscape) and (max-height: 480px) {
 

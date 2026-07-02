@@ -62,6 +62,28 @@ export const html = `
       </div>
       <div class="mode-card__arrow"><svg width="20" height="20" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </div>
+    <div class="mode-card" data-onclick="pickMode('paris-multi')" tabindex="0" role="button" aria-label="Mode Paris">
+      <div class="mode-card__num">04</div>
+      <div class="mode-card__icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <div class="mode-card__body">
+        <div class="mode-card__title">Mode Paris <span class="mode-tag mode-tag--new">Stratégique</span></div>
+        <div class="mode-card__desc">Pariez vos points · Questions difficiles · Double ou rien. 2 à 4 joueurs.</div>
+      </div>
+      <div class="mode-card__arrow"><svg width="20" height="20" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="mode-card" data-onclick="pickMode('pouvoirs')" tabindex="0" role="button" aria-label="Mode Pouvoirs">
+      <div class="mode-card__num">05</div>
+      <div class="mode-card__icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </div>
+      <div class="mode-card__body">
+        <div class="mode-card__title">Mode Pouvoirs <span class="mode-tag mode-tag--new">Stratégique</span></div>
+        <div class="mode-card__desc">Gagnez des pouvoirs · Protégez-vous · Sabotez vos adversaires. 2 à 4 joueurs.</div>
+      </div>
+      <div class="mode-card__arrow"><svg width="20" height="20" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
     <div class="mode-card mode-card--locked mode-card--mystery" data-onclick="teaseLocked()" tabindex="0" role="button" aria-label="Mode mystère verrouillé">
       <div class="mode-card__num">?</div>
       <div class="mode-card__icon mystery-q">
@@ -157,6 +179,16 @@ export function init(conteneur) {
   initTheme();
   bindThemeDots();
     window.pickMode = function(mode) {
+      if (mode === 'paris-multi') {
+        try { sessionStorage.setItem('mode-multi-actif', 'paris'); } catch(e) {}
+        naviguer('config-paris.html');
+        return;
+      }
+      if (mode === 'pouvoirs') {
+        try { sessionStorage.setItem('mode-multi-actif', 'pouvoirs'); } catch(e) {}
+        naviguer('config-pouvoirs.html');
+        return;
+      }
       try { sessionStorage.setItem('champ_mp_mode', mode); } catch(e) {}
       naviguer('creer-salle.html');
     };

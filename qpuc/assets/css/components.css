@@ -617,6 +617,7 @@
   width: calc(100% - 44px);
   margin: 18px 0 0;
   z-index: 4;
+  flex-shrink: 0;
 }
 
 .stepper__col {
@@ -687,9 +688,9 @@
    TOGGLE iOS
 ──────────────────────────────────────────── */
 .toggle {
-  width: 48px;
-  height: 28px;
-  border-radius: 14px;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
   position: relative;
   cursor: pointer;
   transition: background .3s;
@@ -704,18 +705,19 @@
 
 .toggle__thumb {
   position: absolute;
-  top: 2px;
+  top: 3px;
+  left: 3px;
   width: 24px;
   height: 24px;
-  border-radius: 12px;
+  border-radius: 50%;
   background: #fff;
   transition: left .28s var(--ease-spring);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
   pointer-events: none;
 }
 
-.toggle--on  .toggle__thumb { left: calc(100% - 26px); }
-.toggle--off .toggle__thumb { left: 2px; }
+.toggle--on  .toggle__thumb { left: calc(100% - 3px - 24px); }
+.toggle--off .toggle__thumb { left: 3px; }
 
 /* ────────────────────────────────────────────
    SLIDER

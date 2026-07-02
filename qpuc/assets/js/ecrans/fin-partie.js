@@ -16,7 +16,7 @@ export const html = `
   <div class="theme-dots">
     <div class="theme-dot active" data-theme-key="celadon" style="background:#B4D3D9"></div>
     <div class="theme-dot" data-theme-key="beige" style="background:#F2EAE0;border-color:#ccc"></div>
-    <div class="theme-dot" data-theme-key="violet" style="background:#9B8El7"></div>
+    <div class="theme-dot" data-theme-key="violet" style="background:#9B8EC7"></div>
   </div>
 
   <div class="section-title" id="final-title">Fin de Partie</div>
@@ -24,7 +24,7 @@ export const html = `
 
   <!-- champion -->
   <div class="card champ-row">
-    <span class="avatar avatar--lg" style="background:#3Dl87A">FZ</span>
+    <span class="avatar avatar--lg" style="background:#3DC87A">FZ</span>
     <div class="champ-info">
       <div class="champ-name">Fatima Z.</div>
       <div class="champ-title-lbl" id="champ-role">championne</div>
@@ -60,14 +60,14 @@ export const html = `
   <div class="player-list" id="classement">
     <div class="player-row card" style="animation-delay:.1s">
       <span class="player-rank">1</span>
-      <span class="avatar" style="background:#3Dl87A">FZ</span>
+      <span class="avatar" style="background:#3DC87A">FZ</span>
       <div class="flex-1"><div class="player-name">Fatima Z.</div><div class="player-meta">champion</div></div>
       <span class="badge badge--success">champion</span>
       <span class="player-score">12</span>
     </div>
     <div class="player-row card" style="animation-delay:.18s">
       <span class="player-rank">2</span>
-      <span class="avatar" style="background:#9B8El7">AK</span>
+      <span class="avatar" style="background:#9B8EC7">AK</span>
       <div class="flex-1"><div class="player-name">Amara K.</div><div class="player-meta">Finaliste</div></div>
       <span class="player-score">8</span>
     </div>
@@ -170,7 +170,7 @@ export function init(conteneur) {
   // Initialisation thème et points de couleur
   initTheme();
   bindThemeDots();
-    const COLORS = ['#9B8El7', '#D4A820', '#3Dl87A', '#E85A3A'];
+    const COLORS = ['#9B8EC7', '#D4A820', '#3DC87A', '#E85A3A'];
     const state = getState();
     const config = state.config || {};
     const isSolo = config.mode === 'solo' || state.rounds?.solo || state.players.length === 1;

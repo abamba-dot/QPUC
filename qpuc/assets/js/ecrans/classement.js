@@ -12,6 +12,8 @@ import { finishGame } from '../state.js';
 
 export const titre = 'Classement — CHAMPION.';
 
+let _unsubscribeRoomUpdate = null;
+
 export const html = `
 <div class="page lb-live-page" id="page" data-screen-label="Classement live">
   <div class="theme-tag" id="theme-tag">Celadon</div>
@@ -139,7 +141,7 @@ export async function init(conteneur) {
     const client = await connectRealtime();
     if (client && sessionStorage.getItem('champ_room_backend') === 'online') {
       realtime = client;
-      realtime.onRoomUpdate(room => {
+      _unsubscribeRoomUpdate = realtime.onRoomUpdate(room => {
         if (!room?.quiz) return;
         onlineRoom = room;
         if (room.quiz.status === 'finished') { finishQuiz(room); return; }
@@ -216,7 +218,8 @@ export async function init(conteneur) {
 }
 
 export function cleanup() {
-  // TODO : nettoyer les listeners globaux, timers, etc.
+  _unsubscribeRoomUpdate?.();
+  _unsubscribeRoomUpdate = null;
 }
 
 async function renderClassementGlobal(conteneur) {

@@ -26,6 +26,8 @@ const ECRANS_JEU = new Set([
   'hote-quiz',
   'joueur-quiz',
   'jeu-multi',
+  'jeu-paris',
+  'jeu-pouvoirs',
 ]);
 
 const conteneur = document.getElementById('application');

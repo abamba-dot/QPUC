@@ -374,4 +374,7 @@ export function cleanup() {
     try { fn(); } catch (e) {}
   });
   nettoyages = [];
+  delete window.triggerBuzz;
+  delete window.reveal;
+  delete window.hostNextQuestion;
 }

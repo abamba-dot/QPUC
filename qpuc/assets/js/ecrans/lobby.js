@@ -197,10 +197,11 @@ export async function init(conteneur) {
     const roomConfig = readJSON('champ_room_config', EMPTY_CONFIG);
     const storedPlayers = readJSON('champ_room_players', null);
     document.getElementById('room-code').textContent = code;
-    let activeConfig = roomConfig;
+    /* Fusionner avec EMPTY_CONFIG pour garantir que tous les champs existent */
+    let activeConfig = Object.assign({}, EMPTY_CONFIG, roomConfig || {});
     let currentPlayer = readJSON('champ_current_player', null);
-    document.getElementById('cfg-badge').textContent = `${activeConfig.category.split(' ')[0]} · ${activeConfig.difficulty}`;
-    document.getElementById('pmax').textContent = activeConfig.maxPlayers;
+    document.getElementById('cfg-badge').textContent = `${(activeConfig.category || 'Culture').split(' ')[0]} · ${activeConfig.difficulty || 'Moyen'}`;
+    document.getElementById('pmax').textContent = activeConfig.maxPlayers || 8;
   
     function isLocalHostName(hostname) {
       return ['localhost', '127.0.0.1', '::1'].includes(hostname);
@@ -248,13 +249,15 @@ export async function init(conteneur) {
     /* Mode de jeu (depuis le choix de mode) */
     const mode = sessionStorage.getItem('champ_mp_mode')
       || (activeConfig.mode === 'duel' ? 'duel' : activeConfig.mode === 'quiz-multijoueur' || activeConfig.mode === 'quiz' ? 'quiz' : 'classique');
-    const MODE_LABELS = { classique: 'Classique', quiz: 'Quiz animé', duel: 'Duel' };
+    const MODE_LABELS = { classique: 'Classique', quiz: 'Quiz animé', duel: 'Duel', 'paris-multi': 'Mode Paris' };
     document.getElementById('mode-label').textContent = MODE_LABELS[mode] || 'Classique';
     if (mode === 'quiz') {
       document.getElementById('player-view-btn').style.display = 'inline-flex';
       document.getElementById('launch-hint').textContent = "Vous animez sur grand écran · les joueurs jouent sur leur téléphone";
     } else if (mode === 'duel') {
       document.getElementById('launch-hint').textContent = 'Format complet en ligne · 3 manches · 4 joueurs maximum';
+    } else if (mode === 'paris-multi') {
+      document.getElementById('launch-hint').textContent = 'Double ou rien · 5 points de départ · 4 joueurs maximum';
     }
   
     /* État des joueurs (copie locale modifiable) */
@@ -398,7 +401,9 @@ export async function init(conteneur) {
           if (response.room.quiz?.status === 'question') {
             nettoyerEcoutesLobby();
             const roomMode = response.room.config?.mode || mode;
-            const cible = roomMode === 'quiz-multijoueur' && currentPlayer?.host ? 'hote-quiz.html' : 'jeu-multi.html';
+            const cible = roomMode === 'quiz-multijoueur' && currentPlayer?.host
+              ? 'hote-quiz.html'
+              : 'jeu-multi.html';
             naviguer(cible); return;
           }
           render();
@@ -479,9 +484,10 @@ export async function init(conteneur) {
         updateReadyInfo(); return;
       }
       clearInterval(simInterval);
+      const scoreDepart = mode === 'paris-multi' ? 5 : 0;
       mergeState({
-        players: playablePlayers.map((p, i) => ({ id: p.id, name: p.name, init: p.init, colorIdx: p.color ?? i, score: 0, streak: 0 })),
-        config: { mode: mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : 'multijoueur', category: activeConfig.category, difficulty: activeConfig.difficulty, nbQuestions: activeConfig.nbQuestions },
+        players: playablePlayers.map((p, i) => ({ id: p.id, name: p.name, init: p.init, colorIdx: p.color ?? i, score: scoreDepart, streak: 0 })),
+        config: { mode: mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : mode === 'paris-multi' ? 'paris-multi' : 'multijoueur', category: activeConfig.category, difficulty: activeConfig.difficulty, nbQuestions: activeConfig.nbQuestions },
         manche: 1, qualified: [], eliminated: [],
       });
       if (!isOnline || !realtime) {
@@ -490,7 +496,8 @@ export async function init(conteneur) {
       }
       startBtn.disabled = true;
       info.textContent = 'Lancement…';
-      const serverMode = mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : 'multijoueur';
+      const serverMode = mode === 'quiz' ? 'quiz-multijoueur' : mode === 'duel' ? 'duel' : mode === 'paris-multi' ? 'paris-multi' : 'multijoueur';
+      const cibleJeu = mode === 'quiz' ? 'hote-quiz.html' : 'jeu-multi.html';
       const started = await realtime.startQuiz({
         config: { ...activeConfig, mode: serverMode },
       });
@@ -505,7 +512,7 @@ export async function init(conteneur) {
             if (retry?.ok && retry.room) {
               nettoyerEcoutesLobby();
               sessionStorage.setItem('champ_last_room', JSON.stringify(retry.room));
-              naviguer(mode === 'quiz' ? 'hote-quiz.html' : 'jeu-multi.html');
+              naviguer(cibleJeu);
               return;
             }
             info.textContent = retry?.error || 'Impossible de lancer la partie.';
@@ -520,7 +527,7 @@ export async function init(conteneur) {
       }
       nettoyerEcoutesLobby();
       sessionStorage.setItem('champ_last_room', JSON.stringify(started.room));
-      naviguer(mode === 'quiz' ? 'hote-quiz.html' : 'jeu-multi.html');
+      naviguer(cibleJeu);
     };
 }
 
