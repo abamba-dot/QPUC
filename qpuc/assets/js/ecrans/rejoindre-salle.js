@@ -31,7 +31,7 @@ export const html = `
     <div class="step-panel" style="gap:20px;max-width:min(560px,100%)">
       <div class="align-center">
         <div class="step-title">Entrez le code</div>
-        <div class="step-sub marge-haut-8">4 caractères donnés par l'hôte</div>
+        <div class="step-sub marge-haut-8">6 caractères donnés par l'hôte</div>
       </div>
       <div class="code-input" id="code-input">
         <span class="code-prefix">CHMP-</span>
@@ -40,8 +40,10 @@ export const html = `
           <div class="code-cell" data-i="1"></div>
           <div class="code-cell" data-i="2"></div>
           <div class="code-cell" data-i="3"></div>
+          <div class="code-cell" data-i="4"></div>
+          <div class="code-cell" data-i="5"></div>
         </div>
-        <input class="code-hidden-input" id="hidden-input" maxlength="4" autocomplete="off" autocapitalize="characters" inputmode="text" aria-label="Code de la salle">
+        <input class="code-hidden-input" id="hidden-input" maxlength="6" autocomplete="off" autocapitalize="characters" inputmode="text" aria-label="Code de la salle">
       </div>
       <div class="pseudo-block largeur-100">
         <div class="pseudo-top">
@@ -148,24 +150,24 @@ export async function init(conteneur) {
       cells.forEach((cell, i) => {
         cell.textContent = val[i] || '';
         cell.classList.toggle('code-cell--filled', !!val[i]);
-        cell.classList.toggle('code-cell--active', i === val.length && val.length < 4);
+        cell.classList.toggle('code-cell--active', i === val.length && val.length < 6);
         cell.classList.remove('code-cell--error');
       });
     }
     hidden.addEventListener('input', () => {
-      hidden.value = hidden.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 4);
+      hidden.value = hidden.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6);
       renderCode();
     });
     renderCode();
-  
+
     const urlCode = new URLSearchParams(location.search).get('code');
     if (urlCode) {
-      hidden.value = urlCode.replace(/^CHMP-/i, '').replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 4);
+      hidden.value = urlCode.replace(/^CHMP-/i, '').replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6);
       renderCode();
     }
-  
+
     window.joinByCode = function() {
-      if (hidden.value.length < 4) {
+      if (hidden.value.length < 6) {
         cells.forEach(c => c.classList.add('code-cell--error'));
         setTimeout(renderCode, 450);
         hidden.focus();

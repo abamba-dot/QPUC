@@ -102,8 +102,8 @@ async function _rejoindre() {
   const input = document.getElementById('input-code-paris');
   const code  = (input?.value || '').trim().toUpperCase();
 
-  if (code.length < 4) {
-    _afficherErreur('Code invalide (au moins 4 caractères)');
+  if (code.length < 6) {
+    _afficherErreur('Code invalide (6 caractères requis)');
     return;
   }
 

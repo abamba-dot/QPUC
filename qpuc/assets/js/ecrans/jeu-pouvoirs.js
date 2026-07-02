@@ -75,6 +75,15 @@ function _pushTimer(t) { _S.allTimers.push(t); }
 export const html = `
 <div class="pouvoirs-stage-outer"
      style="width:100vw;height:100vh;position:fixed;inset:0;z-index:9999;overflow:hidden;background:${POUVOIRS_COLORS.bg};">
+
+  <!-- Fond étoilé dupliqué sur le wrapper plein viewport : couvre les
+       bandes de letterbox laissées par le scale-to-fit du stage 16:9 -->
+  <div style="position:absolute;inset:0;z-index:0;pointer-events:none;
+              background:radial-gradient(ellipse 64% 60% at 50% 116%,rgba(123,57,184,.35) 0%,transparent 58%),
+                         radial-gradient(ellipse 52% 46% at 50% 34%,rgba(107,47,217,.14) 0%,transparent 64%);"></div>
+  <img src="${IMG}fond.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;
+       object-fit:cover;opacity:.45;pointer-events:none;">
+
   <div id="pouvoirs-stage"
        style="width:1920px;height:1080px;position:absolute;left:50%;top:50%;
               transform-origin:center center;background:${POUVOIRS_COLORS.bg};
@@ -1127,9 +1136,15 @@ function _afficherSlots() {
 }
 
 function _utiliserPouvoir(key) {
-  if (_S.phase !== 'mise') return;
+  if (_S.phase !== 'mise') {
+    _flashMsg('Pas le bon moment pour utiliser un pouvoir', '#C8A84B');
+    return;
+  }
   const localJ = _S.joueurs[_S.localIdx];
-  if (!localJ || !localJ.stack.includes(key)) return;
+  if (!localJ || !localJ.stack.includes(key)) {
+    _flashMsg("Ce pouvoir n'est plus dans votre stack", '#E85A3A');
+    return;
+  }
 
   if (key === 'pression' && _S.modeMulti) {
     _afficherSelecteurCible(key);

@@ -84,6 +84,15 @@ let _onResizeReglesRef = null;
 export const html = `
 <div class="pouvoirs-stage-outer"
      style="width:100vw;height:100vh;position:fixed;inset:0;z-index:9999;overflow:hidden;background:${POUVOIRS_COLORS.bg};">
+
+  <!-- Fond étoilé dupliqué sur le wrapper plein viewport : couvre les
+       bandes de letterbox laissées par le scale-to-fit du stage 16:9 -->
+  <div style="position:absolute;inset:0;z-index:0;pointer-events:none;
+              background:radial-gradient(ellipse 64% 60% at 50% 116%,rgba(123,57,184,.35) 0%,transparent 58%),
+                         radial-gradient(ellipse 52% 46% at 50% 34%,rgba(107,47,217,.14) 0%,transparent 64%);"></div>
+  <img src="${IMG}fond.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;
+       object-fit:cover;opacity:.45;pointer-events:none;">
+
   <div id="regles-stage"
        style="width:1920px;height:1080px;position:absolute;left:50%;top:50%;
               transform-origin:center center;background:${POUVOIRS_COLORS.bg};overflow:hidden;
